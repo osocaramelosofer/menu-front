@@ -1,13 +1,16 @@
 import { Button } from '@nextui-org/button'
+import DishesContainer from './components/dish-card/dishes-container'
+import { dishesData } from '@/lib/dummyDishes'
 
 export default function Home () {
-  const name = 'fernando'
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Button color="primary">Click me!</Button>
+    <>
+      <main className="flex  flex-col items-center justify-between p-24">
+        <Button color="primary">Click me</Button>
+      </main>
 
-      <h1 className="text-red-200 hover:scale-75">welcome</h1>
-    </main>
+      <DishesContainer dishesData={dishesData} />
+    </>
+
   )
 }
