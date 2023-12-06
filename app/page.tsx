@@ -1,16 +1,14 @@
-import { Button } from '@nextui-org/button'
-import DishesContainer from './components/dish-card/dishes-container'
-import { dishesData } from '@/lib/dummyDishes'
+import DishesContainer from './components/dish-card/dishes-container';
+import { dishesData } from '@/lib/dummyDishes';
+import PromoCard from './components/promo-card';
 
-export default function Home () {
+export default function Home() {
   return (
     <>
-      <main className="flex  flex-col items-center justify-between p-24">
-        <Button color="primary">Click me</Button>
+      <main className=" dark flex flex-col items-center max-w-7xl gap-4 px-4 py-8 mx-auto relative">
+        <PromoCard />
       </main>
-
       <DishesContainer dishesData={dishesData} />
     </>
-
-  )
+  );
 }
