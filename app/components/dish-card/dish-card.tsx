@@ -1,18 +1,18 @@
-import { FaArrowRight, FaDollarSign } from 'react-icons/fa';
-import AddOrderButton from './add-order';
+import { FaArrowRight, FaDollarSign } from 'react-icons/fa'
+import AddOrderButton from './add-order'
 
 export interface IDishCardProps {
-  srcImage: string;
-  alt: string;
-  dishName: string;
-  description: string;
+  srcImage: string
+  alt: string
+  dishName: string
+  description: string
 }
 
-export default function DishCard({
+export default function DishCard ({
   srcImage,
   alt,
   dishName,
-  description,
+  description
 }: IDishCardProps) {
   return (
     <div className="bg-stone-700 flex px-2 py-2 max-h-[100px] gap-1 rounded-lg ">
@@ -31,5 +31,5 @@ export default function DishCard({
         </div>
       </div>
     </div>
-  );
+  )
 }

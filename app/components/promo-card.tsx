@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { Card, CardFooter, Image, Button, CardHeader } from '@nextui-org/react';
+import React from 'react'
+import { Card, CardFooter, Image, Button, CardHeader } from '@nextui-org/react'
 
-export default function PromoCard() {
+export default function PromoCard () {
   return (
     <Card
       isFooterBlurred
@@ -49,5 +49,5 @@ export default function PromoCard() {
         </Button>
       </CardFooter>
     </Card>
-  );
+  )
 }
