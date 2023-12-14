@@ -1,11 +1,11 @@
-import DishCard, { type IDishCardProps } from './dish-card'
+import DishCard, { type IDishCardProps } from './dish-card';
 
 interface IDishesContainerProps {
-  dishesData: IDishCardProps[]
+  dishesData: IDishCardProps[];
 }
-export default function DishesContainer ({ dishesData }: IDishesContainerProps) {
+export default function DishesContainer({ dishesData }: IDishesContainerProps) {
   return (
-    <section className="mx-2 flex flex-col gap-5">
+    <section className="flex flex-col gap-5">
       {dishesData.map((dish, index) => (
         <DishCard
           key={index}
@@ -16,5 +16,5 @@ export default function DishesContainer ({ dishesData }: IDishesContainerProps) 
         />
       ))}
     </section>
-  )
+  );
 }
