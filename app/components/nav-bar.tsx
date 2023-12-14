@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import React from 'react';
+import React from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -9,14 +9,14 @@ import {
   NavbarMenu,
   NavbarContent,
   NavbarItem,
-  Link,
-} from '@nextui-org/react';
-import { DulceTragoLogo } from './logo';
+  Link
+} from '@nextui-org/react'
+import { DulceTragoLogo } from './logo'
 
-export default function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+export default function NavBar () {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
-  const menuItems = ['Menu', 'Cafés Regionales', 'Conservas', 'Pinta y Crea'];
+  const menuItems = ['Menu', 'Cafés Regionales', 'Conservas', 'Pinta y Crea']
 
   return (
     <Navbar
@@ -74,5 +74,5 @@ export default function NavBar() {
         ))}
       </NavbarMenu>
     </Navbar>
-  );
+  )
 }

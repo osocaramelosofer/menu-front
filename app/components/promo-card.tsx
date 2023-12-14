@@ -1,16 +1,16 @@
-'use client';
+'use client'
 
-import React from 'react';
+import React from 'react'
 import {
   Card,
   CardFooter,
   Image,
   Button,
   CardHeader,
-  Chip,
-} from '@nextui-org/react';
+  Chip
+} from '@nextui-org/react'
 
-export default function PromoCard() {
+export default function PromoCard () {
   return (
     <section>
       <Card
@@ -59,5 +59,5 @@ export default function PromoCard() {
         </CardFooter>
       </Card>
     </section>
-  );
+  )
 }
