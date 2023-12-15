@@ -7,14 +7,17 @@ export interface IDishCardProps {
   alt: string
   dishName: string
   description: string
+  price: number
 }
 
 export default function DishCard ({
   srcImage,
   alt,
   dishName,
-  description
+  description,
+  price
 }: IDishCardProps) {
+  console.log(price)
   return (
 
       <Card>
