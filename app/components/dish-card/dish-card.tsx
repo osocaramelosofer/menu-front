@@ -32,12 +32,12 @@ export default function DishCard ({
               <span className='text-base'>{dishName}</span>
               <p className='text-[12px]'>{description}</p>
           </div>
-          <div className='flex justify-between'>
-           <Chip color="warning" variant="dot" classNames={{ content: 'drop-shadow shadow-black text-white' }}>10 oz</Chip>
+          <div className='flex justify-between items-center'>
+           <Chip size="sm" color="warning" variant="dot" classNames={{ content: 'drop-shadow shadow-black text-white' }}>10 oz</Chip>
 
             <div className='flex items-center'>
               <FaDollarSign size="14" />
-              <span>{price}</span>
+              <span className='text-sm'>{price} MXN</span>
             </div>
           </div>
         </div>
