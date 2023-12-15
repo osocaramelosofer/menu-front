@@ -7,10 +7,14 @@ export interface IDishCardProps {
   alt: string
   dishName: string
   description: string
-
 }
 
-export default function DishCard ({ srcImage, alt, dishName, description }: IDishCardProps) {
+export default function DishCard ({
+  srcImage,
+  alt,
+  dishName,
+  description
+}: IDishCardProps) {
   return (
 
       <Card>
