@@ -15,7 +15,7 @@ export default function DishCard({
   description,
 }: IDishCardProps) {
   return (
-    <div className="bg-[#CCB7A5] flex px-2 py-2 max-h-[100px] gap-1 rounded-lg ">
+    <div className="bg-[#CCB7A5]/20 flex px-2 py-2 max-h-[100px] gap-1 rounded-lg  ">
       <div className="max-w-[77px] w-[77px] h-[77px] self-center max-h-[77px] rounded-md">
         <img className="w-full h-full rounded-md" src={srcImage} alt={alt} />
       </div>

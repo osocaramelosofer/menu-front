@@ -1,3 +1,4 @@
+import React from 'react';
 import NavBar from '@/app/components/nav-bar';
 
 export default function PageLayout({
@@ -6,9 +7,11 @@ export default function PageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="flex flex-col items-center max-w-7xl mx-auto  relative">
+    <React.Fragment>
       <NavBar />
-      {children}
-    </main>
+      <main className="flex flex-col items-center max-w-7xl mx-auto relative">
+        {children}
+      </main>
+    </React.Fragment>
   );
 }
