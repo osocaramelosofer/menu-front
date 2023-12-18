@@ -6,13 +6,15 @@ import { Button, Chip, ScrollShadow } from '@nextui-org/react';
 
 export default function Categories() {
   const categories = [
-    {
-      label: 'Todos',
-      description:
-        '¡Una variedad de golosinas dulces para satisfacer tu antojo!',
-    },
+    // {
+    //   label: 'Todos',
+    //   route: 'all',
+    //   description:
+    //     '¡Una variedad de golosinas dulces para satisfacer tu antojo!',
+    // },
     {
       label: 'Dulces',
+      route: '',
       description:
         '¡Una variedad de golosinas dulces para satisfacer tu antojo!',
     },
@@ -62,11 +64,11 @@ export default function Categories() {
       description: '',
     },
     {
-      label: 'Otros3',
+      label: 'Otros4',
       description: '',
     },
     {
-      label: 'Otros3',
+      label: 'Otros5',
       description: '',
     },
   ];
@@ -76,13 +78,38 @@ export default function Categories() {
   const isMainPage = pathname === '/dulce-trago';
   const router = useRouter();
 
+  const handleCategoryClick = (categoryName: string) => {
+    if (categoryName === 'Todos') {
+      // Si se selecciona "Todos", navegar a la página principal sin parámetros
+      router.push('/dulce-trago');
+    } else {
+      // Para otras categorías, navegar con el parámetro de categoría
+      router.push(`/dulce-trago?category=${categoryName}`);
+    }
+  };
+
+  const handleRemoveCategory = () => {
+    router.push('/dulce-trago');
+  };
+
+  if (!isMainPage) {
+    return null;
+  }
+
   return (
     <section className="sticky top-16 z-10 bg-background flex flex-col shadow-none gap-4 w-full pt-5">
       <div className="flex justify-between items-end font-bold text-base">
         <h3>Categorías</h3>
-        <Chip color="secondary" variant="dot" size="sm">
-          Dulces
-        </Chip>
+        {category && (
+          <Chip
+            color="primary"
+            onClose={handleRemoveCategory}
+            variant="flat"
+            size="sm"
+          >
+            {category}
+          </Chip>
+        )}
       </div>
       <ScrollShadow
         orientation="horizontal"
@@ -90,13 +117,14 @@ export default function Categories() {
       >
         {categories.map((item) => (
           <Button
-            color={`${item.label === 'Dulces' ? 'primary' : 'secondary'}`}
+            color={`${item.label === category ? 'primary' : 'secondary'}`}
             key={item.label}
             className="px-12 text-sm font-medium"
+            onClick={() => handleCategoryClick(item.label)}
           >
             <p
               className={`${
-                item.label === 'Dulces' ? 'text-white' : 'text-primary'
+                item.label === category ? 'text-white' : 'text-primary'
               }`}
             >
               {item.label}
