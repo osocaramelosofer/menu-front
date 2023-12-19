@@ -1,4 +1,4 @@
-export default function CoffeeIcon() {
+export default function CoffeeIcon () {
   return (
     <svg
       width="18"
@@ -14,5 +14,5 @@ export default function CoffeeIcon() {
         stroke-linejoin="round"
       />
     </svg>
-  );
+  )
 }

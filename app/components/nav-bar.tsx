@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import React from 'react';
+import React from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -13,26 +13,26 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger,
-} from '@nextui-org/react';
-import { DulceTragoLogo } from './logo';
+  DropdownTrigger
+} from '@nextui-org/react'
+import { DulceTragoLogo } from './logo'
 import {
   CoffeeIcon,
   HomeIcon,
   JarIcon,
   MenuIcon,
-  PaintbrushIcon,
-} from '@/lib/icons';
+  PaintbrushIcon
+} from '@/lib/icons'
 
-export default function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+export default function NavBar () {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   const menuItems = [
     { name: 'Menu', route: '/dulce-trago', icon: <HomeIcon /> },
     { name: 'Cafés Regionales', route: '/dulce-trago', icon: <CoffeeIcon /> },
     { name: 'Conservas', route: '/dulce-trago', icon: <JarIcon /> },
-    { name: 'Pinta y Crea', route: '/dulce-trago', icon: <PaintbrushIcon /> },
-  ];
+    { name: 'Pinta y Crea', route: '/dulce-trago', icon: <PaintbrushIcon /> }
+  ]
 
   return (
     <Navbar
@@ -65,7 +65,7 @@ export default function NavBar() {
                   >
                     {menuItem.name}
                   </DropdownItem>
-                );
+                )
               })}
             </DropdownMenu>
           </Dropdown>
@@ -107,5 +107,5 @@ export default function NavBar() {
         ))}
       </NavbarMenu>
     </Navbar>
-  );
+  )
 }

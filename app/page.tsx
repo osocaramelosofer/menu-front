@@ -1,4 +1,4 @@
-export default function HomePage() {
+export default function HomePage () {
   return (
     <main
       className="flex flex-col items-center justify-center h-screen max-w-7xl gap-4 px-4
@@ -36,5 +36,5 @@ export default function HomePage() {
         </div>
       </div>
     </main>
-  );
+  )
 }

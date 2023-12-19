@@ -1,4 +1,4 @@
-export default function JarIcon() {
+export default function JarIcon () {
   return (
     <svg
       width="12"
@@ -12,5 +12,5 @@ export default function JarIcon() {
         fill="#371E08"
       />
     </svg>
-  );
+  )
 }

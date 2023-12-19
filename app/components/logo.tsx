@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { Image } from '@nextui-org/react';
+import React from 'react'
+import { Image } from '@nextui-org/react'
 export const DulceTragoLogo = () => (
   <Image
     isBlurred
@@ -10,4 +10,4 @@ export const DulceTragoLogo = () => (
     src="https://i.imgur.com/j9nfc8V.png"
     alt="Dulce Trago Logo"
   />
-);
+)

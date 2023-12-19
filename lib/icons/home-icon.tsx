@@ -1,4 +1,4 @@
-export default function HomeIcon() {
+export default function HomeIcon () {
   return (
     <svg
       width="19"
@@ -14,5 +14,5 @@ export default function HomeIcon() {
         stroke-linejoin="round"
       />
     </svg>
-  );
+  )
 }

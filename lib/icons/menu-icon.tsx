@@ -1,4 +1,4 @@
-export default function MenuIcon() {
+export default function MenuIcon () {
   return (
     <svg
       width="23"
@@ -15,5 +15,5 @@ export default function MenuIcon() {
         stroke-linejoin="round"
       />
     </svg>
-  );
+  )
 }

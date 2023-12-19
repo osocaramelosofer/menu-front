@@ -1,4 +1,4 @@
-export default function PaintbrushIcon() {
+export default function PaintbrushIcon () {
   return (
     <svg
       width="20"
@@ -14,5 +14,5 @@ export default function PaintbrushIcon() {
         stroke-linejoin="round"
       />
     </svg>
-  );
+  )
 }
