@@ -4,7 +4,6 @@ import React from 'react';
 import {
   Navbar,
   NavbarBrand,
-  NavbarMenuToggle,
   NavbarMenuItem,
   NavbarMenu,
   NavbarContent,
@@ -14,9 +13,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownSection,
   DropdownTrigger,
-  User,
 } from '@nextui-org/react';
 import { DulceTragoLogo } from './logo';
 import {
@@ -58,9 +55,10 @@ export default function NavBar() {
             </DropdownTrigger>
 
             <DropdownMenu variant="faded" aria-label="Dropdown menu with icons">
-              {menuItems.map((menuItem) => {
+              {menuItems.map((menuItem, index) => {
                 return (
                   <DropdownItem
+                    key={`${menuItem.name}-${index}`}
                     startContent={menuItem.icon}
                     as={Link}
                     href={menuItem.route}
