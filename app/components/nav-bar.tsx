@@ -10,13 +10,32 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownSection,
+  DropdownTrigger,
+  User,
 } from '@nextui-org/react';
 import { DulceTragoLogo } from './logo';
+import {
+  CoffeeIcon,
+  HomeIcon,
+  JarIcon,
+  MenuIcon,
+  PaintbrushIcon,
+} from '@/lib/icons';
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const menuItems = ['Menu', 'Cafés Regionales', 'Conservas', 'Pinta y Crea'];
+  const menuItems = [
+    { name: 'Menu', route: '/dulce-trago', icon: <HomeIcon /> },
+    { name: 'Cafés Regionales', route: '/dulce-trago', icon: <CoffeeIcon /> },
+    { name: 'Conservas', route: '/dulce-trago', icon: <JarIcon /> },
+    { name: 'Pinta y Crea', route: '/dulce-trago', icon: <PaintbrushIcon /> },
+  ];
 
   return (
     <Navbar
@@ -27,15 +46,31 @@ export default function NavBar() {
     >
       <NavbarContent className="sm:hidden w-full">
         <div className="flex w-full justify-between items-center">
-          {/* <NavbarMenuToggle
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          /> */}
           <NavbarBrand as={Link} href={'/'} className="max-w-fit">
             <DulceTragoLogo />
           </NavbarBrand>
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          />
+
+          <Dropdown>
+            <DropdownTrigger>
+              <Button isIconOnly color="primary" radius="full">
+                <MenuIcon />
+              </Button>
+            </DropdownTrigger>
+
+            <DropdownMenu variant="faded" aria-label="Dropdown menu with icons">
+              {menuItems.map((menuItem) => {
+                return (
+                  <DropdownItem
+                    startContent={menuItem.icon}
+                    as={Link}
+                    href={menuItem.route}
+                  >
+                    {menuItem.name}
+                  </DropdownItem>
+                );
+              })}
+            </DropdownMenu>
+          </Dropdown>
         </div>
       </NavbarContent>
 
@@ -44,7 +79,7 @@ export default function NavBar() {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         {menuItems.map((item, index) => (
-          <NavbarItem key={`${item}-${index}`}>
+          <NavbarItem key={`${item.name}-${index}`}>
             <Link
               className={`${
                 index === 2 ? 'text-white' : 'text-white/60'
@@ -52,7 +87,7 @@ export default function NavBar() {
               href="#"
               size="md"
             >
-              {item}
+              {item.name}
             </Link>
           </NavbarItem>
         ))}
@@ -60,7 +95,7 @@ export default function NavBar() {
 
       <NavbarMenu>
         {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+          <NavbarMenuItem key={`${item.name}-${index}`}>
             <Link
               className={`${
                 index === 2 ? 'text-primary' : 'text-primary/50'
@@ -68,7 +103,7 @@ export default function NavBar() {
               href="#"
               size="lg"
             >
-              {item}
+              {item.name}
             </Link>
           </NavbarMenuItem>
         ))}
