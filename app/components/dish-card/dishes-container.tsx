@@ -13,6 +13,7 @@ export default function DishesContainer ({ dishesData }: IDishesContainerProps) 
           alt={dish.alt}
           dishName={dish.dishName}
           description={dish.description}
+          price={dish.price}
         />
       ))}
     </section>
