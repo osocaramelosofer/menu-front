@@ -1,8 +1,8 @@
-export default function HomePage() {
+export default function HomePage () {
   return (
     <main
       className="flex flex-col items-center justify-center h-screen max-w-7xl gap-4 px-4
-       py-8 mx-auto relative"
+       py-8 mx-auto relative "
     >
       <div className="text-center leading-8 md:leading-10 md:text-left">
         <div className="inline-block">
@@ -36,5 +36,5 @@ export default function HomePage() {
         </div>
       </div>
     </main>
-  );
+  )
 }

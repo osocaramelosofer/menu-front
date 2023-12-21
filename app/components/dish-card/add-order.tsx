@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import { Button } from '@nextui-org/react';
-import { FaRegEdit } from 'react-icons/fa';
+import { Button } from '@nextui-org/react'
+import { FaRegEdit } from 'react-icons/fa'
 
-export default function AddOrderButton() {
+export default function AddOrderButton () {
   return (
     <Button
       size="sm"
@@ -12,5 +12,5 @@ export default function AddOrderButton() {
       Add to order
       <FaRegEdit />
     </Button>
-  );
+  )
 }
