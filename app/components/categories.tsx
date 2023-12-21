@@ -1,106 +1,63 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Button, Chip, ScrollShadow } from '@nextui-org/react';
+import { Button, Chip, ScrollShadow, Skeleton } from '@nextui-org/react';
+import { fetchCategories } from '../actions/serverActions';
+import CategoryList from './category-list';
+import { getCategories } from '@/lib/actions';
+import { useCategoriesStore } from '@/store/categories-store';
+
+export interface Category {
+  id: number;
+  name: string;
+  description: string;
+}
 
 export default function Categories() {
-  const categories = [
-    // {
-    //   label: 'Todos',
-    //   route: 'all',
-    //   description:
-    //     '¡Una variedad de golosinas dulces para satisfacer tu antojo!',
-    // },
-    {
-      label: 'Dulces',
-      route: '',
-      description:
-        '¡Una variedad de golosinas dulces para satisfacer tu antojo!',
-    },
-    {
-      label: 'Tortas',
-      description:
-        '¡Deliciosas tortas perfectas para cualquier ocasión especial!',
-    },
-    {
-      label: 'Sándwich',
-      description:
-        '¡Sabrosos sándwiches preparados con ingredientes frescos y deliciosos!',
-    },
-    {
-      label: 'Tacos',
-      description: '¡Tacos auténticos con sabores únicos y llenos de sabor!',
-    },
-    {
-      label: 'Snacks',
-      description:
-        '¡Una selección de bocadillos deliciosos y rápidos para satisfacer tu hambre!',
-    },
-    {
-      label: 'Postres',
-      description:
-        '¡Exquisitos postres que te harán salivar y endulzarán tu día!',
-    },
-    {
-      label: 'Bebidas',
-      description:
-        '¡Refrescantes y variadas bebidas para saciar tu sed y disfrutar al máximo!',
-    },
-    {
-      label: 'Cafetería',
-      description: '¡Un buen café para relajarte!',
-    },
-    {
-      label: 'Otros',
-      description: '',
-    },
-    {
-      label: 'Otros2',
-      description: '',
-    },
-    {
-      label: 'Otros3',
-      description: '',
-    },
-    {
-      label: 'Otros4',
-      description: '',
-    },
-    {
-      label: 'Otros5',
-      description: '',
-    },
-  ];
-  const params = useSearchParams();
-  const category = params?.get('category');
-  const pathname = usePathname();
-  const isMainPage = pathname === '/dulce-trago';
+  const { loading, getCategoriesList, getMenuItems } = useCategoriesStore();
+  // const getCategoriesList = useCategoriesStore(
+  //   (state) => state.getCategoriesList
+  // );
+  // const [categories, setCategories] = useState<Category[]>([]);
+  // const params = useSearchParams();
+  // const category = params?.get('category');
+  // const pathname = usePathname();
+  // const isMainPage = pathname === '/dulce-trago';
   const router = useRouter();
 
-  const handleCategoryClick = (categoryName: string) => {
-    if (categoryName === 'Todos') {
-      // Si se selecciona "Todos", navegar a la página principal sin parámetros
-      router.push('/dulce-trago');
-    } else {
-      // Para otras categorías, navegar con el parámetro de categoría
-      router.push(`/dulce-trago?category=${categoryName}`);
-    }
+  // useEffect(() => {
+  //   getCategories()
+  //     .then(setCategories)
+  //     .catch((error) => console.error('Error al cargar las categorías', error));
+  // }, []);
+
+  const handleCategoryClick = (categoryId: number) => {
+    getMenuItems(`?category=${categoryId}`);
+    // if (categoryName === 'Todos') {
+    //   // Si se selecciona "Todos", navegar a la página principal sin parámetros
+    //   router.push('/dulce-trago');
+    // } else {
+    //   // Para otras categorías, navegar con el parámetro de categoría
+    //   router.push(`/dulce-trago?category=${categoryName}`);
+    // }
   };
 
   const handleRemoveCategory = () => {
     router.push('/dulce-trago');
   };
-
-  if (!isMainPage) {
-    return null;
-  }
+  useEffect(() => {
+    getCategoriesList();
+  }, []);
+  // if (!isMainPage) {
+  //   return null;
+  // }
 
   return (
     <section className="sticky top-16 z-10 bg-background flex flex-col shadow-none gap-4 w-full pt-5">
       <div className="flex justify-between items-end font-bold text-base">
         <h3>Categorías</h3>
-        {category && (
+        {/* {category && (
           <Chip
             color="primary"
             onClose={handleRemoveCategory}
@@ -109,29 +66,55 @@ export default function Categories() {
           >
             {category}
           </Chip>
-        )}
+        )} */}
       </div>
+
       <ScrollShadow
         orientation="horizontal"
         className="flex overflow-x-auto gap-4 pb-5"
       >
-        {categories.map((item) => (
-          <Button
-            color={`${item.label === category ? 'primary' : 'secondary'}`}
-            key={item.label}
-            className="px-12 text-sm font-medium"
-            onClick={() => handleCategoryClick(item.label)}
-          >
-            <p
-              className={`${
-                item.label === category ? 'text-white' : 'text-primary'
-              }`}
-            >
-              {item.label}
-            </p>
-          </Button>
-        ))}
+        {loading ? (
+          <>
+            {Array(5)
+              .fill(null)
+              .map((_, index) => (
+                <Skeleton key={index} className=" w-32 h-10" /> // Ajusta el tamaño del Skeleton según sea necesario
+              ))}
+          </>
+        ) : (
+          <CategoryList
+            onCategoryClick={handleCategoryClick}
+            // currentCategory={category}
+          />
+        )}
       </ScrollShadow>
+      {/* <ScrollShadow
+        orientation="horizontal"
+        className="flex overflow-x-auto gap-4 pb-5"
+      >
+        {categories.map((item) => (
+          <Skeleton
+            key={item.name}
+            className=" min-w-fit rounded-lg"
+            isLoaded={categories.length > 0}
+          >
+            <Button
+              color={`${item.name === category ? 'primary' : 'secondary'}`}
+              key={item.name}
+              className="min-w-fit flex text-sm"
+              onClick={() => handleCategoryClick(item.name)}
+            >
+              <p
+                className={`${
+                  item.name === category ? 'text-white' : 'text-primary'
+                }`}
+              >
+                {item.name}
+              </p>
+            </Button>
+          </Skeleton>
+        ))}
+      </ScrollShadow> */}
     </section>
   );
 }
