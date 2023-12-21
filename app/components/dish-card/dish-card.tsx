@@ -1,8 +1,7 @@
 import { Card, CardBody, Chip } from '@nextui-org/react'
 import { FaChevronRight, FaDollarSign } from 'react-icons/fa'
-
 export interface IDishCardProps {
-  srcImage: string
+  srcImage: string | null
   alt: string
   dishName: string
   description: string
@@ -11,7 +10,6 @@ export interface IDishCardProps {
 
 export default function DishCard ({
   srcImage,
-  alt,
   dishName,
   description,
   price
@@ -22,8 +20,8 @@ export default function DishCard ({
         <div className="w-[112px] h-[112px] max-w-[112px] max-h-[112px] self-center flex-shrink-0 rounded-md">
           <img
               className="w-full h-full rounded-md object-cover"
-              src={srcImage}
-              alt={alt}
+              src={srcImage ?? 'https://www.unileverfoodsolutions.com.mx/dam/global-ufs/mcos/NOLA/calcmenu/recipes/MX-recipes/general/sushi-empanizado/main-header.jpg'}
+              alt='product image'
           />
         </div>
         <div className="flex flex-col text-white justify-between w-full">

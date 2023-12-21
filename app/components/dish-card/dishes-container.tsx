@@ -1,19 +1,19 @@
 import DishCard, { type IDishCardProps } from './dish-card'
+import api from '@/services/dulce_trago/api'
 
-interface IDishesContainerProps {
-  dishesData: IDishCardProps[]
-}
-export default function DishesContainer ({ dishesData }: IDishesContainerProps) {
+
+
+export default async function DishesContainer () {
+  const products = await api.list()
   return (
     <section className="flex flex-col gap-5">
-      {dishesData.map((dish, index) => (
+      {products.map((product, index) => (
         <DishCard
           key={index}
-          srcImage={dish.srcImage}
-          alt={dish.alt}
-          dishName={dish.dishName}
-          description={dish.description}
-          price={dish.price}
+          srcImage={product.main_image}
+          dishName={product.name}
+          description={product.description}
+          // price={dish.price}
         />
       ))}
     </section>
