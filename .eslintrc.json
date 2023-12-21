@@ -5,8 +5,9 @@
         "node": true
     },
     "extends": [
-        "standard-with-typescript",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "standard",
+        "standard-with-typescript"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
