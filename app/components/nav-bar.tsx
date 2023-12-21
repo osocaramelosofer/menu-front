@@ -39,22 +39,22 @@ export default function NavBar () {
       isBordered
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      className="w-screen overflow-x-hidden bg-primary text-white"
+      className='w-screen overflow-x-hidden bg-primary text-white'
     >
-      <NavbarContent className="sm:hidden w-full">
-        <div className="flex w-full justify-between items-center">
-          <NavbarBrand as={Link} href={'/'} className="max-w-fit">
+      <NavbarContent className='sm:hidden w-full'>
+        <div className='flex w-full justify-between items-center'>
+          <NavbarBrand as={Link} href='/' className='max-w-fit'>
             <DulceTragoLogo />
           </NavbarBrand>
 
           <Dropdown>
             <DropdownTrigger>
-              <Button isIconOnly color="primary" radius="full">
+              <Button isIconOnly color='primary' radius='full'>
                 <MenuIcon />
               </Button>
             </DropdownTrigger>
 
-            <DropdownMenu variant="faded" aria-label="Dropdown menu with icons">
+            <DropdownMenu variant='faded' aria-label='Dropdown menu with icons'>
               {menuItems.map((menuItem, index) => {
                 return (
                   <DropdownItem
@@ -72,18 +72,18 @@ export default function NavBar () {
         </div>
       </NavbarContent>
 
-      <NavbarBrand as={Link} href={'/'} className="max-w-fit hidden sm:flex">
+      <NavbarBrand as={Link} href='/' className='max-w-fit hidden sm:flex'>
         <DulceTragoLogo />
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className='hidden sm:flex gap-4' justify='center'>
         {menuItems.map((item, index) => (
           <NavbarItem key={`${item.name}-${index}`}>
             <Link
               className={`${
                 index === 2 ? 'text-white' : 'text-white/60'
               } font-medium `}
-              href="#"
-              size="md"
+              href='#'
+              size='md'
             >
               {item.name}
             </Link>
@@ -98,8 +98,8 @@ export default function NavBar () {
               className={`${
                 index === 2 ? 'text-primary' : 'text-primary/50'
               } font-medium w-full `}
-              href="#"
-              size="lg"
+              href='#'
+              size='lg'
             >
               {item.name}
             </Link>

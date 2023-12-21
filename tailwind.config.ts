@@ -15,9 +15,6 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
       }
-    },
-    colors: {
-      'sweet-brown': '#371E08'
     }
   },
   darkMode: 'class',
@@ -41,13 +38,14 @@ const config: Config = {
         sweetDrink: {
           extend: 'light',
           colors: {
-            background: '#371E08',
-            foreground: '#371E08', // text color
-            content1: '#CCB7A5', // card background
             primary: {
               DEFAULT: '#371E08', // this change the header
               foreground: '#f26485'
             },
+            secondary: '#CCB7A5',
+            background: '#371E08',
+            foreground: '#371E08', // text color
+            content1: '#CCB7A5', // card background
             focus: '#F182F6'
           },
           layout: {
