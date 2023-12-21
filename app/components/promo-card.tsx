@@ -12,7 +12,7 @@ import {
 
 export default function PromoCard () {
   return (
-    <section className=" self-center ">
+    <section className="self-center">
       <Card
         isFooterBlurred
         isPressable={true}

@@ -1,14 +1,14 @@
-import NavBar from '@/app/components/nav-bar';
+import NavBar from '@/app/components/nav-bar'
 
-export default function PageLayout({
-  children,
+export default function PageLayout ({
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <main className="sweetDrink flex flex-col items-center max-w-7xl mx-auto  relative">
+    <main className="flex flex-col items-center max-w-7xl mx-auto  relative">
       <NavBar />
       {children}
     </main>
-  );
+  )
 }

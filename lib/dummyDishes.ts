@@ -1,4 +1,4 @@
-import { type IDishCardProps } from '@/app/components/dish-card/dish-card';
+import { type IDishCardProps } from '@/app/components/dish-card/dish-card'
 
 export const dishesData: IDishCardProps[] = [
   {

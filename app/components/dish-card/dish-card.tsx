@@ -1,21 +1,21 @@
-import { Card, CardBody, Chip } from '@nextui-org/react';
-import { FaChevronRight, FaDollarSign } from 'react-icons/fa';
+import { Card, CardBody, Chip } from '@nextui-org/react'
+import { FaChevronRight, FaDollarSign } from 'react-icons/fa'
 export interface IDishCardProps {
-  srcImage: string | null;
-  dishName: string;
-  description: string;
-  price: number | null;
+  srcImage: string | null
+  dishName: string
+  description: string
+  price: number | null
 }
 
-export default function DishCard({
+export default function DishCard ({
   srcImage,
   dishName,
   description,
-  price,
+  price
 }: IDishCardProps) {
   return (
-    <Card>
-      <CardBody className="flex px-2 py-1 min-h-[132px] max-h-[132px] gap-1 rounded-lg flex-row">
+    <Card className=" shadow-none " shadow="none">
+      <CardBody className=" bg-secondary/20 flex px-2 py-1 min-h-[132px] max-h-[132px] gap-1 rounded-lg flex-row">
         <div className="w-[112px] h-[112px] max-w-[112px] max-h-[112px] self-center flex-shrink-0 rounded-md">
           <img
             className="w-full h-full rounded-md object-cover"
@@ -50,5 +50,5 @@ export default function DishCard({
         </div>
       </CardBody>
     </Card>
-  );
+  )
 }
