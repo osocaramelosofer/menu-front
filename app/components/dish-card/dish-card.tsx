@@ -2,10 +2,9 @@ import { Card, CardBody, Chip } from '@nextui-org/react'
 import { FaChevronRight, FaDollarSign } from 'react-icons/fa'
 export interface IDishCardProps {
   srcImage: string | null
-  alt: string
   dishName: string
   description: string
-  price: number
+  price: number | null
 }
 
 export default function DishCard ({
@@ -33,7 +32,7 @@ export default function DishCard ({
            <Chip size="sm" color="warning" variant="dot" className='mb-2' classNames={{ content: 'drop-shadow shadow-black text-white' }}>10 oz</Chip>
             <div className='flex items-center'>
               <FaDollarSign size="14" />
-              <span className='text-sm'>{price} MXN</span>
+              <span className='text-sm'>60 MXN</span>
               <FaChevronRight />
             </div>
           </div>

@@ -1,8 +1,6 @@
 import DishCard, { type IDishCardProps } from './dish-card'
 import api from '@/services/dulce_trago/api'
 
-
-
 export default async function DishesContainer () {
   const products = await api.list()
   return (
@@ -13,7 +11,7 @@ export default async function DishesContainer () {
           srcImage={product.main_image}
           dishName={product.name}
           description={product.description}
-          // price={dish.price}
+          price={null}
         />
       ))}
     </section>
