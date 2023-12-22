@@ -3,22 +3,22 @@ import { type IProduct } from '@/interfaces/product'
 
 const api = {
   list: async (): Promise<IProduct[]> => {
-    const requestOptions = {
+    const requestOptions: RequestInit = {
       method: 'GET',
-      redirect: 'follow' as RequestRedirect
+      redirect: 'follow',
+      cache: 'no-store'
     }
     const response = await fetch(
-      'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/',
-      requestOptions
+      'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/', requestOptions
     )
     const jsonResponse = await response.json()
-    console.log('json response ---- ', jsonResponse)
     return jsonResponse
   },
-  getProduct1: async (id: string): Promise<IProduct> => {
-    const requestOptions = {
+  getProduct: async (id: number): Promise<IProduct> => {
+    const requestOptions: RequestInit = {
       method: 'GET',
-      redirect: 'follow' as RequestRedirect
+      redirect: 'follow',
+      cache: 'no-store'
     }
     const response = await fetch(`https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/${id}/`, requestOptions)
     const jsonResponse = await response.json()
