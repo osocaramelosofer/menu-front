@@ -8,6 +8,7 @@ export default async function DishesContainer () {
       {products.map((product, index) => (
         <DishCard
           key={index}
+          id={product.id}
           srcImage={product.main_image}
           dishName={product.name}
           description={product.description}

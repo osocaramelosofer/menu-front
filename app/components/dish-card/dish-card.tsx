@@ -1,6 +1,9 @@
 import { Card, CardBody, Chip } from '@nextui-org/react'
+import DetailButton from './detail-button'
+import Link from 'next/link'
 import { FaChevronRight, FaDollarSign } from 'react-icons/fa'
 export interface IDishCardProps {
+  id: number
   srcImage: string | null
   dishName: string
   description: string
@@ -8,6 +11,7 @@ export interface IDishCardProps {
 }
 
 export default function DishCard ({
+  id,
   srcImage,
   dishName,
   description,
@@ -30,11 +34,13 @@ export default function DishCard ({
           </div>
           <div className='flex justify-between items-center'>
             <Chip size='sm' color='warning' variant='dot' className='mb-2' classNames={{ content: 'drop-shadow shadow-black text-white' }}>10 oz</Chip>
-            <div className='flex items-center'>
-              <FaDollarSign size='14' />
-              <span className='text-sm'>60 MXN</span>
-              <FaChevronRight />
-            </div>
+            <Link href={`/dulce-trago/${id}`}>
+              <div className='flex items-center'>
+                <FaDollarSign size='14' />
+                <span className='text-sm'>60 MXN</span>
+                <FaChevronRight />
+              </div>
+            </Link>
           </div>
         </div>
       </CardBody>

@@ -14,6 +14,15 @@ const api = {
     const jsonResponse = await response.json()
     return jsonResponse
   },
+  getProduct: async (id: string): Promise<IProduct> => {
+    const requestOptions = {
+      method: 'GET',
+      redirect: 'follow' as RequestRedirect
+    }
+    const response = await fetch(`https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/${id}/`, requestOptions)
+    const jsonResponse = await response.json()
+    return jsonResponse
+  },
   categories: async (): Promise<Category[]> => {
     const requestOptions = {
       method: 'GET',
