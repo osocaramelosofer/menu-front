@@ -12,9 +12,10 @@ const api = {
       requestOptions
     )
     const jsonResponse = await response.json()
+    console.log('json response ---- ', jsonResponse)
     return jsonResponse
   },
-  getProduct: async (id: string): Promise<IProduct> => {
+  getProduct1: async (id: string): Promise<IProduct> => {
     const requestOptions = {
       method: 'GET',
       redirect: 'follow' as RequestRedirect
