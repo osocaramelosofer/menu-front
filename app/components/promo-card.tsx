@@ -12,7 +12,7 @@ import {
 
 export default function PromoCard () {
   return (
-    <section className="self-center">
+    <section className='self-center'>
       <Card
         isFooterBlurred
         isPressable
@@ -37,7 +37,7 @@ export default function PromoCard () {
           width={700}
           height={500}
           isBlurred
-          src='https://i.imgur.com/tS9l610.jpg'
+          src='https://i.imgur.com/es71a9r.png'
           // onLoad={() => setPressable(true)}
         />
         <CardFooter className='absolute bg-black/30 bottom-0 z-10 border-t-1 border-default-600 '>

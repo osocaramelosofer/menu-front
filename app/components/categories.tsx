@@ -1,59 +1,42 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { Chip, ScrollShadow, Skeleton } from '@nextui-org/react'
+import { Chip } from '@nextui-org/react'
 import CategoryList from './category-list'
 
-import { useCategoriesStore } from '@/store/categories-store'
-
-export interface Category {
-  id: number
-  name: string
-  description: string
-}
+import { useCategoriesStore } from '@/store/dulce_trago/categories-store'
+import CategoriesSkeleton from './skeletons/categories-skeleton'
 
 export default function Categories () {
-  const { loading, getCategoriesList } = useCategoriesStore()
+  const { loading, getCategoriesList, currentCategory, resetCurrentCategory } =
+    useCategoriesStore()
 
   useEffect(() => {
     getCategoriesList()
   }, [])
 
+  if (loading) {
+    return <CategoriesSkeleton />
+  }
+
   return (
-    <section className="sticky top-16 z-10 bg-background flex flex-col shadow-none gap-4 w-full pt-5">
-      <div className="flex justify-between items-end font-bold text-base">
+    <section className='sticky top-16 z-20 bg-background flex flex-col shadow-none gap-4 w-full pt-5'>
+      <div className='flex justify-between items-end font-bold text-base'>
         <h3>Categorías</h3>
-        {/* {category && (
+
+        {currentCategory.id !== null && (
           <Chip
-            color="primary"
-            onClose={handleRemoveCategory}
-            variant="flat"
-            size="sm"
+            color='primary'
+            onClose={resetCurrentCategory}
+            variant='flat'
+            size='sm'
           >
-            {category}
+            {currentCategory.name}
           </Chip>
-        )} */}
+        )}
       </div>
 
-      <ScrollShadow
-        orientation="horizontal"
-        className="flex overflow-x-auto gap-4 pb-5"
-      >
-        {loading
-          ? (
-          <>
-            {Array(5)
-              .fill(null)
-              .map((_, index) => (
-                <Skeleton key={index} className=" w-32 h-10" />
-              ))}
-          </>
-            )
-          : (
-          <CategoryList />
-            )
-        }
-      </ScrollShadow>
+      <CategoryList />
     </section>
   )
 }
