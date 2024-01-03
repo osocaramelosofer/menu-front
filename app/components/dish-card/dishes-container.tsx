@@ -34,8 +34,9 @@ export default function DishesContainer () {
     <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
       {filteredProducts.map((product, index) => (
         <DishCard
-          key={product.id}
-          srcImage={`https://res.cloudinary.com/drzrkaoje/${product.main_image}`}
+          key={index}
+          id={product.id}
+          srcImage={product.main_image}
           dishName={product.name}
           description={product.description}
           price={product.price}

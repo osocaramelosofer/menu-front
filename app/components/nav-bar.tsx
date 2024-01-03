@@ -43,7 +43,7 @@ export default function NavBar () {
     >
       <NavbarContent className='sm:hidden w-full'>
         <div className='flex w-full justify-between items-center'>
-          <NavbarBrand as={Link} href='/' className='max-w-fit'>
+          <NavbarBrand as={Link} href='/dulce-trago/' className='max-w-fit'>
             <DulceTragoLogo />
           </NavbarBrand>
 
@@ -72,7 +72,7 @@ export default function NavBar () {
         </div>
       </NavbarContent>
 
-      <NavbarBrand as={Link} href='/' className='max-w-fit hidden sm:flex'>
+      <NavbarBrand as={Link} href='/dulce-trago/' className='max-w-fit hidden sm:flex'>
         <DulceTragoLogo />
       </NavbarBrand>
       <NavbarContent className='hidden sm:flex gap-4' justify='center'>
