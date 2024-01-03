@@ -1,7 +1,9 @@
 import { Card, CardBody, Chip } from '@nextui-org/react'
 import DetailButton from './detail-button'
 import Link from 'next/link'
-import { FaChevronRight, FaDollarSign } from 'react-icons/fa'
+import { FaChevronRight, FaDollarSign, FaHeart } from 'react-icons/fa'
+import { type Tag } from '@/interfaces/product'
+
 export interface IDishCardProps {
   id: number
   srcImage: string | null

@@ -1,5 +1,5 @@
-import { type Category } from '@/app/components/categories'
 import { type IProduct } from '@/interfaces/product'
+import { type Category } from './../../interfaces/product'
 
 const api = {
   list: async (): Promise<IProduct[]> => {
