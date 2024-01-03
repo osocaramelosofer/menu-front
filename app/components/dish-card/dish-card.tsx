@@ -1,5 +1,5 @@
 import { Card, CardBody, Chip } from '@nextui-org/react'
-import DetailButton from './detail-button'
+import ViewDetailButton from './view-detail-button'
 import Link from 'next/link'
 import { FaChevronRight, FaDollarSign, FaHeart } from 'react-icons/fa'
 import { type Tag } from '@/interfaces/product'
@@ -29,7 +29,7 @@ export default function DishCard ({
   }
   return (
     <Card>
-      <CardBody className='bg-secondary/5 flex px-2 py-1 min-h-[132px] max-h-[132px] gap-1 rounded-lg flex-row'>
+      <CardBody className='bg-secondary/5 flex px-2 py-1 min-h-[132px] max-h-[132px] gap-1 rounded-lg flex-row overflow-auto'>
         <div className='w-[112px] h-[112px] max-w-[112px] max-h-[112px] self-center flex-shrink-0 rounded-md'>
           <img
             className='w-full h-full rounded-md object-cover'
@@ -43,19 +43,19 @@ export default function DishCard ({
         </div>
         <div className='flex flex-col text-white justify-between w-full'>
           <div>
-            <span className='text-base text-sweet-brown'>{dishName}</span>
-            <p className='text-[12px]'>{description}</p>
+            <span className='text-base text-black'>{dishName}</span>
+            <p className='text-[12px] text-black'>{description}</p>
           </div>
-          <div className='flex justify-between items-center'>
+          {/* <div className='flex justify-between items-center'>
             <Chip size='sm' color='warning' variant='dot' className='mb-2' classNames={{ content: 'drop-shadow shadow-black text-white' }}>10 oz</Chip>
             <Link prefetch={false} href={`/dulce-trago/${id}`}>
               <div className='flex items-center'>
                 <FaDollarSign size='14' />
-                <span className='text-sm'>60 MXN</span>
+                <span className='text-sm text-black'>60 MXN</span>
                 <FaChevronRight />
               </div>
             </Link>
-          </div>
+          </div> */}
 
           {/* Card tags */}
           <div className='justify-between flex flex-row items-center gap-2'>
@@ -70,14 +70,15 @@ export default function DishCard ({
             <Chip size='sm' variant='dot' color='warning'>
               16 oz
             </Chip>
-            <Chip
+            <ViewDetailButton id={id} price={price}/>
+            {/* <Chip
               startContent={<FaDollarSign />}
               endContent={<FaChevronRight />}
               variant='light'
               color='primary'
             >
               {price}
-            </Chip>
+            </Chip> */}
           </div>
         </div>
       </CardBody>
