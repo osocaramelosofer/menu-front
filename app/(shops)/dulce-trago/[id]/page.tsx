@@ -1,4 +1,4 @@
-import ProductDetail from '@/app/components/dish-card/product-detail'
+import ProductDetail from '@/app/components/dish-card/product-detail.client'
 import api from '@/services/dulce_trago/api'
 import { Image } from '@nextui-org/react'
 
