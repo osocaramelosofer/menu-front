@@ -24,6 +24,9 @@ import {
   PaintbrushIcon
 } from '@/lib/icons'
 
+import { FaArrowLeft } from 'react-icons/fa'
+import { usePathname } from 'next/navigation'
+
 export default function NavBar () {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
@@ -34,6 +37,8 @@ export default function NavBar () {
     { name: 'Pinta y Crea', route: '/dulce-trago', icon: <PaintbrushIcon /> }
   ]
 
+  const pathname = usePathname()
+
   return (
     <Navbar
       isBordered
@@ -41,6 +46,14 @@ export default function NavBar () {
       onMenuOpenChange={setIsMenuOpen}
       className='w-screen overflow-x-hidden bg-primary text-white'
     >
+      <NavbarContent className={`${pathname === '/dulce-trago' ? 'hidden' : ''}`}>
+        <div>
+          <Link href="/dulce-trago" className='text-white'>
+            <FaArrowLeft size='20' />
+          </Link>
+        </div>
+      </NavbarContent>
+
       <NavbarContent className='sm:hidden w-full'>
         <div className='flex w-full justify-between items-center'>
           <NavbarBrand as={Link} href='/dulce-trago/' className='max-w-fit'>
