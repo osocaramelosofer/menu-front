@@ -46,16 +46,6 @@ export default function DishCard ({
             <span className='text-base text-black'>{dishName}</span>
             <p className='text-[12px] text-black'>{description}</p>
           </div>
-          {/* <div className='flex justify-between items-center'>
-            <Chip size='sm' color='warning' variant='dot' className='mb-2' classNames={{ content: 'drop-shadow shadow-black text-white' }}>10 oz</Chip>
-            <Link prefetch={false} href={`/dulce-trago/${id}`}>
-              <div className='flex items-center'>
-                <FaDollarSign size='14' />
-                <span className='text-sm text-black'>60 MXN</span>
-                <FaChevronRight />
-              </div>
-            </Link>
-          </div> */}
 
           {/* Card tags */}
           <div className='justify-between flex flex-row items-center gap-2'>
@@ -71,14 +61,6 @@ export default function DishCard ({
               16 oz
             </Chip>
             <ViewDetailButton id={id} price={price}/>
-            {/* <Chip
-              startContent={<FaDollarSign />}
-              endContent={<FaChevronRight />}
-              variant='light'
-              color='primary'
-            >
-              {price}
-            </Chip> */}
           </div>
         </div>
       </CardBody>

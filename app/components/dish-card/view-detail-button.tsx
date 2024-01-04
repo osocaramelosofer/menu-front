@@ -8,7 +8,7 @@ export default function ViewDetailButton ({ id, price }: { id: number, price: st
     <Link className='text-black' href={`/dulce-trago/${id}`}>
       <div className='flex items-center'>
         <FaDollarSign size='13' />
-        <span className='text-sm'>{price} mxn</span>
+        <span className='text-sm'>{price} MXN</span>
         <FaChevronRight size='13'/>
       </div>
     </Link>
