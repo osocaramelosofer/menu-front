@@ -22,12 +22,7 @@ export default function ProductsContainerClient ({
       {filteredProducts.map((product, index) => (
         <ProductCard
           key={index}
-          id={product.id}
-          srcImage={product.main_image}
-          dishName={product.name}
-          description={product.description}
-          price={product.price}
-          tags={product.tags}
+          product={product}
         />
       ))}
     </section>
