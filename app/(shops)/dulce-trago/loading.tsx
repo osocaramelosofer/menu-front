@@ -1,3 +1,3 @@
 export default function Loading () {
-  return <div>loadinnjan</div>
+  return <div className=' text-center'>Preparando Alimentos 😝...</div>
 }

@@ -1,6 +1,5 @@
-import { Card, CardBody, Chip } from '@nextui-org/react'
-import ViewDetailButton from './view-detail-button'
-import Link from 'next/link'
+'use client'
+import { Card, CardBody, Chip, Image } from '@nextui-org/react'
 import { FaChevronRight, FaDollarSign, FaHeart } from 'react-icons/fa'
 import { type Tag } from '@/interfaces/product'
 
@@ -28,16 +27,22 @@ export default function DishCard ({
     image = 'https://www.unileverfoodsolutions.com.mx/dam/global-ufs/mcos/NOLA/calcmenu/recipes/MX-recipes/general/sushi-empanizado/main-header.jpg'
   }
   return (
-    <Card>
-      <CardBody className='bg-secondary/5 flex px-2 py-1 min-h-[132px] max-h-[132px] gap-1 rounded-lg flex-row overflow-auto'>
-        <div className='w-[112px] h-[112px] max-w-[112px] max-h-[112px] self-center flex-shrink-0 rounded-md'>
-          <img
-            className='w-full h-full rounded-md object-cover'
-            src={image}
-            alt='product image'
+    <Card
+      isBlurred
+      isPressable
+      className='cursor-pointer rounded-xl shadow-xs border border-white  bg-gradient-to-br from-secondary/50 to-background'
+    >
+      <CardBody className='flex flex-row md:flex-col gap-2'>
+        {/* Card Image */}
+        <div className='aspect-square w-2/5 md:w-full shadow-sm relative overflow-hidden rounded-xl'>
+          <Image
+            className='object-cover h-full w-full'
+            src={srcImage}
+            alt='Listing'
+            isBlurred
           />
 
-          <div className='absolute top-3 right-3 z-[10]'>
+          <div className='absolute top-3 right-3 z-[10] text-danger'>
             <FaHeart />
           </div>
         </div>

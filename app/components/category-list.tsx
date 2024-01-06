@@ -1,7 +1,6 @@
 import { Button, ScrollShadow } from '@nextui-org/react'
 import { useCategoriesStore } from '@/store/dulce_trago/categories-store'
 import { type Category } from '@/interfaces/product'
-
 export default function CategoryList () {
   const {
     categories,
@@ -9,7 +8,6 @@ export default function CategoryList () {
     setCurrentCategory,
     getInitialCategory
   } = useCategoriesStore()
-
   const handleCategoryClick = (category: Category) => {
     setCurrentCategory(category)
   }
