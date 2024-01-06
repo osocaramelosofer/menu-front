@@ -42,7 +42,7 @@ export default function ProductCard ({
         <div className=' min-w-full aspect-square h-[6rem] border shadow-sm relative rounded-xl overflow-hidden'>
           <Image
             className='object-cover h-full w-full rounded-lg'
-            src={image}
+            src={image }
             alt='Listing'
             removeWrapper
             isBlurred
