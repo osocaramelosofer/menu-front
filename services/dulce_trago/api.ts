@@ -1,5 +1,4 @@
-import { type IProduct } from '@/interfaces/product'
-import { type Category } from './../../interfaces/product'
+import type { IProduct, Category } from '@/interfaces/product'
 
 const api = {
   list: async (): Promise<IProduct[]> => {
@@ -12,6 +11,7 @@ const api = {
       'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/', requestOptions
     )
     const jsonResponse = await response.json()
+
     return jsonResponse
   },
   getProduct: async (id: number): Promise<IProduct> => {
