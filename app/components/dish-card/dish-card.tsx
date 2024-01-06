@@ -2,6 +2,7 @@
 import { Card, CardBody, Chip, Image } from '@nextui-org/react'
 import { FaChevronRight, FaDollarSign, FaHeart } from 'react-icons/fa'
 import { type Tag } from '@/interfaces/product'
+import ViewDetailButton from './view-detail-button'
 
 export interface IDishCardProps {
   id: number
@@ -37,7 +38,7 @@ export default function DishCard ({
         <div className='aspect-square w-2/5 md:w-full shadow-sm relative overflow-hidden rounded-xl'>
           <Image
             className='object-cover h-full w-full'
-            src={srcImage}
+            src={srcImage as string}
             alt='Listing'
             isBlurred
           />
