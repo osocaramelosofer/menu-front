@@ -11,7 +11,6 @@ const api = {
       requestOptions
     )
     const jsonResponse = await response.json()
-    console.log('SERVER RESPONSE:')
 
     return jsonResponse
   },
