@@ -4,7 +4,8 @@ import { FaChevronRight, FaDollarSign, FaHeart } from 'react-icons/fa'
 import { type Tag } from '@/interfaces/product'
 
 export interface IDishCardProps {
-  srcImage: string | undefined
+  id: number
+  srcImage: string | null
   dishName: string
   description: string
   price: string
@@ -12,12 +13,19 @@ export interface IDishCardProps {
 }
 
 export default function DishCard ({
+  id,
   srcImage,
   dishName,
   description,
   price,
   tags
 }: IDishCardProps) {
+  let image
+  if (srcImage !== null) {
+    image = 'https://res.cloudinary.com/drzrkaoje/' + srcImage
+  } else {
+    image = 'https://www.unileverfoodsolutions.com.mx/dam/global-ufs/mcos/NOLA/calcmenu/recipes/MX-recipes/general/sushi-empanizado/main-header.jpg'
+  }
   return (
     <Card
       isBlurred
@@ -38,16 +46,10 @@ export default function DishCard ({
             <FaHeart />
           </div>
         </div>
-
-        <div className='justify-between flex flex-col flex-1 gap-2'>
-          {/* Card Info */}
-          <div className='flex flex-col gap-1'>
-            <div className='font-semibold text-base capitalize line-clamp-1'>
-              {dishName}
-            </div>
-            <div className='font-medium text-sm opacity-70 line-clamp-2'>
-              {description}
-            </div>
+        <div className='flex flex-col text-white justify-between w-full'>
+          <div>
+            <span className='text-base text-black'>{dishName}</span>
+            <p className='text-[12px] text-black'>{description}</p>
           </div>
 
           {/* Card tags */}
@@ -63,14 +65,7 @@ export default function DishCard ({
             <Chip size='sm' variant='dot' color='warning'>
               16 oz
             </Chip>
-            <Chip
-              startContent={<FaDollarSign />}
-              endContent={<FaChevronRight />}
-              variant='light'
-              color='primary'
-            >
-              {price}
-            </Chip>
+            <ViewDetailButton id={id} price={price}/>
           </div>
         </div>
       </CardBody>

@@ -10,6 +10,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors:{
+        customBrown: '#371E08',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -36,35 +39,12 @@ const config: Config = {
           }
         },
         sweetDrink: {
-          extend: 'light',
+          // extend: 'light',
           colors: {
-            primary: {
-              DEFAULT: '#371E08', // this change the header
-              foreground: '#f26485'
-            },
+            primary: '#371E08', // this change the header
             secondary: '#CCB7A5',
-            background: '#371E08',
-            foreground: '#371E08', // text color
-            content1: '#CCB7A5', // card background
-            focus: '#F182F6'
-          },
-          layout: {
-            disabledOpacity: '0.3',
-            radius: {
-              small: '4px',
-              medium: '6px',
-              large: '8px'
-            },
-            borderWidth: {
-              small: '1px',
-              medium: '2px',
-              large: '3px'
-            }
-            // fontSize: {
-            //   small: '40px',
-            //   medium: '40px',
-            //   large: '40px'
-            // }
+            content1: '#CCB7A5' // card background
+            // foreground: '#371E08',  text color
           }
         }
       }
