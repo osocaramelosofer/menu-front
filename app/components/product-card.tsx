@@ -22,6 +22,12 @@ export default function ProductCard ({
     setSelectedProduct(product)
     onOpen()
   }
+  let image = ''
+  if (product.main_image !== null) {
+    image = 'https://res.cloudinary.com/drzrkaoje/' + product.main_image
+  } else {
+    image = 'https://www.unileverfoodsolutions.com.mx/dam/global-ufs/mcos/NOLA/calcmenu/recipes/MX-recipes/general/sushi-empanizado/main-header.jpg'
+  }
 
   return (
     <Card
@@ -36,7 +42,7 @@ export default function ProductCard ({
         <div className=' min-w-full aspect-square h-[6rem] border shadow-sm relative rounded-xl overflow-hidden'>
           <Image
             className='object-cover h-full w-full rounded-lg'
-            src='https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg'
+            src={image}
             alt='Listing'
             removeWrapper
             isBlurred

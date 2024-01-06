@@ -13,7 +13,7 @@ export interface IDishCardProps {
   tags?: Tag[]
 }
 
-export default function DishCard ({
+export default function ProductCard ({
   id,
   srcImage,
   dishName,
@@ -43,9 +43,9 @@ export default function DishCard ({
             isBlurred
           />
 
-          <div className='absolute top-3 right-3 z-[10] text-danger'>
+          {/* <div className='absolute top-3 right-3 z-[10] text-danger'>
             <FaHeart />
-          </div>
+          </div> */}
         </div>
         <div className='flex flex-col text-white justify-between w-full'>
           <div>

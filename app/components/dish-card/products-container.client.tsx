@@ -1,5 +1,5 @@
 'use client'
-import DishCard from './dish-card'
+import ProductCard from './product-card'
 import { useMemo } from 'react'
 import { useCategoriesStore } from '@/store/dulce_trago/categories-store'
 
@@ -20,7 +20,7 @@ export default function ProductsContainerClient ({
   return (
     <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
       {filteredProducts.map((product, index) => (
-        <DishCard
+        <ProductCard
           key={index}
           id={product.id}
           srcImage={product.main_image}

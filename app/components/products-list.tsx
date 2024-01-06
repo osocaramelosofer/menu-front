@@ -13,15 +13,14 @@ export default function ProductsList () {
   const { loading, products, getProductsList } = useProductsStore()
   const { currentCategory } = useCategoriesStore()
   const { isOpen, onOpenChange, onOpen } = useDisclosure()
+  const desiredCategories = new Set([4, 6])
 
   useEffect(() => {
     getProductsList()
   }, [])
 
   const filteredProducts = useMemo(() => {
-    return currentCategory.id === null
-      ? products
-      : products.filter(product => product.category.id === currentCategory.id)
+    return products.filter(product => desiredCategories.has(product.category.id ?? 2))
   }, [products, currentCategory.id])
 
   if (loading) {
@@ -32,9 +31,7 @@ export default function ProductsList () {
           orientation='horizontal'
           className='flex overflow-x-auto gap-4 pb-5'
         >
-          {Array(7)
-            .fill(null)
-            .map((_, index) => (
+          {filteredProducts.map((_, index) => (
               <div
                 key={index}
                 className=' min-w-[12rem] rounded-lg p-4 shadow-sm border border-[#f0f0f0]'
@@ -56,7 +53,7 @@ export default function ProductsList () {
                   </div>
                 </div>
               </div>
-            ))}
+          ))}
         </ScrollShadow>
       </section>
     )
