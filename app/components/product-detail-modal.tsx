@@ -26,38 +26,40 @@ export default function ProductDetailModal ({
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       radius='lg'
+      scrollBehavior='inside'
     >
       <ModalContent>
         {onClose => (
           <>
             <ModalHeader>
-              <div className=' w-full flex-1 aspect-square shadow-sm relative rounded-xl overflow-hidden'>
-                <Image
-                  isBlurred
-                  removeWrapper
-                  alt='Woman listing to music'
-                  isLoading={false}
-                  className='object-cover h-full w-full rounded-lg'
-                  src={`https://res.cloudinary.com/drzrkaoje/${product?.main_image}`}
-                  //   src='https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg'
-                />
-              </div>
-            </ModalHeader>
-            <ModalBody>
-              <div className=' flex flex-col gap-2'>
-                <h1 className=' capitalize font-bold text-2xl'>
+              {/* Product Name and Category */}
+              <div className='flex flex-col gap-2'>
+                <h1 className='capitalize font-bold text-2xl'>
                   {product?.name}
                 </h1>
-                <Chip color='warning' variant='flat'>
+                <Chip size='sm' color='warning' variant='flat'>
                   {product?.category.name}
                 </Chip>
               </div>
-              <div>
-                <h5 className=' font-bold'>Descripción</h5>
-                <p className=' opacity-80'>{product?.description}</p>
+            </ModalHeader>
+            <ModalBody className=' overflow-y-auto'>
+              {/* Product Image */}
+              <div className='w-full flex-1 aspect-square shadow-sm relative rounded-xl'>
+                <Image
+                  alt='Woman listing to music'
+                  className='object-cover h-full w-full rounded-xl'
+                  src={`https://res.cloudinary.com/drzrkaoje/${product?.main_image}`}
+                />
               </div>
+
+              {/* Product Description */}
               <div>
-                <h5 className=' font-bold mb-2'>Tamaños</h5>
+                <h5 className='font-bold'>Descripción</h5>
+                <p className='opacity-80'>{product?.description}</p>
+              </div>
+              {/* Product Sizes  */}
+              <div>
+                <h5 className='font-bold mb-2'>Tamaños</h5>
                 <div className='flex gap-2'>
                   <Button
                     color='primary'
@@ -67,10 +69,10 @@ export default function ProductDetailModal ({
                   >
                     18 oz
                   </Button>
-                  <Button variant='flat' size='sm' className=' flex-1'>
+                  <Button variant='flat' size='sm' className='flex-1'>
                     16 oz
                   </Button>
-                  <Button variant='flat' size='sm' className=' flex-1'>
+                  <Button variant='flat' size='sm' className='flex-1'>
                     14 oz
                   </Button>
                 </div>
@@ -78,8 +80,8 @@ export default function ProductDetailModal ({
             </ModalBody>
             <ModalFooter className='flex justify-between items-center'>
               <div className='flex flex-col justify-center items-center'>
-                <p className=' text-sm font-medium'>Precio</p>
-                <h3 className=' text-2xl font-bold '>
+                <p className='text-sm font-medium'>Precio</p>
+                <h3 className='text-2xl font-bold '>
                   <span className='text-success'>$</span>
                   {product?.price}
                 </h3>
@@ -87,7 +89,7 @@ export default function ProductDetailModal ({
               <Button
                 color='primary'
                 variant='solid'
-                className=' text-white'
+                className='text-white'
                 onPress={onClose}
               >
                 Cerrar

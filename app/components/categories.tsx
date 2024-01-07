@@ -21,7 +21,7 @@ export default function Categories () {
 
   return (
     <section className='sticky top-16 z-20 bg-background flex flex-col shadow-none gap-4 w-full pt-5'>
-      <div className='flex justify-between items-end font-bold text-base'>
+      <div className='flex justify-between items-end font-semibold text-base'>
         <h3>Categorías</h3>
 
         {currentCategory.id !== null && (

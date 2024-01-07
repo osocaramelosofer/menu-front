@@ -19,35 +19,35 @@ export default function ProductCard ({
 }) {
   const { setSelectedProduct } = useProductsStore()
   const handleSelectedProduct = () => {
-    setSelectedProduct(product)
-    onOpen()
+    setTimeout(() => {
+      setSelectedProduct(product)
+      onOpen()
+    }, 250)
   }
   let image = ''
   if (product.main_image !== null) {
     image = 'https://res.cloudinary.com/drzrkaoje/' + product.main_image
   } else {
-    image = 'https://www.unileverfoodsolutions.com.mx/dam/global-ufs/mcos/NOLA/calcmenu/recipes/MX-recipes/general/sushi-empanizado/main-header.jpg'
+    image =
+      'https://www.unileverfoodsolutions.com.mx/dam/global-ufs/mcos/NOLA/calcmenu/recipes/MX-recipes/general/sushi-empanizado/main-header.jpg'
   }
 
   return (
     <Card
-      isBlurred
       isPressable
       onPress={handleSelectedProduct}
       className='cursor-pointer rounded-xl shadow-xs border border-white
        bg-gradient-to-br from-secondary/50 to-background min-w-fit overflow-hidden'
     >
-      <CardBody className='flex flex-col gap-2 max-w-[9rem] overflow-hidden'>
+      <CardBody className='flex flex-col gap-2 max-w-[8.5rem] md:max-w-[12rem] overflow-hidden'>
         {/* Card Image */}
-        <div className=' min-w-full aspect-square h-[6rem] border shadow-sm relative rounded-xl overflow-hidden'>
-          <Image
-            className='object-cover h-full w-full rounded-lg'
-            src={image }
-            alt='Listing'
-            removeWrapper
-            isBlurred
-          />
-        </div>
+        <Image
+          width={200}
+          height={200}
+          className=' object-cover aspect-square w-full h-full rounded-xl'
+          src={image}
+          alt='NextUI Image with fallback'
+        />
 
         <div className='justify-between flex flex-col flex-1 gap-2'>
           {/* Card Info */}

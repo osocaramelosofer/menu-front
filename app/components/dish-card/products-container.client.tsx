@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { useCategoriesStore } from '@/store/dulce_trago/categories-store'
 
 import { type IProduct } from '@/interfaces/product'
+import EmptyState from '../empty-products'
 
 export default function ProductsContainerClient ({
   products
@@ -17,13 +18,14 @@ export default function ProductsContainerClient ({
       : products.filter(product => product.category.id === currentCategory.id)
   }, [products, currentCategory.id])
 
+  if (filteredProducts.length < 1) {
+    return <EmptyState />
+  }
+
   return (
     <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
       {filteredProducts.map((product, index) => (
-        <ProductCard
-          key={index}
-          product={product}
-        />
+        <ProductCard key={index} product={product} />
       ))}
     </section>
   )

@@ -1,43 +1,32 @@
 'use client'
 import { Card, CardBody, Chip, Image } from '@nextui-org/react'
-import { FaChevronRight, FaDollarSign, FaHeart } from 'react-icons/fa'
-import { type IProduct, type Tag } from '@/interfaces/product'
+import { type IProduct } from '@/interfaces/product'
 import ViewDetailButton from './view-detail-button'
 
-export interface IDishCardProps {
-  id: number
-  srcImage: string | null
-  dishName: string
-  description: string
-  price: string
-  tags?: Tag[]
-}
-
-export default function ProductCard ({
-  product
-}: { product: IProduct }) {
+export default function ProductCard ({ product }: { product: IProduct }) {
   let image = ''
   if (product.main_image !== null) {
     image = 'https://res.cloudinary.com/drzrkaoje/' + product.main_image
   } else {
-    image = 'https://www.unileverfoodsolutions.com.mx/dam/global-ufs/mcos/NOLA/calcmenu/recipes/MX-recipes/general/sushi-empanizado/main-header.jpg'
+    image =
+      'https://www.unileverfoodsolutions.com.mx/dam/global-ufs/mcos/NOLA/calcmenu/recipes/MX-recipes/general/sushi-empanizado/main-header.jpg'
   }
+
   return (
-<Card
-      isBlurred
+    <Card
       isPressable
       className='cursor-pointer rounded-xl shadow-xs border border-white  bg-gradient-to-br from-secondary/50 to-background'
     >
       <CardBody className='flex flex-row md:flex-col gap-2'>
         {/* Card Image */}
-        <div className='aspect-square w-2/5 md:w-full shadow-sm relative overflow-hidden rounded-xl'>
-          <Image
-            className='object-cover h-full w-full'
-            src={image}
-            alt='Listing'
-            isBlurred
-          />
-        </div>
+        <Image
+          width={200}
+          height={200}
+          removeWrapper
+          className=' object-cover max-w-[8rem] md:min-w-full aspect-square'
+          src={image}
+          alt='NextUI Image with fallback'
+        />
 
         <div className='justify-between flex flex-col flex-1 gap-2'>
           {/* Card Info */}
@@ -59,7 +48,7 @@ export default function ProductCard ({
             ))}
           </div>
           {/* Footer */}
-          <ViewDetailButton id={product.id} price={product.price}/>
+          <ViewDetailButton id={product.id} price={product.price} />
         </div>
       </CardBody>
     </Card>

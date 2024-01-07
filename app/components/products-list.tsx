@@ -20,7 +20,9 @@ export default function ProductsList () {
   }, [])
 
   const filteredProducts = useMemo(() => {
-    return products.filter(product => desiredCategories.has(product.category.id ?? 2))
+    return products.filter(product =>
+      desiredCategories.has(product.category.id ?? 2)
+    )
   }, [products, currentCategory.id])
 
   if (loading) {
@@ -32,27 +34,27 @@ export default function ProductsList () {
           className='flex overflow-x-auto gap-4 pb-5'
         >
           {filteredProducts.map((_, index) => (
-              <div
-                key={index}
-                className=' min-w-[12rem] rounded-lg p-4 shadow-sm border border-[#f0f0f0]'
-              >
-                <div className='w-full flex flex-col gap-3 flex-1 h-full'>
-                  <div className='aspect-square w-full min-h-[10rem]'>
-                    <Skeleton className='flex rounded-lg w-full h-full ' />
+            <div
+              key={index}
+              className=' min-w-[12rem] rounded-lg p-4 shadow-sm border border-[#f0f0f0]'
+            >
+              <div className='w-full flex flex-col gap-3 flex-1 h-full'>
+                <div className='aspect-square w-full min-h-[10rem]'>
+                  <Skeleton className='flex rounded-lg w-full h-full ' />
+                </div>
+                <div className='w-full h-full flex flex-col justify-between flex-1 gap-8'>
+                  <div className='flex flex-col  gap-2'>
+                    <Skeleton className='h-3 w-3/5 rounded-lg' />
+                    <Skeleton className='h-3 w-4/5 rounded-lg' />
                   </div>
-                  <div className='w-full h-full flex flex-col justify-between flex-1 gap-8'>
-                    <div className='flex flex-col  gap-2'>
-                      <Skeleton className='h-3 w-3/5 rounded-lg' />
-                      <Skeleton className='h-3 w-4/5 rounded-lg' />
-                    </div>
 
-                    <div className='flex justify-between items-center flex-none'>
-                      <Skeleton className='h-3 w-12 rounded-lg' />
-                      <Skeleton className='h-8 w-8 rounded-lg' />
-                    </div>
+                  <div className='flex justify-between items-center flex-none'>
+                    <Skeleton className='h-3 w-12 rounded-lg' />
+                    <Skeleton className='h-8 w-8 rounded-lg' />
                   </div>
                 </div>
               </div>
+            </div>
           ))}
         </ScrollShadow>
       </section>
@@ -64,7 +66,7 @@ export default function ProductsList () {
   }
 
   return (
-    <section className='bg-background flex flex-col shadow-none gap-4 w-full pt-5'>
+    <section className='relative bg-background flex flex-col shadow-none gap-4 w-full pt-5'>
       <ScrollShadow
         size={20}
         orientation='horizontal'
