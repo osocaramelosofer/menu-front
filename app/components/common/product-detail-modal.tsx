@@ -1,3 +1,4 @@
+'use client'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
 
 import {
@@ -11,25 +12,30 @@ import {
   Chip
 } from '@nextui-org/react'
 
-export default function ProductDetailModal ({
-  isOpen,
-  onOpenChange
-}: {
-  isOpen: boolean
-  onOpenChange: () => void
-}) {
-  const { selectedProduct: product } = useProductsStore()
+export default function ProductDetailModal () {
+  const {
+    selectedProduct: product,
+    isModalOpen,
+    closeModal
+  } = useProductsStore()
+
+  let image = ''
+  if (product?.main_image !== null) {
+    image = 'https://res.cloudinary.com/drzrkaoje/' + product?.main_image
+  } else {
+    image = 'https://i.imgur.com/VjWugql.png'
+  }
 
   return (
     <Modal
       backdrop='blur'
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
+      isOpen={isModalOpen}
+      onClose={closeModal}
       radius='lg'
-      scrollBehavior='inside'
+      scrollBehavior='outside'
     >
       <ModalContent>
-        {onClose => (
+        {closeModal => (
           <>
             <ModalHeader>
               {/* Product Name and Category */}
@@ -37,18 +43,22 @@ export default function ProductDetailModal ({
                 <h1 className='capitalize font-bold text-2xl'>
                   {product?.name}
                 </h1>
+
                 <Chip size='sm' color='warning' variant='flat'>
                   {product?.category.name}
                 </Chip>
               </div>
             </ModalHeader>
-            <ModalBody className=' overflow-y-auto'>
+            <ModalBody>
               {/* Product Image */}
-              <div className='w-full flex-1 aspect-square shadow-sm relative rounded-xl'>
+              <div className='w-full flex-1  shadow-sm relative rounded-xl overflow-hidden '>
                 <Image
                   alt='Woman listing to music'
-                  className='object-cover h-full w-full rounded-xl'
-                  src={`https://res.cloudinary.com/drzrkaoje/${product?.main_image}`}
+                  // removeWrapper
+                  isZoomed
+                  isBlurred
+                  className='object-cover h-full w-full rounded-none'
+                  src={image}
                 />
               </div>
 
@@ -57,8 +67,10 @@ export default function ProductDetailModal ({
                 <h5 className='font-bold'>Descripción</h5>
                 <p className='opacity-80'>{product?.description}</p>
               </div>
+            </ModalBody>
+            <ModalFooter className='flex flex-col justify-between items-center gap-4'>
               {/* Product Sizes  */}
-              <div>
+              <div className=' flex  flex-1 flex-col w-full'>
                 <h5 className='font-bold mb-2'>Tamaños</h5>
                 <div className='flex gap-2'>
                   <Button
@@ -77,23 +89,23 @@ export default function ProductDetailModal ({
                   </Button>
                 </div>
               </div>
-            </ModalBody>
-            <ModalFooter className='flex justify-between items-center'>
-              <div className='flex flex-col justify-center items-center'>
-                <p className='text-sm font-medium'>Precio</p>
-                <h3 className='text-2xl font-bold '>
-                  <span className='text-success'>$</span>
-                  {product?.price}
-                </h3>
+              <div className=' flex flex-1 w-full justify-between'>
+                <div className='flex flex-col justify-center items-center'>
+                  <p className='text-sm font-medium'>Precio</p>
+                  <h3 className='text-2xl font-bold '>
+                    <span className='text-success'>$</span>
+                    {product?.price}
+                  </h3>
+                </div>
+                <Button
+                  color='primary'
+                  variant='solid'
+                  className='text-white'
+                  onPress={closeModal}
+                >
+                  Cerrar
+                </Button>
               </div>
-              <Button
-                color='primary'
-                variant='solid'
-                className='text-white'
-                onPress={onClose}
-              >
-                Cerrar
-              </Button>
             </ModalFooter>
           </>
         )}

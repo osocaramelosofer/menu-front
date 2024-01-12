@@ -6,7 +6,6 @@ export default function CategoriesSkeleton () {
       <div className='flex justify-between items-end font-bold text-base'>
         <h3>Categorías</h3>
       </div>
-      {/* </Skeleton> */}
 
       <ScrollShadow
         orientation='horizontal'

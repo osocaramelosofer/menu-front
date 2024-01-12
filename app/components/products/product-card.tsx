@@ -2,19 +2,27 @@
 import { Card, CardBody, Chip, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
 import ViewDetailButton from './view-detail-button'
+import { useProductsStore } from '@/store/dulce_trago/products-store'
 
 export default function ProductCard ({ product }: { product: IProduct }) {
+  const { setSelectedProduct, openModal } = useProductsStore()
+  const handleSelectedProduct = () => {
+    setTimeout(() => {
+      setSelectedProduct(product)
+      openModal()
+    }, 250)
+  }
   let image = ''
   if (product.main_image !== null) {
     image = 'https://res.cloudinary.com/drzrkaoje/' + product.main_image
   } else {
-    image =
-      'https://www.unileverfoodsolutions.com.mx/dam/global-ufs/mcos/NOLA/calcmenu/recipes/MX-recipes/general/sushi-empanizado/main-header.jpg'
+    image = 'https://i.imgur.com/VjWugql.png'
   }
 
   return (
     <Card
       isPressable
+      onClick={handleSelectedProduct}
       className='cursor-pointer rounded-xl shadow-xs border border-white  bg-gradient-to-br from-secondary/50 to-background'
     >
       <CardBody className='flex flex-row md:flex-col gap-2'>
@@ -22,7 +30,8 @@ export default function ProductCard ({ product }: { product: IProduct }) {
         <Image
           width={200}
           height={200}
-          removeWrapper
+          // removeWrapper
+          isBlurred
           className=' object-cover max-w-[8rem] md:min-w-full aspect-square'
           src={image}
           alt='NextUI Image with fallback'

@@ -9,6 +9,11 @@ interface State {
   setSelectedProduct: (product: IProduct) => void
 
   getProductsList: () => void
+
+  // Manage the Product Detail Modal Status
+  isModalOpen: boolean
+  openModal: () => void
+  closeModal: () => void
 }
 
 export const useProductsStore = create<State>((set, get) => {
@@ -16,6 +21,11 @@ export const useProductsStore = create<State>((set, get) => {
     loading: true,
     products: [],
     selectedProduct: null,
+
+    isModalOpen: false,
+    openModal: () => { set({ isModalOpen: true }) },
+    closeModal: () => { set({ isModalOpen: false }) },
+
     setSelectedProduct: (product: IProduct) => {
       set({ selectedProduct: product })
     },
@@ -24,7 +34,6 @@ export const useProductsStore = create<State>((set, get) => {
       fetchAllProducts()
         .then((response) => {
           set({ products: response })
-          console.log('ALL PRODUCTS: ', response)
         })
         .catch((err) => {
           console.log(err)

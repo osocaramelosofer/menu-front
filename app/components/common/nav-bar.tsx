@@ -15,7 +15,7 @@ import {
   DropdownMenu,
   DropdownTrigger
 } from '@nextui-org/react'
-import { DulceTragoLogo } from './logo'
+import { DulceTragoLogo } from '../logo'
 import {
   CoffeeIcon,
   HomeIcon,
@@ -46,9 +46,11 @@ export default function NavBar () {
       onMenuOpenChange={setIsMenuOpen}
       className='w-screen overflow-x-hidden bg-primary text-white'
     >
-      <NavbarContent className={`${pathname === '/dulce-trago' ? 'hidden' : ''}`}>
+      <NavbarContent
+        className={`${pathname === '/dulce-trago' ? 'hidden' : ''}`}
+      >
         <div>
-          <Link href="/dulce-trago" className='text-white'>
+          <Link href='/dulce-trago' className='text-white'>
             <FaArrowLeft size='20' />
           </Link>
         </div>
@@ -85,7 +87,11 @@ export default function NavBar () {
         </div>
       </NavbarContent>
 
-      <NavbarBrand as={Link} href='/dulce-trago/' className='max-w-fit hidden sm:flex'>
+      <NavbarBrand
+        as={Link}
+        href='/dulce-trago/'
+        className='max-w-fit hidden sm:flex'
+      >
         <DulceTragoLogo />
       </NavbarBrand>
       <NavbarContent className='hidden sm:flex gap-4' justify='center'>

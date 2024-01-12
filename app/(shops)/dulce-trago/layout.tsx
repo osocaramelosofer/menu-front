@@ -1,4 +1,4 @@
-import NavBar from '@/app/components/nav-bar'
+import NavBar from '@/app/components/common/nav-bar'
 import { type Metadata } from 'next'
 import React from 'react'
 

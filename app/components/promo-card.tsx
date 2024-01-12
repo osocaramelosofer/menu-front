@@ -1,14 +1,7 @@
 'use client'
 
 import React from 'react'
-import {
-  Card,
-  CardFooter,
-  Image,
-  Button,
-  CardHeader,
-  Chip
-} from '@nextui-org/react'
+import { Card, CardFooter, Image, CardHeader, Chip } from '@nextui-org/react'
 
 export default function PromoCard () {
   return (
@@ -38,7 +31,6 @@ export default function PromoCard () {
           height={500}
           isBlurred
           src='https://i.imgur.com/es71a9r.png'
-          // onLoad={() => setPressable(true)}
         />
         <CardFooter className='absolute bg-black/30 bottom-0 z-10 border-t-1 border-default-600 '>
           <p className='text-tiny text-white/90 line-clamp-2'>

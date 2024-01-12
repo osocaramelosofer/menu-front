@@ -1,3 +1,5 @@
+'use client'
+
 import { type IProduct } from '@/interfaces/product'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
 import {
@@ -6,30 +8,28 @@ import {
   CardBody,
   CardFooter,
   Chip,
+  Code,
   Image
 } from '@nextui-org/react'
 import { FaDollarSign, FaChevronRight } from 'react-icons/fa'
 
-export default function ProductCard ({
-  product,
-  onOpen
+export default function FeaturedProductCard ({
+  product
 }: {
   product: IProduct
-  onOpen: () => void
 }) {
-  const { setSelectedProduct } = useProductsStore()
+  const { setSelectedProduct, openModal } = useProductsStore()
   const handleSelectedProduct = () => {
     setTimeout(() => {
       setSelectedProduct(product)
-      onOpen()
+      openModal()
     }, 250)
   }
   let image = ''
   if (product.main_image !== null) {
     image = 'https://res.cloudinary.com/drzrkaoje/' + product.main_image
   } else {
-    image =
-      'https://www.unileverfoodsolutions.com.mx/dam/global-ufs/mcos/NOLA/calcmenu/recipes/MX-recipes/general/sushi-empanizado/main-header.jpg'
+    image = 'https://i.imgur.com/VjWugql.png'
   }
 
   return (
@@ -72,6 +72,7 @@ export default function ProductCard ({
           {product.price}
         </Chip>
         <Button
+          as={Code}
           onPress={handleSelectedProduct}
           className=' text-white rounded-xl'
           size='sm'
