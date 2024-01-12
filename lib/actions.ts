@@ -9,7 +9,7 @@ export async function fetchAllCategories () {
     throw new Error('Error al cargar las categorías')
   }
   const data = await response.json()
-  // await new Promise((resolve) => setTimeout(resolve, 2000))
+  // await new Promise((resolve) => setTimeout(resolve, 5000))
 
   return data
 }
