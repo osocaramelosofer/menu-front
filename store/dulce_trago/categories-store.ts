@@ -28,7 +28,7 @@ export const useCategoriesStore = create<State>((set, get) => {
       set({ loading: true })
       fetchAllCategories()
         .then((response) => {
-          set({ categories: response })
+          set({ categories: response.results })
         })
         .catch((err) => {
           console.log(err)
