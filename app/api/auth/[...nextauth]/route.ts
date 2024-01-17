@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import GitHubProvider from 'next-auth/providers/github'
 
 export const authOptions = {
   providers: [
@@ -38,9 +37,6 @@ export const authOptions = {
         // En caso de error (como credenciales incorrectas), retorna null
         return null
       }
-    }), GitHubProvider({
-      clientId: process.env.GITHUB_ID ?? '',
-      clientSecret: process.env.GITHUB_SECRET ?? ''
     })
   ]
 }
