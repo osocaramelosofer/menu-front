@@ -26,6 +26,7 @@ import {
 
 import { FaArrowLeft } from 'react-icons/fa'
 import { usePathname } from 'next/navigation'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 export default function NavBar () {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
@@ -46,7 +47,7 @@ export default function NavBar () {
       onMenuOpenChange={setIsMenuOpen}
       className='w-screen overflow-x-hidden bg-primary text-white'
     >
-      <NavbarContent
+      {/* <NavbarContent
         className={`${pathname === '/dulce-trago' ? 'hidden' : ''}`}
       >
         <div>
@@ -54,7 +55,7 @@ export default function NavBar () {
             <FaArrowLeft size='20' />
           </Link>
         </div>
-      </NavbarContent>
+      </NavbarContent> */}
 
       <NavbarContent className='sm:hidden w-full'>
         <div className='flex w-full justify-between items-center'>
