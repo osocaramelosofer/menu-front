@@ -29,8 +29,8 @@ export async function fetchAllProducts () {
 }
 
 export async function fetchFilteredProducts (currentCategoryId: string) {
-  const baseURL = 'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products'
-  const finalURL = baseURL + `?category=${currentCategoryId}`
+  const baseURL = 'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products?store=2&limit=2&offset=0'
+  const finalURL = baseURL + `&category=${currentCategoryId}`
 
   const response = await fetch((currentCategoryId !== undefined) ? finalURL : baseURL)
   if (!response.ok) {

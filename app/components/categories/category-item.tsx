@@ -1,17 +1,8 @@
 import qs from 'query-string'
+import type { Category } from '@/interfaces/product'
 import { Button } from '@nextui-org/react'
-import { useCategoriesStore } from '@/store/dulce_trago/categories-store'
-import { type Category } from '@/interfaces/product'
-import {
-  redirect,
-  usePathname,
-  useRouter,
-  useSearchParams
-} from 'next/navigation'
-import { useCallback } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 export default function CategoryItem ({ category }: { category: Category }) {
-  // const { currentCategory, setCurrentCategory } = useCategoriesStore()
-
   const router = useRouter()
   const params = useSearchParams()
   const pathname = usePathname()
@@ -30,43 +21,8 @@ export default function CategoryItem ({ category }: { category: Category }) {
       },
       { skipNull: true, skipEmptyString: true }
     )
-    router.push(url)
+    router.push(url, { scroll: false })
   }
-
-  const handleClick = useCallback(
-    (category: Category) => {
-      let currentQuery = {}
-
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (params) {
-        currentQuery = qs.parse(params.toString())
-      }
-
-      const updatedQuery: any = {
-        ...currentQuery,
-        category: category.id
-      }
-
-      if (params?.get('category') === category.id) {
-        delete updatedQuery.category
-      }
-
-      const url = qs.stringifyUrl(
-        {
-          url: '/dulce-trago',
-          query: updatedQuery
-        },
-        { skipNull: true }
-      )
-
-      // setCurrentCategory(category)
-      router.push(url)
-      // redirect(url)
-
-      // router.replace(url, { shallow: true })
-    },
-    [currentCategoryId, params]
-  )
 
   return (
     <>
