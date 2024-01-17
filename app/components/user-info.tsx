@@ -1,6 +1,6 @@
 'use client'
 
-import { type IUser } from '@/interfaces/user'
+import type { IUser } from '@/interfaces/user'
 import { signOut } from 'next-auth/react'
 
 interface UserInfoProps {

@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 
 export default async function DulceTragoAdminPage () {
   const session = await getServerSession()
+  console.log(session)
 
   if (session === null) {
     redirect('/api/auth/signin')
