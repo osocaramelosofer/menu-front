@@ -22,14 +22,14 @@ export default async function ProductsList ({
       {products.results.map((product, index) => (
         <ProductCard key={index} product={product} />
       ))}
-      <Pagination
+      {/* <Pagination
         showControls
         isCompact
         total={products.results.length}
         onChange={() => {
           redirect(products.next)
         }}
-      />
+      /> */}
       {/* <LoadMore /> */}
     </section>
   )
