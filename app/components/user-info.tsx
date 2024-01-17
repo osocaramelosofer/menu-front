@@ -1,10 +1,10 @@
 'use client'
 
-import { type User } from '@/interfaces/user'
+import type { IUser } from '@/interfaces/user'
 import { signOut } from 'next-auth/react'
 
 interface UserInfoProps {
-  user: User
+  user: IUser
 }
 
 export default function UserInfo ({ user }: UserInfoProps) {
@@ -14,7 +14,6 @@ export default function UserInfo ({ user }: UserInfoProps) {
 
   return (
     <div className='rounded-lg border shadow-lg p-10'>
-      <div>Id : {user.id}</div>
       <div>Name : {user.name}</div>
       <div>Email : {user.email}</div>
       <button

@@ -3,15 +3,13 @@ import { Button } from '@nextui-org/react'
 import { type Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
 
-import { redirect } from 'next/navigation'
-
 export default async function AdminUserInfo ({
   session
 }: {
   session: Session | null
 }) {
-  if (session === null) {
-    redirect('/api/auth/signin')
+  const handleLogout = async () => {
+    await signOut()
   }
 
   return (
@@ -26,9 +24,7 @@ export default async function AdminUserInfo ({
         color='danger'
         variant='flat'
         className=' max-w-xs'
-        onPress={async () => {
-          await signOut()
-        }}
+        onPress={handleLogout}
       >
         Sign Out
       </Button>
