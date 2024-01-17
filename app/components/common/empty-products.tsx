@@ -1,7 +1,7 @@
 'use client'
 
-import { useCategoriesStore } from '@/store/dulce_trago/categories-store'
 import { Button } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
 
 interface EmptyStateProps {
   title?: string
@@ -10,9 +10,13 @@ interface EmptyStateProps {
 
 export default function EmptyState ({
   title = 'Sin coincidencias exactas',
-  subtitle = 'Prueba a cambiar o quitar algunos de tus filtros'
+  subtitle = 'Intenta ajustar los filtros o explora otras categorías.'
 }: EmptyStateProps) {
-  const { resetCurrentCategory } = useCategoriesStore()
+  // const { resetCurrentCategory } = useCategoriesStore()
+  const router = useRouter()
+  const handleResetCategoryFilter = () => {
+    router.push('/dulce-trago')
+  }
   return (
     <div className='h-[40vh] flex flex-col gap-2 justify-center items-center px-4 text-center'>
       <h1 className=' text-2xl font-semibold'>{title}</h1>
@@ -22,9 +26,9 @@ export default function EmptyState ({
           radius='full'
           color='primary'
           variant='flat'
-          onClick={resetCurrentCategory}
+          onClick={handleResetCategoryFilter}
         >
-          Eliminar todos los filtros
+          Restablecer Filtros
         </Button>
       </div>
     </div>

@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📚 README - Menu app
 
 ## Getting Started
 
@@ -11,21 +11,32 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## 🌐 Environment Variables
+We use an `.env` file to work with some libraries and services, so ask to developers to get it.
+If you want to add a new value to the `.env` file, please share it with the team.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Packages We Are Using
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### For UI:
+- **Next UI**: [Next UI Documentation](https://nextui.org/docs/guide/introduction)
+- **Tailwind**: [Tailwind Documentation](https://tailwindcss.com/docs/installation)
 
-## Deploy on Vercel
+### State Management:
+- **Zustand**: [Zustand Documentation](https://docs.pmnd.rs/zustand/getting-started/introduction)
+- **Next Auth**: [Next Auth Documentation](https://next-auth.js.org/getting-started/introduction)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Styling Code:
+- **eslint + typescript**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 💻 About Installing Packages
+Everything you need to install use `npm`. 
+Also, avoid installing unnecessary packages to make the project as light as possible.
+Also install exact (`npm install package-name -E`) packages to avoid incompatibilities in the future.
+
+## 🚀 Deploy
+We use Vercel to host the web app, and we have configured it to deploy to `dev` and `main` every time we merge or push changes to these branches.
+Every time you need to deploy something, run `npm run build` first to check there are no issues with the code you want to deploy, and do it to `develop`, not `main`.

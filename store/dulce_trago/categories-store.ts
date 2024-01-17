@@ -14,7 +14,7 @@ interface State {
 }
 
 const initialCategoryState: Category = {
-  id: null,
+  id: 0,
   name: 'Todos',
   description: 'Todos los productos'
 }

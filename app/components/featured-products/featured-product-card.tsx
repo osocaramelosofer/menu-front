@@ -1,3 +1,5 @@
+'use client'
+
 import { type IProduct } from '@/interfaces/product'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
 import {
@@ -6,42 +8,46 @@ import {
   CardBody,
   CardFooter,
   Chip,
+  Code,
   Image
 } from '@nextui-org/react'
 import { FaDollarSign, FaChevronRight } from 'react-icons/fa'
 
-export default function ProductCard ({
-  product,
-  onOpen
+export default function FeaturedProductCard ({
+  product
 }: {
   product: IProduct
-  onOpen: () => void
 }) {
-  const { setSelectedProduct } = useProductsStore()
+  const { setSelectedProduct, openModal } = useProductsStore()
   const handleSelectedProduct = () => {
-    setSelectedProduct(product)
-    onOpen()
+    setTimeout(() => {
+      setSelectedProduct(product)
+      openModal()
+    }, 250)
+  }
+  let image = ''
+  if (product.main_image !== null) {
+    image = 'https://res.cloudinary.com/drzrkaoje/' + product.main_image
+  } else {
+    image = 'https://i.imgur.com/VjWugql.png'
   }
 
   return (
     <Card
-      isBlurred
       isPressable
       onPress={handleSelectedProduct}
       className='cursor-pointer rounded-xl shadow-xs border border-white
        bg-gradient-to-br from-secondary/50 to-background min-w-fit overflow-hidden'
     >
-      <CardBody className='flex flex-col gap-2 max-w-[9rem] overflow-hidden'>
+      <CardBody className='flex flex-col gap-2 max-w-[8.5rem] md:max-w-[12rem] overflow-hidden'>
         {/* Card Image */}
-        <div className=' min-w-full aspect-square h-[6rem] border shadow-sm relative rounded-xl overflow-hidden'>
-          <Image
-            className='object-cover h-full w-full rounded-lg'
-            src='https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg'
-            alt='Listing'
-            removeWrapper
-            isBlurred
-          />
-        </div>
+        <Image
+          width={200}
+          height={200}
+          className=' object-cover aspect-square w-full h-full rounded-xl'
+          src={image}
+          alt='NextUI Image with fallback'
+        />
 
         <div className='justify-between flex flex-col flex-1 gap-2'>
           {/* Card Info */}
@@ -66,6 +72,7 @@ export default function ProductCard ({
           {product.price}
         </Chip>
         <Button
+          as={Code}
           onPress={handleSelectedProduct}
           className=' text-white rounded-xl'
           size='sm'
