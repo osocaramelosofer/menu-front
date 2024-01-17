@@ -1,7 +1,5 @@
 'use client'
 
-import { type Category } from '@/interfaces/product'
-
 import React, { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Chip, ScrollShadow } from '@nextui-org/react'
@@ -9,7 +7,7 @@ import CategoryItem from './category-item'
 import { useCategoriesStore } from '@/store/dulce_trago/categories-store'
 import CategoriesSkeleton from '../skeletons/categories-skeleton'
 
-export default function Categories ({ data }: { data?: Category[] }) {
+export default function Categories () {
   const { categories, getCategoriesList, loading } = useCategoriesStore()
 
   useEffect(() => {
@@ -22,7 +20,7 @@ export default function Categories ({ data }: { data?: Category[] }) {
   const currentCategoryName = params.get('categoryName')
 
   const handleResetCategoryFilter = () => {
-    router.push('/dulce-trago')
+    router.push('/dulce-trago', { scroll: false })
   }
 
   if (loading) {

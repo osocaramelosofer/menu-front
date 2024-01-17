@@ -14,7 +14,7 @@ interface State {
 }
 
 const initialCategoryState: Category = {
-  id: null,
+  id: 0,
   name: 'Todos',
   description: 'Todos los productos'
 }
@@ -28,7 +28,7 @@ export const useCategoriesStore = create<State>((set, get) => {
       set({ loading: true })
       fetchAllCategories()
         .then((response) => {
-          set({ categories: response.results })
+          set({ categories: response })
         })
         .catch((err) => {
           console.log(err)

@@ -3,6 +3,8 @@ import { fetchFilteredProducts } from '@/lib/actions'
 import ProductCard from './product-card'
 
 import EmptyState from '../common/empty-products'
+import { Pagination } from '@nextui-org/react'
+import { redirect } from 'next/navigation'
 
 export default async function ProductsList ({
   currentCategoryId
@@ -20,6 +22,14 @@ export default async function ProductsList ({
       {products.results.map((product, index) => (
         <ProductCard key={index} product={product} />
       ))}
+      <Pagination
+        showControls
+        isCompact
+        total={products.results.length}
+        onChange={() => {
+          redirect(products.next)
+        }}
+      />
       {/* <LoadMore /> */}
     </section>
   )
