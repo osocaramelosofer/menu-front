@@ -1,9 +1,8 @@
 import type { IProduct } from '@/interfaces/product'
 import { ScrollShadow } from '@nextui-org/react'
 import EmptyState from '../common/empty-products'
-
-import ProductCard from './featured-product-card'
 import { fetchAllProducts } from '@/lib/actions'
+import FeaturedProductCard from './featured-product-card'
 
 export default async function FeaturedProductsList () {
   const products: IProduct[] = await fetchAllProducts()
@@ -24,8 +23,11 @@ export default async function FeaturedProductsList () {
         orientation='horizontal'
         className='flex overflow-x-auto gap-4 pb-5'
       >
-        {oddIdProducts.reverse().map((product, index) => (
-          <ProductCard key={`${product.id}${index}`} product={product} />
+        {oddIdProducts.map((product, index) => (
+          <FeaturedProductCard
+            key={`${product.id}${index}`}
+            product={product}
+          />
         ))}
       </ScrollShadow>
     </section>

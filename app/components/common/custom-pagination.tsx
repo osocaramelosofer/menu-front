@@ -1,59 +1,75 @@
+'use client'
+
+import qs from 'query-string'
 import { Pagination } from '@nextui-org/react'
-import { useState, useEffect } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import type { IApiResponse } from '@/interfaces/product'
+import { useProductsStore } from '@/store/dulce_trago/products-store'
 
-export default async function CustomPagination ({
-  initialData
-}: {
-  initialData?: any
-}) {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [data, setData] = useState(initialData)
+export default function CustomPagination ({ data }: { data: IApiResponse }) {
+  const router = useRouter()
+  const params = useSearchParams()
+  const pathname = usePathname()
+  const pageParam = params.get('page')
+  const currentPage = pageParam !== null ? Number(pageParam) : 1
 
-  useEffect(() => {
-    // Fetch new data when currentPage changes
-    // and update `data` state accordingly
-  }, [currentPage])
+  const { resultsPeerPage } = useProductsStore()
 
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage)
-    // Here you would typically make a new request to the backend
-    // using the `newPage` value to calculate the offset
+  const updateURL = (newOffset: number, newPage: number) => {
+    // Preserve existing query parameters
+    const currentQueryParams = Object.fromEntries(params.entries())
+    const updatedQuery = {
+      ...currentQueryParams,
+      offset: newOffset.toString(),
+      page: newPage.toString(),
+      resultsPeerPage: resultsPeerPage.toString()
+    }
+
+    const url = qs.stringifyUrl(
+      {
+        url: pathname,
+        query: updatedQuery
+      },
+      { skipNull: true, skipEmptyString: true }
+    )
+    setTimeout(() => {
+      router.push(url, { scroll: false })
+      // window.scrollTo({
+      //   top: 600,
+      //   behavior: 'smooth'
+      // })
+    }, 250)
   }
 
-  const parsePageFromUrl = (url: string) => {
-    if (url.length === 0) return null
+  // const handlePrevNext = (direction: string) => {
+  //   const itemsPerPage = 3 // Assuming 3 items per page
+  //   const offset = (currentPage - 1) * itemsPerPage // Calculate current offset
+  //   const newPage =
+  //     direction === 'next' ? currentPage + 1 : Math.max(1, currentPage - 1)
+  //   updateURL(
+  //     offset + (direction === 'next' ? itemsPerPage : -itemsPerPage),
+  //     newPage
+  //   )
+  // }
 
-    const queryParams = new URLSearchParams(new URL(url).search)
-    const offset = queryParams.get('offset')
-    const limit = queryParams.get('limit')
+  const handlePageChange = (selectedPage: number) => {
+    const newOffset = (selectedPage - 1) * resultsPeerPage
 
-    if (offset === null || limit === null) return null
-
-    // Convert string to number and handle arithmetic operation
-    const offsetNum = parseInt(offset, 10)
-    const limitNum = parseInt(limit, 10)
-
-    if (isNaN(offsetNum) || isNaN(limitNum)) return null
-
-    return Math.floor(offsetNum / limitNum) + 1
+    updateURL(newOffset, selectedPage)
   }
-
-  const totalPages = Math.ceil(data.count / 5) // Assuming limit is 5
-  const nextPage = parsePageFromUrl(data.next)
-  const prevPage = parsePageFromUrl(data.previous)
-
-  // Adjust current page in case of direct navigation
-  useEffect(() => {
-    if (nextPage != null) setCurrentPage(nextPage - 1)
-    else if (prevPage != null) setCurrentPage(prevPage + 1)
-  }, [data])
 
   return (
     <Pagination
-      total={totalPages}
-      color='secondary'
+      size='sm'
+      isCompact
+      showControls
+      total={Math.ceil(data.count / resultsPeerPage)}
+      color='primary'
+      className=' text-white'
       page={currentPage}
-      onChange={handlePageChange}
+      onChange={page => {
+        handlePageChange(page)
+      }}
     />
   )
 }

@@ -3,34 +3,36 @@ import { fetchFilteredProducts } from '@/lib/actions'
 import ProductCard from './product-card'
 
 import EmptyState from '../common/empty-products'
-import { Pagination } from '@nextui-org/react'
-import { redirect } from 'next/navigation'
+
+import CustomPagination from '../common/custom-pagination'
 
 export default async function ProductsList ({
-  currentCategoryId
+  currentCategoryId,
+  currentOffset
 }: {
   currentCategoryId: string
+  currentOffset: number
 }) {
-  const products: IApiResponse = await fetchFilteredProducts(currentCategoryId)
+  const products: IApiResponse = await fetchFilteredProducts(
+    currentCategoryId,
+    currentOffset,
+    5
+  )
 
   if (products.results.length === 0) {
     return <EmptyState />
   }
 
   return (
-    <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
-      {products.results.map((product, index) => (
-        <ProductCard key={index} product={product} />
-      ))}
-      {/* <Pagination
-        showControls
-        isCompact
-        total={products.results.length}
-        onChange={() => {
-          redirect(products.next)
-        }}
-      /> */}
-      {/* <LoadMore /> */}
-    </section>
+    <div className='flex flex-col gap-10'>
+      <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+        {products.results.map((product, index) => (
+          <ProductCard key={index} product={product} />
+        ))}
+      </section>
+      <section className='flex flex-col flex-1 w-full justify-center items-center  z-10'>
+        <CustomPagination data={products} />
+      </section>
+    </div>
   )
 }
