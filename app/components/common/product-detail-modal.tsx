@@ -32,14 +32,14 @@ export default function ProductDetailModal () {
       isOpen={isModalOpen}
       onClose={closeModal}
       radius='lg'
-      scrollBehavior='outside'
+      scrollBehavior='inside'
     >
       <ModalContent>
         {closeModal => (
           <>
             <ModalHeader>
               {/* Product Name and Category */}
-              <div className='flex flex-col gap-2'>
+              <div className='flex flex-col gap-1'>
                 <h1 className='capitalize font-bold text-2xl'>
                   {product?.name}
                 </h1>
@@ -51,13 +51,12 @@ export default function ProductDetailModal () {
             </ModalHeader>
             <ModalBody>
               {/* Product Image */}
-              <div className='w-full flex-1  shadow-sm relative rounded-xl overflow-hidden '>
+              <div className='w-full flex-1  shadow-sm relative rounded-xl'>
                 <Image
                   alt='Woman listing to music'
                   // removeWrapper
                   isZoomed
-                  isBlurred
-                  className='object-cover h-full w-full rounded-none'
+                  className='object-cover h-full w-full rounded-xl'
                   src={image}
                 />
               </div>
@@ -65,10 +64,8 @@ export default function ProductDetailModal () {
               {/* Product Description */}
               <div>
                 <h5 className='font-bold'>Descripción</h5>
-                <p className='opacity-80'>{product?.description}</p>
+                <p className='opacity-80 text-sm'>{product?.description}</p>
               </div>
-            </ModalBody>
-            <ModalFooter className='flex flex-col justify-between items-center gap-4'>
               {/* Product Sizes  */}
               <div className=' flex  flex-1 flex-col w-full'>
                 <h5 className='font-bold mb-2'>Tamaños</h5>
@@ -89,7 +86,9 @@ export default function ProductDetailModal () {
                   </Button>
                 </div>
               </div>
-              <div className=' flex flex-1 w-full justify-between'>
+            </ModalBody>
+            <ModalFooter className='flex flex-col justify-between items-center gap-4'>
+              <div className=' flex flex-1 w-full justify-between items-end'>
                 <div className='flex flex-col justify-center items-center'>
                   <p className='text-sm font-medium'>Precio</p>
                   <h3 className='text-2xl font-bold '>

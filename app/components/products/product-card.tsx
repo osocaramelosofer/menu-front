@@ -7,10 +7,8 @@ import { useProductsStore } from '@/store/dulce_trago/products-store'
 export default function ProductCard ({ product }: { product: IProduct }) {
   const { setSelectedProduct, openModal } = useProductsStore()
   const handleSelectedProduct = () => {
-    setTimeout(() => {
-      setSelectedProduct(product)
-      openModal()
-    }, 250)
+    setSelectedProduct(product)
+    openModal()
   }
   let image = ''
   if (product.main_image !== null) {

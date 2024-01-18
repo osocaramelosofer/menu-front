@@ -20,10 +20,8 @@ export default function FeaturedProductCard ({
 }) {
   const { setSelectedProduct, openModal } = useProductsStore()
   const handleSelectedProduct = () => {
-    setTimeout(() => {
-      setSelectedProduct(product)
-      openModal()
-    }, 250)
+    setSelectedProduct(product)
+    openModal()
   }
   let image = ''
   if (product.main_image !== null) {
@@ -49,20 +47,18 @@ export default function FeaturedProductCard ({
           alt='NextUI Image with fallback'
         />
 
-        <div className='justify-between flex flex-col flex-1 gap-2'>
-          {/* Card Info */}
-          <div className='flex flex-col flex-1 justify-between gap-2'>
-            <div className='font-semibold text-sm capitalize line-clamp-2'>
-              {product.name}
-            </div>
-            <div className='font-medium text-xs opacity-70 line-clamp-2'>
-              {product.description}
-            </div>
+        {/* Card Info */}
+        <div className='flex flex-col justify-between gap-1'>
+          <div className='font-semibold text-sm capitalize line-clamp-1'>
+            {product.name}
+          </div>
+          <div className='text-xs opacity-70 line-clamp-2'>
+            {product.description}
           </div>
         </div>
       </CardBody>
       {/* Footer */}
-      <CardFooter className='justify-between flex flex-row items-center'>
+      <CardFooter className='justify-between flex flex-row items-center pt-0'>
         <Chip
           className=' text-sm'
           startContent={<FaDollarSign />}

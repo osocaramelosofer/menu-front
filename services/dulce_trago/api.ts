@@ -36,8 +36,6 @@ const api = {
     if (!response.ok) {
       throw new Error('Error al cargar las categorías')
     }
-
-    await new Promise((resolve) => setTimeout(resolve, 2000))
     return await response.json()
   },
   filteredProducts: async (params: string) => {
@@ -53,7 +51,6 @@ const api = {
       throw new Error('Error al cargar los productos')
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 2000))
     return await response.json()
   }
 }

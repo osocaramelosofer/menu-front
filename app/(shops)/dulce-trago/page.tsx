@@ -25,17 +25,17 @@ export default async function DulceTragoPage ({ searchParams }: RootPageProps) {
       <PromoCard />
       <Spacer y={6} />
       <h2 className='text-base font-semibold'>Productos Destacados</h2>
-      <Suspense fallback={<FeaturedProductsSkeleton />}>
-        <FeaturedProductsList />
-      </Suspense>
+      {/* <Suspense fallback={<FeaturedProductsSkeleton />}> */}
+      <FeaturedProductsList />
+      {/* </Suspense> */}
       <Categories />
       <Spacer y={6} />
-      <Suspense key={Math.random()} fallback={<ProductsSkeleton />}>
-        <ProductsList
-          currentCategoryId={currentCategoryId}
-          currentOffset={currentOffset}
-        />
-      </Suspense>
+      {/* <Suspense key={Math.random()} fallback={<ProductsSkeleton />}> */}
+      <ProductsList
+        currentCategoryId={currentCategoryId}
+        currentOffset={currentOffset}
+      />
+      {/* </Suspense> */}
       <ProductDetailModal />
     </main>
   )
