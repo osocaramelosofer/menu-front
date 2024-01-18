@@ -12,11 +12,13 @@ interface RootPageProps {
   searchParams: {
     categoryId: string
     categoryName: string
+    offset: string
   }
 }
 
 export default async function DulceTragoPage ({ searchParams }: RootPageProps) {
   const currentCategoryId = searchParams.categoryId
+  const currentOffset = Number(searchParams.offset)
 
   return (
     <main className='flex flex-col w-full h-full px-4 py-8'>
@@ -29,7 +31,10 @@ export default async function DulceTragoPage ({ searchParams }: RootPageProps) {
       <Categories />
       <Spacer y={6} />
       <Suspense key={Math.random()} fallback={<ProductsSkeleton />}>
-        <ProductsList currentCategoryId={currentCategoryId} />
+        <ProductsList
+          currentCategoryId={currentCategoryId}
+          currentOffset={currentOffset}
+        />
       </Suspense>
       <ProductDetailModal />
     </main>

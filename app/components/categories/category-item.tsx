@@ -10,13 +10,14 @@ export default function CategoryItem ({ category }: { category: Category }) {
   const currentCategoryId = Number(params.get('categoryId'))
   const isSelected = currentCategoryId === category.id
 
-  const onClick = () => {
+  const handleCategoryChange = () => {
     const url = qs.stringifyUrl(
       {
         url: pathname,
         query: {
           categoryId: isSelected ? null : category.id,
-          categoryName: isSelected ? null : category.name
+          categoryName: isSelected ? null : category.name,
+          offset: 0
         }
       },
       { skipNull: true, skipEmptyString: true }
@@ -25,19 +26,17 @@ export default function CategoryItem ({ category }: { category: Category }) {
   }
 
   return (
-    <>
-      <Button
-        onClick={onClick}
-        key={`${category.id}${category.name}`}
-        variant={isSelected ? 'solid' : 'flat'}
-        color={isSelected ? 'primary' : 'secondary'}
-        size='sm'
-        className='min-w-fit flex text-sm'
-      >
-        <p className={`${isSelected ? 'text-white' : 'text-primary'}`}>
-          {category.name}
-        </p>
-      </Button>
-    </>
+    <Button
+      onClick={handleCategoryChange}
+      key={`${category.id}${category.name}`}
+      variant={isSelected ? 'solid' : 'flat'}
+      color={isSelected ? 'primary' : 'secondary'}
+      size='sm'
+      className='min-w-fit flex text-sm'
+    >
+      <p className={`${isSelected ? 'text-white' : 'text-primary'}`}>
+        {category.name}
+      </p>
+    </Button>
   )
 }

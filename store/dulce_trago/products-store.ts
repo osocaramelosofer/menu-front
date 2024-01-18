@@ -1,12 +1,14 @@
 import { create } from 'zustand'
 import type { IProduct } from '@/interfaces/product'
-import { fetchAllProducts } from '@/lib/actions'
+import { fetchAllProducts, fetchFilteredProducts } from '@/lib/actions'
 
 interface State {
   loading: boolean
   products: IProduct[]
   selectedProduct: IProduct | null
   setSelectedProduct: (product: IProduct) => void
+
+  resultsPeerPage: number
 
   getProductsList: () => void
 
@@ -21,6 +23,7 @@ export const useProductsStore = create<State>((set, get) => {
     loading: true,
     products: [],
     selectedProduct: null,
+    resultsPeerPage: 5,
 
     isModalOpen: false,
     openModal: () => { set({ isModalOpen: true }) },

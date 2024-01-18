@@ -51,8 +51,8 @@ export default function FeaturedProductCard ({
 
         <div className='justify-between flex flex-col flex-1 gap-2'>
           {/* Card Info */}
-          <div className='flex flex-col gap-1'>
-            <div className='font-semibold text-sm capitalize line-clamp-1'>
+          <div className='flex flex-col flex-1 justify-between gap-2'>
+            <div className='font-semibold text-sm capitalize line-clamp-2'>
               {product.name}
             </div>
             <div className='font-medium text-xs opacity-70 line-clamp-2'>
