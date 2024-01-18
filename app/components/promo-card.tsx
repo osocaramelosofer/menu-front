@@ -6,12 +6,7 @@ import { Card, CardFooter, Image, CardHeader, Chip } from '@nextui-org/react'
 export default function PromoCard () {
   return (
     <section className='self-center'>
-      <Card
-        isFooterBlurred
-        isPressable
-        radius='lg'
-        className='border-none text-left'
-      >
+      <Card isPressable radius='lg' className='border-none text-left'>
         <CardHeader
           className='absolute z-10 flex-col w-fit min-h-full items-start
         bg-gradient-to-r from-black/70 via-black/50 to-transparent'
@@ -29,10 +24,9 @@ export default function PromoCard () {
           className='object-cover min-w-full h-52 lg:h-64 z-0'
           width={700}
           height={500}
-          isBlurred
           src='https://i.imgur.com/es71a9r.png'
         />
-        <CardFooter className='absolute bg-black/30 bottom-0 z-10 border-t-1 border-default-600 '>
+        <CardFooter className='absolute bg-black/30 bottom-0 z-10 border-t-1 border-default-600 backdrop-blur-sm'>
           <p className='text-tiny text-white/90 line-clamp-2'>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
