@@ -26,13 +26,13 @@ export default function ProductCard ({ product }: { product: IProduct }) {
       <CardBody className='flex flex-row md:flex-col gap-2'>
         {/* Card Image */}
         <Image
-          width={200}
-          height={200}
+          width={300}
+          height={300}
           // removeWrapper
-          isBlurred
+          // isBlurred
           className=' object-cover max-w-[8rem] md:min-w-full aspect-square'
           src={image}
-          alt='NextUI Image with fallback'
+          alt='Dulce Trago Product Image'
         />
 
         <div className='justify-between flex flex-col flex-1 gap-2'>
@@ -46,14 +46,6 @@ export default function ProductCard ({ product }: { product: IProduct }) {
             </div>
           </div>
 
-          {/* Card tags */}
-          <div className='justify-between flex flex-row items-center gap-2'>
-            {product.tags?.map(tag => (
-              <Chip key={tag?.id} size='sm' variant='flat' color='warning'>
-                <p className='text-tiny uppercase'># {tag.name}</p>
-              </Chip>
-            ))}
-          </div>
           {/* Footer */}
           <ViewDetailButton id={product.id} price={product.price} />
         </div>
