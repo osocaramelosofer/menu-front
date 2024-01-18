@@ -33,7 +33,7 @@ export default function NavBar () {
 
   const menuItems = [
     { name: 'Menu', route: '/dulce-trago', icon: <HomeIcon /> },
-    { name: 'Cafés Regionales', route: '/dulce-trago', icon: <CoffeeIcon /> },
+    { name: 'Cafés Regionales', route: '/dulce-trago/coffees', icon: <CoffeeIcon /> },
     { name: 'Conservas', route: '/dulce-trago', icon: <JarIcon /> },
     { name: 'Pinta y Crea', route: '/dulce-trago', icon: <PaintbrushIcon /> }
   ]
@@ -60,7 +60,7 @@ export default function NavBar () {
       <NavbarContent className='sm:hidden w-full'>
         <div className='flex w-full justify-between items-center'>
           <NavbarBrand as={Link} href='/dulce-trago/' className='max-w-fit'>
-            <DulceTragoLogo />
+           <DulceTragoLogo />
           </NavbarBrand>
 
           <Dropdown>
