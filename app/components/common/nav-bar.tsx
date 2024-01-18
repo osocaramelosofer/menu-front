@@ -30,15 +30,13 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 
 export default function NavBar () {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-
+  const pathname = usePathname()
   const menuItems = [
     { name: 'Menu', route: '/dulce-trago', icon: <HomeIcon /> },
     { name: 'Cafés Regionales', route: '/dulce-trago/coffees', icon: <CoffeeIcon /> },
-    { name: 'Conservas', route: '/dulce-trago', icon: <JarIcon /> },
-    { name: 'Pinta y Crea', route: '/dulce-trago', icon: <PaintbrushIcon /> }
+    { name: 'Conservas', route: '/dulce-trago/conservas', icon: <JarIcon /> },
+    { name: 'Pinta y Crea', route: '/dulce-trago/pinta-crea', icon: <PaintbrushIcon /> }
   ]
-
-  const pathname = usePathname()
 
   return (
     <Navbar
@@ -47,20 +45,11 @@ export default function NavBar () {
       onMenuOpenChange={setIsMenuOpen}
       className='w-screen overflow-x-hidden bg-primary text-white'
     >
-      {/* <NavbarContent
-        className={`${pathname === '/dulce-trago' ? 'hidden' : ''}`}
-      >
-        <div>
-          <Link href='/dulce-trago' className='text-white'>
-            <FaArrowLeft size='20' />
-          </Link>
-        </div>
-      </NavbarContent> */}
 
       <NavbarContent className='sm:hidden w-full'>
         <div className='flex w-full justify-between items-center'>
           <NavbarBrand as={Link} href='/dulce-trago/' className='max-w-fit'>
-           <DulceTragoLogo />
+            <DulceTragoLogo />
           </NavbarBrand>
 
           <Dropdown>
@@ -70,6 +59,7 @@ export default function NavBar () {
               </Button>
             </DropdownTrigger>
 
+            {/* Mobile menu */}
             <DropdownMenu variant='faded' aria-label='Dropdown menu with icons'>
               {menuItems.map((menuItem, index) => {
                 return (
@@ -99,10 +89,10 @@ export default function NavBar () {
         {menuItems.map((item, index) => (
           <NavbarItem key={`${item.name}-${index}`}>
             <Link
-              className={`${
-                index === 2 ? 'text-white' : 'text-white/60'
-              } font-medium `}
-              href='#'
+              className={`
+              ${pathname === item.route ? 'text-white' : 'text-white/60'}
+               font-medium `}
+              href={`${item.route}`}
               size='md'
             >
               {item.name}
