@@ -21,8 +21,11 @@ export default async function DulceTragoPage ({ searchParams }: RootPageProps) {
   const currentOffset = Number(searchParams.offset)
 
   return (
-    <main className='flex flex-col w-full h-full px-4 py-8'>
-      <PromoCard />
+    <main className='container flex flex-col px-4 py-8 max-w-7xl mx-auto'>
+      <section className='flex flex-col md:flex-row gap-5 '>
+        <PromoCard />
+        <PromoCard />
+      </section>
       <Spacer y={6} />
       <h2 className='text-base font-semibold'>Productos Destacados</h2>
       <Suspense fallback={<FeaturedProductsSkeleton />}>
