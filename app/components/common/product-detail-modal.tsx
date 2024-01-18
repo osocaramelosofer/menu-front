@@ -20,11 +20,17 @@ export default function ProductDetailModal () {
   } = useProductsStore()
 
   let image = ''
-  if (product?.main_image !== null) {
-    image = 'https://res.cloudinary.com/drzrkaoje/' + product?.main_image
+  if (product?.main_image != null && product !== null) {
+    const pathArray = product.main_image.split('/')
+    const uploadIndex = pathArray.indexOf('upload')
+    pathArray.splice(uploadIndex + 1, 0, 'w_500,q_auto,f_webp')
+    const optimizedImagePath = pathArray.join('/')
+    image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
   } else {
-    image = 'https://i.imgur.com/VjWugql.png'
+    image = 'https://i.imgur.com/VjWugqlm.png'
   }
+
+  console.log('url image:', image)
 
   return (
     <Modal
