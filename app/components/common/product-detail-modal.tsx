@@ -46,9 +46,7 @@ export default function ProductDetailModal () {
             <ModalHeader>
               {/* Product Name and Category */}
               <div className='flex flex-col gap-1'>
-                <h1 className='capitalize font-bold text-2xl'>
-                  {product?.name}
-                </h1>
+                <h1 className='font-bold text-2xl'>{product?.name}</h1>
 
                 <Chip size='sm' color='warning' variant='flat'>
                   {product?.category.name}

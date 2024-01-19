@@ -3,7 +3,7 @@
 // Categories
 export async function fetchAllCategories () {
   const response = await fetch(
-    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/categories'
+    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/categories/'
   )
   if (!response.ok) {
     throw new Error('Error al cargar las categorías')
@@ -18,7 +18,7 @@ export async function fetchAllCategories () {
 // Products
 export async function fetchAllProducts () {
   const response = await fetch(
-    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products'
+    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/'
   )
   if (!response.ok) {
     throw new Error('Error al cargar los productos')

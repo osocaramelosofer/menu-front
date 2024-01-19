@@ -1,8 +1,8 @@
 'use client'
 import { Card, CardBody, Chip, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
-import ViewDetailButton from './view-detail-button'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
+import { FaChevronRight, FaDollarSign } from 'react-icons/fa'
 
 export default function ProductCard ({ product }: { product: IProduct }) {
   const { setSelectedProduct, openModal } = useProductsStore()
@@ -32,8 +32,6 @@ export default function ProductCard ({ product }: { product: IProduct }) {
         <Image
           width={300}
           height={300}
-          // removeWrapper
-          // isBlurred
           className=' object-cover max-w-[8rem] md:min-w-full aspect-square'
           src={image}
           alt='Dulce Trago Product Image'
@@ -42,7 +40,7 @@ export default function ProductCard ({ product }: { product: IProduct }) {
         <div className='justify-between flex flex-col flex-1 gap-2'>
           {/* Card Info */}
           <div className='flex flex-col gap-1'>
-            <div className='font-semibold text-base capitalize line-clamp-1'>
+            <div className='font-semibold text-base line-clamp-1'>
               {product.name}
             </div>
             <div className='font-medium text-sm opacity-70 line-clamp-2'>
@@ -51,7 +49,16 @@ export default function ProductCard ({ product }: { product: IProduct }) {
           </div>
 
           {/* Footer */}
-          <ViewDetailButton id={product.id} price={product.price} />
+          <div className='justify-end flex flex-row items-center'>
+            <Chip
+              startContent={<FaDollarSign />}
+              endContent={<FaChevronRight />}
+              variant='light'
+              color='primary'
+            >
+              {product.price}
+            </Chip>
+          </div>
         </div>
       </CardBody>
     </Card>
