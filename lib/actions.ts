@@ -2,8 +2,13 @@
 
 // Categories
 export async function fetchAllCategories () {
+  const requestOptions: RequestInit = {
+    method: 'GET',
+    redirect: 'follow',
+    cache: 'no-store'
+  }
   const response = await fetch(
-    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/categories/'
+    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/categories/', requestOptions
   )
   if (!response.ok) {
     throw new Error('Error al cargar las categorías')
@@ -17,8 +22,13 @@ export async function fetchAllCategories () {
 
 // Products
 export async function fetchAllProducts () {
+  const requestOptions: RequestInit = {
+    method: 'GET',
+    redirect: 'follow',
+    cache: 'no-store'
+  }
   const response = await fetch(
-    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/'
+    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/', requestOptions
   )
   if (!response.ok) {
     throw new Error('Error al cargar los productos')
@@ -43,6 +53,11 @@ export async function fetchAllProducts () {
 
 export async function fetchFilteredProducts (currentCategoryId: string, offset: number, resultsPeerPage: number) {
 // Assuming each page has 5 items
+  const requestOptions: RequestInit = {
+    method: 'GET',
+    redirect: 'follow',
+    cache: 'no-store'
+  }
   const baseURL = 'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products?store=2'
 
   // Construct URL with dynamic offset and category
@@ -51,7 +66,7 @@ export async function fetchFilteredProducts (currentCategoryId: string, offset: 
     finalURL += `&category=${currentCategoryId}`
   }
 
-  const response = await fetch(finalURL)
+  const response = await fetch(finalURL, requestOptions)
   if (!response.ok) {
     throw new Error('Error al cargar los productos FILTRADOS')
   }
