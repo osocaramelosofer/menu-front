@@ -30,8 +30,6 @@ export default function ProductDetailModal () {
     image = 'https://i.imgur.com/VjWugqlm.png'
   }
 
-  console.log('url image:', image)
-
   return (
     <Modal
       backdrop='blur'
@@ -71,7 +69,7 @@ export default function ProductDetailModal () {
                 <p className='opacity-80 text-sm'>{product?.description}</p>
               </div>
               {/* Product Sizes  */}
-              <div className=' flex  flex-1 flex-col w-full'>
+              {/* <div className=' flex  flex-1 flex-col w-full'>
                 <h5 className='font-bold mb-2'>Tamaños</h5>
                 <div className='flex gap-2'>
                   <Button
@@ -89,7 +87,7 @@ export default function ProductDetailModal () {
                     14 oz
                   </Button>
                 </div>
-              </div>
+              </div> */}
             </ModalBody>
             <ModalFooter className='flex flex-col justify-between items-center gap-4'>
               <div className=' flex flex-1 w-full justify-between items-end'>
