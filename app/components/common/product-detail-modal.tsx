@@ -57,7 +57,7 @@ export default function ProductDetailModal () {
                 <Image
                   alt='Woman listing to music'
                   // removeWrapper
-                  isZoomed
+
                   className='object-cover h-full w-full rounded-xl'
                   src={image}
                 />
