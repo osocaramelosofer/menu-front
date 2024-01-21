@@ -1,49 +1,34 @@
-'use client'
-
 import React from 'react'
-import { Card, CardFooter, Image, CardHeader, Chip } from '@nextui-org/react'
+
+import CardsCarousel from './carousel/cards-carousel'
 
 export default function PromoCard () {
+  const promos = [
+    {
+      id: 1,
+      img: 'https://i.imgur.com/jnhwrtYl.png',
+      title: 'Cafés de Chiapas, Guerrero y Oaxaca',
+      subtitle:
+        'En nuestro menú, tienes la libertad de elegir los granos de café de cualquier estado. ¡Disfruta de la diversidad de sabores que ofrecen nuestros cafés!'
+    },
+    {
+      id: 2,
+      img: 'https://i.imgur.com/IH7UqrEl.png',
+      title: 'Diviértete con ¡Pinta y Crea!',
+      subtitle:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem quibusdam ea voluptate similique repellat inventore!'
+    },
+    {
+      id: 3,
+      img: 'https://i.imgur.com/es71a9rl.png',
+      title: 'Bienvenido a Dulce Trago',
+      subtitle:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem quibusdam ea voluptate similique repellat inventore!'
+    }
+  ]
   return (
     <section className='self-center'>
-      <Card isPressable radius='lg' className='border-none text-left'>
-        <CardHeader
-          className='absolute z-10 flex-col w-fit min-h-full items-start
-        bg-gradient-to-r from-black/70 via-black/50 to-transparent'
-        >
-          <p className='text-tiny text-white/50 uppercase font-bold'>
-            Your day your way
-          </p>
-          <h4 className='text-white font-medium text-xl lg:text-3xl max-w-[16rem] lg:max-w-sm'>
-            Your checklist for better sleep for better sleep
-          </h4>
-        </CardHeader>
-
-        <Image
-          alt='Special promo food image'
-          className='object-cover min-w-full h-52 lg:h-64 z-0'
-          width={700}
-          height={500}
-          src='https://i.imgur.com/es71a9r.png'
-        />
-        <CardFooter className='absolute bg-black/30 bottom-0 z-10 border-t-1 border-default-600 backdrop-blur-sm'>
-          <p className='text-tiny text-white/90 line-clamp-2'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
-            ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua...
-          </p>
-          <Chip
-            className='text-tiny text-white bg-black/20 ml-3'
-            variant='solid'
-            color='default'
-            radius='lg'
-            size='md'
-          >
-            Ver mas
-          </Chip>
-        </CardFooter>
-      </Card>
+      <CardsCarousel data={promos} />
     </section>
   )
 }
