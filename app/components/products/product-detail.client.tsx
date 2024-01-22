@@ -23,20 +23,20 @@ export default function ProductDetail ({ product }: { product: IProduct }) {
         <div className="flex w-full flex-col">
           <div>
             <Tabs aria-label="Options">
-                <Tab key="description" title="Descripción">
-                  <Card>
-                    <CardBody className='max-w-[300px] '>
-                      {product.description}
-                    </CardBody>
-                  </Card>
-                </Tab>
-                <Tab key="ingredients" title="Ingredientes">
-                  <Card>
-                    <CardBody className='max-w-[300px] '>
+              <Tab key="description" title="Descripción">
+                <Card>
+                  <CardBody className='max-w-[300px] '>
+                    {product.description}
+                  </CardBody>
+                </Card>
+              </Tab>
+              <Tab key="ingredients" title="Ingredientes">
+                <Card>
+                  <CardBody className='max-w-[300px] '>
                       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    </CardBody>
-                  </Card>
-                </Tab>
+                  </CardBody>
+                </Card>
+              </Tab>
             </Tabs>
           </div>
         </div>
