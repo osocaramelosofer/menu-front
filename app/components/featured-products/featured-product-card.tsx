@@ -20,16 +20,18 @@ export default function FeaturedProductCard ({
 }) {
   const { setSelectedProduct, openModal } = useProductsStore()
   const handleSelectedProduct = () => {
-    setTimeout(() => {
-      setSelectedProduct(product)
-      openModal()
-    }, 250)
+    setSelectedProduct(product)
+    openModal()
   }
   let image = ''
-  if (product.main_image !== null) {
-    image = 'https://res.cloudinary.com/drzrkaoje/' + product.main_image
+  if (product?.main_image != null && product !== null) {
+    const pathArray = product.main_image.split('/')
+    const uploadIndex = pathArray.indexOf('upload')
+    pathArray.splice(uploadIndex + 1, 0, 'w_500,q_auto,f_webp')
+    const optimizedImagePath = pathArray.join('/')
+    image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
   } else {
-    image = 'https://i.imgur.com/VjWugql.png'
+    image = 'https://i.imgur.com/VjWugqlm.png'
   }
 
   return (
@@ -49,20 +51,18 @@ export default function FeaturedProductCard ({
           alt='NextUI Image with fallback'
         />
 
-        <div className='justify-between flex flex-col flex-1 gap-2'>
-          {/* Card Info */}
-          <div className='flex flex-col flex-1 justify-between gap-2'>
-            <div className='font-semibold text-sm capitalize line-clamp-2'>
-              {product.name}
-            </div>
-            <div className='font-medium text-xs opacity-70 line-clamp-2'>
-              {product.description}
-            </div>
+        {/* Card Info */}
+        <div className='flex flex-col justify-between gap-1'>
+          <div className='font-semibold text-sm line-clamp-1'>
+            {product.name}
+          </div>
+          <div className='text-xs opacity-70 line-clamp-2'>
+            {product.description}
           </div>
         </div>
       </CardBody>
       {/* Footer */}
-      <CardFooter className='justify-between flex flex-row items-center'>
+      <CardFooter className='justify-between flex flex-row items-center pt-0'>
         <Chip
           className=' text-sm'
           startContent={<FaDollarSign />}

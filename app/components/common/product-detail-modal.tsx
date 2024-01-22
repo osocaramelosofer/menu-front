@@ -20,10 +20,14 @@ export default function ProductDetailModal () {
   } = useProductsStore()
 
   let image = ''
-  if (product?.main_image !== null) {
-    image = 'https://res.cloudinary.com/drzrkaoje/' + product?.main_image
+  if (product?.main_image != null && product !== null) {
+    const pathArray = product.main_image.split('/')
+    const uploadIndex = pathArray.indexOf('upload')
+    pathArray.splice(uploadIndex + 1, 0, 'w_500,q_auto,f_webp')
+    const optimizedImagePath = pathArray.join('/')
+    image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
   } else {
-    image = 'https://i.imgur.com/VjWugql.png'
+    image = 'https://i.imgur.com/VjWugqlm.png'
   }
 
   return (
@@ -32,17 +36,15 @@ export default function ProductDetailModal () {
       isOpen={isModalOpen}
       onClose={closeModal}
       radius='lg'
-      scrollBehavior='outside'
+      scrollBehavior='inside'
     >
       <ModalContent>
         {closeModal => (
           <>
             <ModalHeader>
               {/* Product Name and Category */}
-              <div className='flex flex-col gap-2'>
-                <h1 className='capitalize font-bold text-2xl'>
-                  {product?.name}
-                </h1>
+              <div className='flex flex-col gap-1'>
+                <h1 className='font-bold text-2xl'>{product?.name}</h1>
 
                 <Chip size='sm' color='warning' variant='flat'>
                   {product?.category.name}
@@ -51,13 +53,12 @@ export default function ProductDetailModal () {
             </ModalHeader>
             <ModalBody>
               {/* Product Image */}
-              <div className='w-full flex-1  shadow-sm relative rounded-xl overflow-hidden '>
+              <div className='w-full flex-1  shadow-sm relative rounded-xl'>
                 <Image
                   alt='Woman listing to music'
                   // removeWrapper
-                  isZoomed
-                  isBlurred
-                  className='object-cover h-full w-full rounded-none'
+
+                  className='object-cover h-full w-full rounded-xl'
                   src={image}
                 />
               </div>
@@ -65,12 +66,10 @@ export default function ProductDetailModal () {
               {/* Product Description */}
               <div>
                 <h5 className='font-bold'>Descripción</h5>
-                <p className='opacity-80'>{product?.description}</p>
+                <p className='opacity-80 text-sm'>{product?.description}</p>
               </div>
-            </ModalBody>
-            <ModalFooter className='flex flex-col justify-between items-center gap-4'>
               {/* Product Sizes  */}
-              <div className=' flex  flex-1 flex-col w-full'>
+              {/* <div className=' flex  flex-1 flex-col w-full'>
                 <h5 className='font-bold mb-2'>Tamaños</h5>
                 <div className='flex gap-2'>
                   <Button
@@ -88,8 +87,10 @@ export default function ProductDetailModal () {
                     14 oz
                   </Button>
                 </div>
-              </div>
-              <div className=' flex flex-1 w-full justify-between'>
+              </div> */}
+            </ModalBody>
+            <ModalFooter className='flex flex-col justify-between items-center gap-4'>
+              <div className=' flex flex-1 w-full justify-between items-end'>
                 <div className='flex flex-col justify-center items-center'>
                   <p className='text-sm font-medium'>Precio</p>
                   <h3 className='text-2xl font-bold '>

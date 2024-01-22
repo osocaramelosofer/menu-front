@@ -85,7 +85,6 @@ const api = {
       throw new Error('Error al cargar los productos')
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 2000))
     return await response.json()
   }
 }

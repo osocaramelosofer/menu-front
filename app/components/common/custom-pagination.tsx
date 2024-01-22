@@ -32,13 +32,13 @@ export default function CustomPagination ({ data }: { data: IApiResponse }) {
       },
       { skipNull: true, skipEmptyString: true }
     )
+    router.push(url, { scroll: false })
     setTimeout(() => {
-      router.push(url, { scroll: false })
-      // window.scrollTo({
-      //   top: 600,
-      //   behavior: 'smooth'
-      // })
-    }, 250)
+      window.scrollTo({
+        top: 500,
+        behavior: 'smooth'
+      })
+    }, 200)
   }
 
   // const handlePrevNext = (direction: string) => {

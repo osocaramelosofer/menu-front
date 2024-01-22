@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import type { IProduct } from '@/interfaces/product'
-import { fetchAllProducts, fetchFilteredProducts } from '@/lib/actions'
+import { fetchAllProducts } from '@/lib/actions'
 
 interface State {
   loading: boolean

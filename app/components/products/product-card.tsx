@@ -1,22 +1,24 @@
 'use client'
 import { Card, CardBody, Chip, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
-import ViewDetailButton from './view-detail-button'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
+import { FaChevronRight, FaDollarSign } from 'react-icons/fa'
 
 export default function ProductCard ({ product }: { product: IProduct }) {
   const { setSelectedProduct, openModal } = useProductsStore()
   const handleSelectedProduct = () => {
-    setTimeout(() => {
-      setSelectedProduct(product)
-      openModal()
-    }, 250)
+    setSelectedProduct(product)
+    openModal()
   }
   let image = ''
-  if (product.main_image !== null) {
-    image = 'https://res.cloudinary.com/drzrkaoje/' + product.main_image
+  if (product?.main_image != null && product !== null) {
+    const pathArray = product.main_image.split('/')
+    const uploadIndex = pathArray.indexOf('upload')
+    pathArray.splice(uploadIndex + 1, 0, 'w_500,q_auto,f_webp')
+    const optimizedImagePath = pathArray.join('/')
+    image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
   } else {
-    image = 'https://i.imgur.com/VjWugql.png'
+    image = 'https://i.imgur.com/VjWugqlm.png'
   }
 
   return (
@@ -28,19 +30,17 @@ export default function ProductCard ({ product }: { product: IProduct }) {
       <CardBody className='flex flex-row md:flex-col gap-2'>
         {/* Card Image */}
         <Image
-          width={200}
-          height={200}
-          // removeWrapper
-          isBlurred
+          width={300}
+          height={300}
           className=' object-cover max-w-[8rem] md:min-w-full aspect-square'
           src={image}
-          alt='NextUI Image with fallback'
+          alt='Dulce Trago Product Image'
         />
 
         <div className='justify-between flex flex-col flex-1 gap-2'>
           {/* Card Info */}
           <div className='flex flex-col gap-1'>
-            <div className='font-semibold text-base capitalize line-clamp-1'>
+            <div className='font-semibold text-base line-clamp-1'>
               {product.name}
             </div>
             <div className='font-medium text-sm opacity-70 line-clamp-2'>
@@ -48,16 +48,17 @@ export default function ProductCard ({ product }: { product: IProduct }) {
             </div>
           </div>
 
-          {/* Card tags */}
-          <div className='justify-between flex flex-row items-center gap-2'>
-            {product.tags?.map(tag => (
-              <Chip key={tag?.id} size='sm' variant='flat' color='warning'>
-                <p className='text-tiny uppercase'># {tag.name}</p>
-              </Chip>
-            ))}
-          </div>
           {/* Footer */}
-          <ViewDetailButton id={product.id} price={product.price} />
+          <div className='justify-end flex flex-row items-center'>
+            <Chip
+              startContent={<FaDollarSign />}
+              endContent={<FaChevronRight />}
+              variant='light'
+              color='primary'
+            >
+              {product.price}
+            </Chip>
+          </div>
         </div>
       </CardBody>
     </Card>
