@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Image, CardFooter, CardHeader, Chip } from '@nextui-org/react'
 
-import { Carousel, CarouselContent, CarouselItem } from '../common/carousel'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../common/carousel'
 
 import type { CarouselApi } from '../common/carousel'
 interface IPromos {
@@ -74,8 +74,10 @@ const CardsCarousel = ({ data: promos }: { data: IPromos[] }) => {
         ))}
       </CarouselContent>
       {/* Controls and Dots indicators */}
-      <div className='flex justify-center items-center pt-3 text-center text-sm text-muted-foreground'>
-        {/* <CarouselPrevious /> */}
+      <div className='flex justify-center items-center pt-3 text-center text-sm text-muted-foreground md:justify-between'>
+        <div className='hidden md:block'>
+          <CarouselPrevious className='hidden md:block'/>
+        </div>
         <div className=' flex gap-2 items-center'>
           {promos.map((_, index) => (
             <div
@@ -86,8 +88,9 @@ const CardsCarousel = ({ data: promos }: { data: IPromos[] }) => {
             ></div>
           ))}
         </div>
-
-        {/* <CarouselNext /> */}
+        <div className='hidden md:block'>
+          <CarouselNext />
+        </div>
       </div>
     </Carousel>
   )
