@@ -7,7 +7,7 @@ import FeaturedProductsSkeleton from '@/app/components/skeletons/featured-produc
 import FeaturedProductsList from '@/app/components/featured-products/featured-products-list'
 import ProductsList from '@/app/components/products/products-list'
 import ProductDetailModal from '@/app/components/common/product-detail-modal'
-import CardsCarousel from '@/app/components/carousel/cards-carousel'
+import CartModal from '@/app/components/cart/cart-modal'
 
 interface RootPageProps {
   searchParams: {
@@ -39,6 +39,7 @@ export default async function DulceTragoPage ({ searchParams }: RootPageProps) {
       />
       {/* </Suspense> */}
       <ProductDetailModal />
+      <CartModal />
     </main>
   )
 }

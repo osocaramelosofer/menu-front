@@ -1,3 +1,4 @@
+import AdminProductForm from '@/app/components/admin/admin-product-form'
 import AdminUserInfo from '@/app/components/admin/admin-user-info'
 import { getServerSession } from 'next-auth'
 
@@ -14,6 +15,7 @@ export default async function DulceTragoAdminPage () {
     <main className='flex flex-col w-full h-full px-4 py-8'>
       <h1>This is a protected route</h1>
       <AdminUserInfo session={session} />
+      <AdminProductForm session={session} />
     </main>
   )
 }

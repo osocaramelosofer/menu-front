@@ -63,6 +63,7 @@ export interface IProduct {
   sales_count: number
   visit_count: number
   store: number
+  quantity: number
 }
 
 export interface IApiResponse {

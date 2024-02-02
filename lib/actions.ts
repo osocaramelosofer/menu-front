@@ -73,3 +73,5 @@ export async function fetchFilteredProducts (currentCategoryId: string, offset: 
 
   return await response.json()
 }
+
+// ADMIN CRUD

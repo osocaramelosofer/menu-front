@@ -1,4 +1,6 @@
 'use client'
+import { type IProduct } from '@/interfaces/product'
+import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
 
 import {
@@ -19,6 +21,8 @@ export default function ProductDetailModal () {
     closeModal
   } = useProductsStore()
 
+  const { openModal, addToCart } = useCartsStore()
+
   let image = ''
   if (product?.main_image != null && product !== null) {
     const pathArray = product.main_image.split('/')
@@ -28,6 +32,11 @@ export default function ProductDetailModal () {
     image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
   } else {
     image = 'https://i.imgur.com/VjWugqlm.png'
+  }
+
+  const handleAddToOrder = (product: IProduct) => {
+    openModal()
+    addToCart(product)
   }
 
   return (
@@ -98,14 +107,27 @@ export default function ProductDetailModal () {
                     {product?.price}
                   </h3>
                 </div>
-                <Button
-                  color='primary'
-                  variant='solid'
-                  className='text-white'
-                  onPress={closeModal}
-                >
-                  Cerrar
-                </Button>
+                <div className=' flex gap-3'>
+                  <Button
+                    size='sm'
+                    color='danger'
+                    variant='flat'
+                    onPress={closeModal}
+                  >
+                    Cerrar
+                  </Button>
+                  <Button
+                    size='sm'
+                    color='primary'
+                    variant='solid'
+                    className='text-white'
+                    onPress={() => {
+                      handleAddToOrder(product)
+                    }}
+                  >
+                    Agregar a la orden
+                  </Button>
+                </div>
               </div>
             </ModalFooter>
           </>

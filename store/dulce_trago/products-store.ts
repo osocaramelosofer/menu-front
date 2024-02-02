@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+
 import type { IProduct } from '@/interfaces/product'
 import { fetchAllProducts } from '@/lib/actions'
 
