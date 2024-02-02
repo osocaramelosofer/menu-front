@@ -1,17 +1,12 @@
 'use client'
-import { Button, Input, Link } from '@nextui-org/react'
+import { Button, Input } from '@nextui-org/react'
 import { type Session } from 'next-auth'
-import { signOut } from 'next-auth/react'
 
 export default async function AdminProductForm ({
   session
 }: {
   session: Session | null
 }) {
-  const handleLogout = async () => {
-    await signOut()
-  }
-
   return (
     <section className='flex flex-col w-full h-full px-4 py-8 border'>
       <form className='flex flex-col gap-4'>
@@ -39,7 +34,7 @@ export default async function AdminProductForm ({
         />
 
         <div className='flex gap-2'>
-          <Button color='warning' variant='flat' onPress={handleLogout}>
+          <Button color='warning' variant='flat' onPress={() => {}}>
             Crear Nuevo Producto
           </Button>
         </div>
