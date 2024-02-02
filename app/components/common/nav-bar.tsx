@@ -32,8 +32,12 @@ export default function NavBar () {
       className='w-screen overflow-x-hidden bg-primary text-white'
     >
       <NavbarContent className='w-full'>
-        <div className='flex w-full justify-between items-center'>
-          <NavbarBrand as={Link} href='/dulce-trago/' className='max-w-fit'>
+        <div className='flex w-full justify-end items-center relative'>
+          <NavbarBrand
+            as={Link}
+            href='/dulce-trago/'
+            className='max-w-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+          >
             <DulceTragoLogo />
           </NavbarBrand>
           <Badge

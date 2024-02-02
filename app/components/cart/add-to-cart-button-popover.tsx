@@ -27,7 +27,7 @@ export default function AddToCartButtonPopover ({
     <>
       {product != null && (
         <Popover
-          color='secondary'
+          color='primary'
           onOpenChange={() => {
             handleAddToOrder(product)
           }}
@@ -51,7 +51,7 @@ export default function AddToCartButtonPopover ({
             </Button>
           </PopoverTrigger>
           <PopoverContent>
-            <div className='px-1 py-2'>
+            <div className='px-1 py-2 text-white'>
               <div className='text-small font-bold'>¡Producto Agregado!</div>
               <div className='text-tiny'>
                 Se ha agregado {product.name} <br />a tu carrito de compras.
