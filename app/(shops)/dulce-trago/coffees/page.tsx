@@ -1,6 +1,6 @@
 import PromoCard from '@/app/components/promo-card'
 import { fetchAllCategories } from '@/lib/actions'
-import CoffeeCategories from './coffee-categories.client'
+import CoffeeCategories from './coffee-pagination.client'
 import api from '@/services/dulce_trago/api'
 import ProductCard from '@/app/components/products/product-card'
 import { type IApiResponse } from '@/interfaces/product'
@@ -9,9 +9,8 @@ export default async function CoffeesPage ({ searchParams }: { searchParams: Rec
   const offset = (searchParams.offset ?? '1') as string
   const limit = (searchParams.limit ?? '2') as string
   const response: IApiResponse = await api.fetchFilteredProducts('3', offset, limit) // category, offset, limit
-  // const response = await fetchAllCategories()
   return (
-    <section className='bg-slate-200 w-full mx-auto'>
+    <section className='w-full mx-auto'>
       <div className="wrapper max-w-[700px] mx-auto">
         <h1>coffees</h1>
         <main>

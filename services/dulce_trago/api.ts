@@ -1,4 +1,4 @@
-import { type CategoryType } from '@/app/(shops)/dulce-trago/coffees/coffee-categories.client'
+import { type CategoryType } from '@/app/(shops)/dulce-trago/coffees/coffee-pagination.client'
 import type { IProduct, Category } from '@/interfaces/product'
 
 const REQUEST_OPTIONS: RequestInit = {
