@@ -54,9 +54,6 @@ export default function CartGptPage () {
 
           return (
             <FeaturedProductCard
-              handleAddToCart={() => {
-                handleSubmit(product)
-              }}
               key={`${product.id}${index}`}
               product={product}
             />
@@ -69,16 +66,7 @@ export default function CartGptPage () {
 
         <div className=' flex flex-col gap-8'>
           {cartList.map(product => (
-            <CartProductCard
-              key={product.id}
-              product={product}
-              incrementCartItemQuantityHandler={
-                incrementCartItemQuantityHandler
-              }
-              decrementCartItemQuantityHandler={
-                decrementCartItemQuantityHandler
-              }
-            />
+            <CartProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>

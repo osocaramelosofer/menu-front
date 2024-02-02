@@ -7,6 +7,7 @@ import FeaturedProductCard from '@/app/components/featured-products/featured-pro
 import { type IProduct } from '@/interfaces/product'
 import ProductCard from '@/app/components/products/product-card'
 import CartProductCard from '@/app/components/cart/cart-product-card'
+import { useCartsStore } from '@/store/dulce_trago/carts-store'
 
 // Conectar al servidor de Socket.io
 const socket = io('http://localhost:3001')
@@ -17,7 +18,8 @@ export default function CartPage () {
   const [cart, setCart] = useState([])
   const productId = 26
 
-  const { getProductsList, products, CartList, addToCart } = useProductsStore()
+  const { getProductsList, products } = useProductsStore()
+  const { addToCart, cartList } = useCartsStore()
   // console.log('cartList: ', cart)
 
   useEffect(() => {
@@ -66,9 +68,6 @@ export default function CartPage () {
 
           return (
             <FeaturedProductCard
-              handleAddToCart={() => {
-                handleSubmit(product)
-              }}
               key={`${product.id}${index}`}
               product={product}
             />
@@ -92,26 +91,17 @@ export default function CartPage () {
 
       <Button onClick={handleJoinRoom}>Unirse a la Sala</Button>
 
-      <div>
+      {/* <div>
         {cart?.map((product, index) => {
           const handleRemoveFromCart = (product: IProduct) => {
             console.log('Eliminando producto', product, 'por usuario', userId)
             socket.emit('remove product from cart', roomId, { product, userId })
           }
-          return (
-            <CartProductCard
-              key={index}
-              handleRemove={() => {
-                handleRemoveFromCart(product.product)
-              }}
-              product={product.product}
-              owner={product.userId}
-            />
-          )
+          return <CartProductCard key={index} product={product} />
         })}
-      </div>
+      </div> */}
       <div className='border'>
-        {CartList.map((product, index) => (
+        {cartList.map((product, index) => (
           <p key={index}>Cart item: {product.name}</p>
         ))}
       </div>
