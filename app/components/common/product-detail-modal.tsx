@@ -95,13 +95,18 @@ export default function ProductDetailModal () {
               <div className=' flex flex-1 w-full justify-between items-end'>
                 <div>
                   <p className='text-sm text-center'>Precio</p>
-                  <h3 className='text-2xl font-bold text-center'>
+                  <h3 className='text-xl font-bold text-center'>
                     <span className='text-success'>$</span>
                     {product?.price}
                   </h3>
                 </div>
                 <div className=' flex gap-2 items-end'>
-                  <Button color='danger' variant='flat' onPress={closeModal}>
+                  <Button
+                    size='sm'
+                    color='danger'
+                    variant='flat'
+                    onPress={closeModal}
+                  >
                     Cerrar
                   </Button>
                   <AddToCartButtonPopover product={product} />

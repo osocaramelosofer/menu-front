@@ -9,6 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@nextui-org/react'
+import { FaPlus } from 'react-icons/fa'
 
 export default function AddToCartButtonPopover ({
   product
@@ -36,8 +37,7 @@ export default function AddToCartButtonPopover ({
           <PopoverTrigger>
             <Button
               as={Chip}
-              //   startContent={<FaPlus />}
-
+              size='sm'
               color='primary'
               variant='solid'
               className='text-white'
