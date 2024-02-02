@@ -32,12 +32,12 @@ export default async function DulceTragoPage ({ searchParams }: RootPageProps) {
       {/* </Suspense> */}
       <Categories />
       <Spacer y={6} />
-      {/* <Suspense key={Math.random()} fallback={<ProductsSkeleton />}> */}
-      <ProductsList
-        currentCategoryId={currentCategoryId}
-        currentOffset={currentOffset}
-      />
-      {/* </Suspense> */}
+      <Suspense key={Math.random()} fallback={<ProductsSkeleton />}>
+        <ProductsList
+          currentCategoryId={currentCategoryId}
+          currentOffset={currentOffset}
+        />
+      </Suspense>
       <ProductDetailModal />
       <CartModal />
     </main>
