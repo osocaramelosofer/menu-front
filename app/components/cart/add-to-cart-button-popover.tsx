@@ -1,7 +1,6 @@
 'use client'
 import { type IProduct } from '@/interfaces/product'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
-import { useProductsStore } from '@/store/dulce_trago/products-store'
 
 import {
   Button,
@@ -10,7 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@nextui-org/react'
-import { FaPlus } from 'react-icons/fa'
 
 export default function AddToCartButtonPopover ({
   product
