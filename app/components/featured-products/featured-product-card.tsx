@@ -13,13 +13,12 @@ import {
 } from '@nextui-org/react'
 import { FaDollarSign, FaChevronRight } from 'react-icons/fa'
 import io from 'socket.io-client'
+import AddToCartButtonPopover from '../cart/add-to-cart-button-popover'
 
 export default function FeaturedProductCard ({
-  product,
-  handleAddToCart
+  product
 }: {
   product: IProduct
-  handleAddToCart?: () => void
 }) {
   // const socket = io('http://localhost:3001')
   const { setSelectedProduct, openModal } = useProductsStore()
@@ -91,9 +90,7 @@ export default function FeaturedProductCard ({
           <FaChevronRight />
         </Button>
       </CardFooter>
-      <Button as={Code} onClick={handleAddToCart}>
-        Add to cart
-      </Button>
+      {/* <AddToCartButtonPopover product={product} /> */}
     </Card>
   )
 }

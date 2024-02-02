@@ -1,6 +1,5 @@
 'use client'
-import { type IProduct } from '@/interfaces/product'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
+
 import { useProductsStore } from '@/store/dulce_trago/products-store'
 
 import {
@@ -13,6 +12,7 @@ import {
   Image,
   Chip
 } from '@nextui-org/react'
+import AddToCartButtonPopover from '../cart/add-to-cart-button-popover'
 
 export default function ProductDetailModal () {
   const {
@@ -20,8 +20,6 @@ export default function ProductDetailModal () {
     isModalOpen,
     closeModal
   } = useProductsStore()
-
-  const { openModal, addToCart } = useCartsStore()
 
   let image = ''
   if (product?.main_image != null && product !== null) {
@@ -34,14 +32,9 @@ export default function ProductDetailModal () {
     image = 'https://i.imgur.com/VjWugqlm.png'
   }
 
-  const handleAddToOrder = (product: IProduct) => {
-    openModal()
-    addToCart(product)
-  }
-
   return (
     <Modal
-      backdrop='blur'
+      backdrop='opaque'
       isOpen={isModalOpen}
       onClose={closeModal}
       radius='lg'
@@ -98,35 +91,20 @@ export default function ProductDetailModal () {
                 </div>
               </div> */}
             </ModalBody>
-            <ModalFooter className='flex flex-col justify-between items-center gap-4'>
+            <ModalFooter>
               <div className=' flex flex-1 w-full justify-between items-end'>
-                <div className='flex flex-col justify-center items-center'>
-                  <p className='text-sm font-medium'>Precio</p>
-                  <h3 className='text-2xl font-bold '>
+                <div>
+                  <p className='text-sm text-center'>Precio</p>
+                  <h3 className='text-2xl font-bold text-center'>
                     <span className='text-success'>$</span>
                     {product?.price}
                   </h3>
                 </div>
-                <div className=' flex gap-3'>
-                  <Button
-                    size='sm'
-                    color='danger'
-                    variant='flat'
-                    onPress={closeModal}
-                  >
+                <div className=' flex gap-2 items-end'>
+                  <Button color='danger' variant='flat' onPress={closeModal}>
                     Cerrar
                   </Button>
-                  <Button
-                    size='sm'
-                    color='primary'
-                    variant='solid'
-                    className='text-white'
-                    onPress={() => {
-                      handleAddToOrder(product)
-                    }}
-                  >
-                    Agregar a la orden
-                  </Button>
+                  <AddToCartButtonPopover product={product} />
                 </div>
               </div>
             </ModalFooter>

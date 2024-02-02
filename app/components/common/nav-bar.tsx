@@ -47,7 +47,7 @@ export default function NavBar () {
               onOpenChange={() => {
                 calculateCartPrice()
               }}
-              backdrop='blur'
+              backdrop='opaque'
               className='max-h-[36rem] max-w-[23rem] relative'
             >
               <DropdownTrigger>
@@ -61,7 +61,12 @@ export default function NavBar () {
                 variant='faded'
                 aria-label='Dropdown menu with icons'
               >
-                <DropdownItem className='border-none' showDivider isReadOnly>
+                <DropdownItem
+                  className='border-none'
+                  showDivider
+                  isReadOnly
+                  textValue='Mi Carrito'
+                >
                   <h1 className=' text-xl font-semibold'>Mi Carrito</h1>
                 </DropdownItem>
                 {/* eslint-disable-next-line multiline-ternary */}
@@ -75,7 +80,12 @@ export default function NavBar () {
                     </div>
                   </DropdownItem>
                 ) : (
-                  <DropdownItem className='border-none' showDivider isReadOnly>
+                  <DropdownItem
+                    className='border-none'
+                    showDivider
+                    isReadOnly
+                    textValue='List of products in cart'
+                  >
                     {cartList.map((product, index) => {
                       return (
                         <CartProductCard
@@ -87,7 +97,11 @@ export default function NavBar () {
                   </DropdownItem>
                 )}
 
-                <DropdownItem className='border-none' isReadOnly>
+                <DropdownItem
+                  className='border-none'
+                  isReadOnly
+                  textValue='Total Price'
+                >
                   <div className='flex flex-col justify-center items-center'>
                     <p className='text-sm font-medium'>Total</p>
                     <h3 className='text-2xl font-bold '>

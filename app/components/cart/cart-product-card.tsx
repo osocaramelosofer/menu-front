@@ -1,14 +1,7 @@
 'use client'
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Chip,
-  Image
-} from '@nextui-org/react'
+import { Button, Card, CardBody, Chip, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
-import { FaMinus, FaPlus, FaTimes, FaTimesCircle } from 'react-icons/fa'
+import { FaMinus, FaPlus, FaTimes } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 
 export default function CartProductCard ({ product }: { product: IProduct }) {
@@ -42,14 +35,9 @@ export default function CartProductCard ({ product }: { product: IProduct }) {
   }
 
   const {
-    cartList,
-    addToCart,
     incrementCartItemQuantity,
     decrementCartItemQuantity,
     calculateCartPrice,
-    cartPrice,
-    isModalOpen,
-    closeModal,
     removeCartItem
   } = useCartsStore()
 
@@ -96,7 +84,7 @@ export default function CartProductCard ({ product }: { product: IProduct }) {
 
         <div className='justify-between overflow-hidden flex flex-col flex-1 gap-2'>
           {/*  Info */}
-          <h2 className='font-semibold text-sm line-clamp-1'>
+          <h2 className='font-semibold text-sm line-clamp-1 pr-3'>
             <TruncateText text={product.name} maxLength={23} />
           </h2>
 
