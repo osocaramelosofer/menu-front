@@ -65,10 +65,10 @@ export default function CartProductCard ({ product }: { product: IProduct }) {
             }}
             isIconOnly
             size='sm'
-            color='secondary'
+            color='danger'
             radius='full'
-            variant='bordered'
-            className='min-w-[20px] max-w-[20px] min-h-[20px] max-h-[20px]'
+            variant='flat'
+            className='min-w-[20px] max-w-[20px] min-h-[20px] max-h-[20px] p-[4px]'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -79,7 +79,7 @@ export default function CartProductCard ({ product }: { product: IProduct }) {
               viewBox='0,0,256,256'
             >
               <g
-                className='fill-secondary  stroke-secondary'
+                className='fill-danger  stroke-danger'
                 fill-rule='nonzero'
                 stroke='none'
                 stroke-width='1'

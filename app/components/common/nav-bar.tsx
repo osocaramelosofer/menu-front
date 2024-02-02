@@ -75,7 +75,12 @@ export default function NavBar () {
                 </DropdownItem>
                 {/* eslint-disable-next-line multiline-ternary */}
                 {cartList.length === 0 ? (
-                  <DropdownItem className='border-none' showDivider isReadOnly>
+                  <DropdownItem
+                    textValue='Empty cart text'
+                    className='border-none'
+                    showDivider
+                    isReadOnly
+                  >
                     <div className=' flex flex-col justify-center items-center my-4 text-primary'>
                       <h1 className=' mb-2 line-clamp-2 opacity-70 text-center'>
                         No has agregado productos <br /> a tu carrito aún.
