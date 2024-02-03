@@ -79,10 +79,9 @@ export const useCartsStore = create<CartState>((set, get) => {
             const currentQuantity = state.cartList[foundProductIndex].quantity
             if ((Boolean(currentQuantity)) && currentQuantity > 1) {
               state.cartList[foundProductIndex].quantity = currentQuantity - 1
+            } else if (currentQuantity === 1) {
+              state.cartList.splice(foundProductIndex, 1)
             }
-            // else if (currentQuantity === 1) {
-            //   state.cartList.splice(foundProductIndex, 1)
-            // }
           }
         })
       )

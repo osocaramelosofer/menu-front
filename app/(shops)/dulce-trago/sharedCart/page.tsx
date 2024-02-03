@@ -8,27 +8,20 @@ import { type IProduct } from '@/interfaces/product'
 import ProductCard from '@/app/components/products/product-card'
 import CartProductCard from '@/app/components/cart/cart-product-card'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import useSocket from '@/hooks/useSocket'
 
-export default function CartGptPage () {
-  const {
-    cartList,
-    addToCart,
-    incrementCartItemQuantity,
-    decrementCartItemQuantity,
-    calculateCartPrice,
-    cartPrice
-  } = useCartsStore()
+export default function SharedCartPage (roomId: string) {
+  const { cartList, addToCart, calculateCartPrice, cartPrice } = useCartsStore()
 
   const { products, getProductsList } = useProductsStore()
+  const socket = io('http://localhost:3001')
 
-  const incrementCartItemQuantityHandler = (id: number) => {
-    incrementCartItemQuantity(id)
-    // calculateCartPrice()
+  const handleAddToCart = (product: IProduct) => {
+    socket.emit('add to cart', { roomId, product, userId: 'yourUserId' })
   }
 
-  const decrementCartItemQuantityHandler = (id: number) => {
-    decrementCartItemQuantity(id)
-    // calculateCartPrice()
+  const handleRemoveFromCart = (productId: number) => {
+    socket.emit('remove from cart', { roomId, productId, userId: 'yourUserId' })
   }
 
   useEffect(() => {
@@ -61,7 +54,7 @@ export default function CartGptPage () {
         })}
       </div>
       <div className='border '>
-        <h1>CART</h1>
+        <h1>CART{roomId}</h1>
         <h1>TOTAL: ${cartPrice}</h1>
 
         <div className=' flex flex-col gap-8'>
