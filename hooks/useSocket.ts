@@ -1,22 +1,15 @@
-'use client'
-// hooks/useSocket.ts
-
 import { useEffect, useState } from 'react'
-import io from 'socket.io-client'
+import io, { type Socket } from 'socket.io-client'
 
-// Asegúrate de usar tu URL correcta
-const SOCKET_SERVER_URL = 'http://localhost:3001'
-
-const useSocket = () => {
-  const socket = io(SOCKET_SERVER_URL)
+const SOCKET_URL = 'http://localhost:3001'
+export default function useSocket (): Socket | null {
+  const [socket, setSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
-    // Inicializar la conexión de socket al montar
-    const socketIo = io(SOCKET_SERVER_URL)
+    // Inicializar conexión Socket.io
+    const socketIo = io(SOCKET_URL)
+    setSocket(socketIo)
 
-    // setSocket(socketIo)
-
-    // Limpieza al desmontar
     return () => {
       socketIo.disconnect()
     }
@@ -24,5 +17,3 @@ const useSocket = () => {
 
   return socket
 }
-
-export default useSocket

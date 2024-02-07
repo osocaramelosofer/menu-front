@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -22,58 +22,128 @@ import { FaShoppingBag } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import CartProductCard from '../cart/cart-product-card'
 import useSocket from '@/hooks/useSocket'
+import SharedCartTabsForm from '../cart/shared-cart-tabs-form'
+import SharedCartList from '../cart/shared-cart-list'
 
 export default function NavBar () {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-  const socket = io('http://localhost:3001')
-  const [roomId, setRoomId] = React.useState('')
-  const [value, setValue] = React.useState('')
-  const [username, setUsername] = React.useState('')
-  const [hostName, setHostName] = React.useState('')
 
-  const handleCreateRoom = () => {
-    socket.emit(
-      'create room',
+  const {
+    cartList,
+    cartPrice,
+    calculateCartPrice,
+    roomId,
+    username,
+    setRoomId,
+    setSharedCartList,
+    sharedCartList
+  } = useCartsStore()
+  const socket = useSocket() // Usa el hook aquí
+  // const socket = io('http://localhost:3001')
+  // const [roomId, setRoomId] = React.useState('')
+  // const [value, setValue] = React.useState('')
+  // const [username, setUsername] = React.useState('')
+  // const [hostName, setHostName] = React.useState('')
+
+  // const handleCreateRoom = () => {
+  //   socket.emit(
+  //     'create room',
+  //     // eslint-disable-next-line @typescript-eslint/member-delimiter-style
+  //     (response: { status: string; roomId: any; message: any }) => {
+  //       if (response.status === 'success') {
+  //         const newRoomId = response.roomId
+  //         // setRoomId(newRoomId)
+  //         // Puedes redirigir al usuario aquí o actualizar la UI para mostrar el roomId
+  //         console.log(`Room created with ID: ${newRoomId}`)
+  //         setRoomId(newRoomId)
+  //         handleJoinRoom(newRoomId, 'host')
+  //       } else {
+  //         console.error('Error creating room:', response.message)
+  //       }
+  //     }
+  //   )
+  // }
+
+  // const handleJoinRoom = (roomId: string, username: string) => {
+  //   // Asegúrate de obtener un identificador único para el usuario
+  //   // setRoomId(roomId)
+  //   socket.emit(
+  //     'join room',
+  //     { roomId, username },
+  //     // eslint-disable-next-line @typescript-eslint/member-delimiter-style
+  //     (response: {
+  //       status: string
+  //       sharedCartList: any
+  //       message: any
+  //       members: any
+  //     }) => {
+  //       if (response.status === 'success') {
+  //         // Ahora el usuario está en la sala, puedes manejar la lógica para mostrar el carrito compartido
+  //         console.log(`Joined room with ID: ${roomId}`, response.sharedCartList)
+  //         console.log(`Joined room members: ${roomId}`, response.members)
+  //       } else {
+  //         // Manejar errores aquí
+  //         console.error('Error joining room:', response.message)
+  //       }
+  //     }
+  //   )
+  // }
+
+  // const handleCartUpdate = () => {
+  //   socket.emit(
+  //     'update cart',
+  //     { roomId, username, cartList },
+  //     // eslint-disable-next-line @typescript-eslint/member-delimiter-style
+  //     (response: { status: string; message: any; cartList: any }) => {
+  //       if (response.status === 'success') {
+  //         // Ahora el usuario está en la sala, puedes manejar la lógica para mostrar el carrito compartido
+  //         console.log('shared cartttt: ', response.cartList)
+  //       } else {
+  //         // Manejar errores aquí
+  //         console.error('Error updating cart:', response.message)
+  //       }
+  //     }
+  //   )
+  // }
+
+  const handleCartUpdate = () => {
+    socket?.emit(
+      'update cart',
+      { roomId, username, cartList, cartPrice },
       // eslint-disable-next-line @typescript-eslint/member-delimiter-style
-      (response: { status: string; roomId: any; message: any }) => {
-        if (response.status === 'success') {
-          const newRoomId = response.roomId
-          // setRoomId(newRoomId)
-          // Puedes redirigir al usuario aquí o actualizar la UI para mostrar el roomId
-          console.log(`Room created with ID: ${newRoomId}`)
-          setRoomId(newRoomId)
-          handleJoinRoom(newRoomId, hostName)
-        } else {
-          console.error('Error creating room:', response.message)
+      (response: { status: string; message: any; sharedCartList: any }) => {
+        if (response.status !== 'success') {
+          console.error('Error updating shared cart:', response.message)
         }
       }
     )
   }
 
-  const handleJoinRoom = (roomId: string, userId: string) => {
-    // Asegúrate de obtener un identificador único para el usuario
-    socket.emit(
-      'join room',
-      { roomId, userId },
-      // eslint-disable-next-line @typescript-eslint/member-delimiter-style
-      (response: { status: string; cart: any; message: any; members: any }) => {
-        if (response.status === 'success') {
-          // Ahora el usuario está en la sala, puedes manejar la lógica para mostrar el carrito compartido
-          console.log(
-            `Joined room with ID: ${roomId}`,
-            response.cart,
-            response.members
-          )
-        } else {
-          // Manejar errores aquí
-          console.error('Error joining room:', response.message)
-        }
+  React.useEffect(() => {
+    if (socket !== null) {
+      socket.on('shared cart updated', updatedSharedCartList => {
+        // Aquí puedes actualizar el estado local con la lista compartida de carritos
+        // Por ejemplo, guardarlo en un estado o en un store de Zustand
+        console.log('Shared cart list:', updatedSharedCartList)
+        setSharedCartList(updatedSharedCartList)
+      })
+
+      // No olvides limpiar el listener cuando el componente se desmonte
+      return () => {
+        socket.off('shared cart updated')
       }
-    )
+    }
+  }, [socket, cartPrice])
+
+  useEffect(() => {
+    if (socket !== null) {
+      handleCartUpdate()
+    }
+  }, [cartPrice])
+
+  if (sharedCartList.length > 0) {
+    return <SharedCartList socket={socket} />
   }
-
-  const { cartList, cartPrice, calculateCartPrice } = useCartsStore()
-
   return (
     <Navbar
       isBordered
@@ -124,52 +194,7 @@ export default function NavBar () {
                   <h1 className=' text-xl font-semibold'>
                     Mi Carrito <span className=' text-success'>{roomId}</span>
                   </h1>
-                  Host Form
-                  <div className=' flex gap-4 mb-4'>
-                    <Input
-                      isRequired
-                      label='Host username'
-                      size='sm'
-                      placeholder='Enter your username'
-                      value={hostName}
-                      onValueChange={setHostName}
-                    />
-
-                    <Button onPress={handleCreateRoom}>Create Room</Button>
-                  </div>
-                  Guest Form
-                  <div className=' flex gap-4 mt-4 items-end'>
-                    <form className=' flex flex-col gap-2'>
-                      <Input
-                        required
-                        isRequired
-                        label='Room ID'
-                        size='sm'
-                        placeholder='Enter an existing Room ID'
-                        value={value}
-                        onValueChange={setValue}
-                      />
-                      <Input
-                        required
-                        isRequired
-                        minLength={3}
-                        maxLength={15}
-                        label='Username'
-                        size='sm'
-                        placeholder='Enter a funny username'
-                        value={username}
-                        onValueChange={setUsername}
-                      />
-                    </form>
-                    <Button
-                      type='submit'
-                      onPress={() => {
-                        handleJoinRoom(value, username)
-                      }}
-                    >
-                      Join Room
-                    </Button>
-                  </div>
+                  <SharedCartTabsForm socket={socket} />
                 </DropdownItem>
                 {/* eslint-disable-next-line multiline-ternary */}
                 {cartList.length === 0 ? (

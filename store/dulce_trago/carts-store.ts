@@ -2,10 +2,25 @@ import { create } from 'zustand'
 import { produce } from 'immer'
 import { type IProduct } from '@/interfaces/product'
 
+interface ISharedCartList {
+  cartList: IProduct[]
+  cartPrice: number
+  username: string
+}
+
 interface CartState {
   loading: boolean
   cartPrice: number
   cartList: IProduct[]
+  sharedCartList: ISharedCartList[]
+  setSharedCartList: (newCartList: ISharedCartList[]) => void
+
+  // Cart form
+  username: string
+  setUsername: (text: string) => void
+
+  roomId: string
+  setRoomId: (text: string) => void
 
   addToCart: (product: IProduct) => void
   incrementCartItemQuantity: (id: number) => void
@@ -25,6 +40,14 @@ export const useCartsStore = create<CartState>((set, get) => {
     loading: false,
     cartPrice: 0,
     cartList: [],
+    sharedCartList: [],
+    setSharedCartList: (newCartList: ISharedCartList[]) => { set({ sharedCartList: newCartList }) },
+
+    username: '',
+    setUsername: (text: string) => { set({ username: text }) },
+    roomId: '',
+    setRoomId: (text: string) => { set({ roomId: text }) },
+
     isModalOpen: false,
     openModal: () => { set({ isModalOpen: true }) },
     closeModal: () => { set({ isModalOpen: false }) },

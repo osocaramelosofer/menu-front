@@ -4,7 +4,13 @@ import { type IProduct } from '@/interfaces/product'
 import { FaMinus, FaPlus, FaTimes } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 
-export default function CartProductCard ({ product }: { product: IProduct }) {
+export default function CartProductCard ({
+  product,
+  isDisabled
+}: {
+  product: IProduct
+  isDisabled?: boolean
+}) {
   let image = ''
   if (product?.main_image != null && product !== null) {
     const pathArray = product.main_image.split('/')
@@ -60,6 +66,7 @@ export default function CartProductCard ({ product }: { product: IProduct }) {
       <CardBody className='flex flex-row gap-2'>
         <div className=' absolute right-1 top-1 '>
           <Button
+            isDisabled={isDisabled}
             onPress={() => {
               handleRemoveCartItem(product.id)
             }}
@@ -127,10 +134,10 @@ export default function CartProductCard ({ product }: { product: IProduct }) {
 
           <div className='flex gap-2 justify-between items-center'>
             <Button
+              isDisabled={isDisabled ?? product.quantity === 1}
               isIconOnly
               className='text-white'
               color='primary'
-              isDisabled={product.quantity === 1}
               size='sm'
               onClick={() => {
                 handleDecrementCartItemQuantity(product.id)
@@ -147,6 +154,7 @@ export default function CartProductCard ({ product }: { product: IProduct }) {
               {product.quantity}
             </Button>
             <Button
+              isDisabled={isDisabled}
               className='text-white'
               color='primary'
               size='sm'
