@@ -3,6 +3,7 @@ import { Button, Card, CardBody, Chip, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
 import { FaMinus, FaPlus, FaTimes } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useRoomSocket } from '@/hooks/useRoomSockets'
 
 export default function CartProductCard ({
   product,
@@ -70,101 +71,67 @@ export default function CartProductCard ({
             onPress={() => {
               handleRemoveCartItem(product.id)
             }}
+            color='primary'
             isIconOnly
             size='sm'
-            color='danger'
             radius='full'
             variant='flat'
-            className='min-w-[20px] max-w-[20px] min-h-[20px] max-h-[20px] p-[4px]'
+            className='min-w-[20px] max-w-[20px] min-h-[20px] max-h-[20px] p-[4px] text-md opacity-90'
           >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              x='0px'
-              y='0px'
-              width='100'
-              height='100'
-              viewBox='0,0,256,256'
-            >
-              <g
-                className='fill-danger  stroke-danger'
-                fill-rule='nonzero'
-                stroke='none'
-                stroke-width='1'
-                stroke-linecap='butt'
-                stroke-linejoin='miter'
-                stroke-miterlimit='10'
-                stroke-dasharray=''
-                stroke-dashoffset='0'
-                font-family='none'
-                font-weight='none'
-                font-size='none'
-                text-anchor='none'
-              >
-                <g transform='scale(5.12,5.12)'>
-                  <path d='M7.71875,6.28125l-1.4375,1.4375l17.28125,17.28125l-17.28125,17.28125l1.4375,1.4375l17.28125,-17.28125l17.28125,17.28125l1.4375,-1.4375l-17.28125,-17.28125l17.28125,-17.28125l-1.4375,-1.4375l-17.28125,17.28125z'></path>
-                </g>
-              </g>
-            </svg>
+            <FaTimes />
           </Button>
         </div>
+
         {/* Image */}
         <Image
           width={300}
           height={300}
-          className=' object-cover max-w-[6rem] md:min-w-full aspect-square'
+          className=' object-cover max-w-[3.5rem] rounded-md md:min-w-full aspect-square'
           src={image}
           alt='Dulce Trago Product Image'
         />
 
-        <div className='justify-between overflow-hidden flex flex-col flex-1 gap-2'>
+        <div className='justify-start overflow-hidden flex flex-col flex-1 gap-2'>
           {/*  Info */}
           <h2 className='font-semibold text-sm line-clamp-1 pr-3'>
-            <TruncateText text={product.name} maxLength={23} />
+            <TruncateText text={product.name} maxLength={22} />
           </h2>
+          {/* <div className=' text-xs bg-warning/20 text-warning-600 w-fit px-3 rounded-full py-[2px]'>
+            {product.category.name}
+          </div> */}
+          <div className='flex justify-between items-center'>
+            <div className='flex gap-4'>
+              <button
+                onClick={() => {
+                  handleDecrementCartItemQuantity(product.id)
+                }}
+                disabled={(isDisabled ?? false) || product.quantity === 1}
+                className={`flex w-6 h-6 rounded-md bg-primary text-white justify-center items-center text-tiny ${
+                  (isDisabled ?? false) || product.quantity === 1
+                    ? ' opacity-50'
+                    : ''
+                }`}
+              >
+                <FaMinus />
+              </button>
 
-          <div className='flex gap-1 justify-between'>
-            <Chip variant='flat' size='sm' color='warning'>
-              {product.category.name}
-            </Chip>
+              <div className=' text-center flex w-fit bg-transparent text-primary items-center font-bold'>
+                {product.quantity}
+              </div>
 
+              <button
+                onClick={() => {
+                  handleIncrementCartItemQuantity(product.id)
+                }}
+                disabled={isDisabled}
+                className=' flex w-6 h-6 rounded-md bg-primary text-white justify-center items-center text-tiny'
+              >
+                <FaPlus />
+              </button>
+            </div>
             <Chip variant='flat' size='sm' color='success'>
               ${product.price}
             </Chip>
-          </div>
-
-          <div className='flex gap-2 justify-between items-center'>
-            <Button
-              isDisabled={isDisabled ?? product.quantity === 1}
-              isIconOnly
-              className='text-white'
-              color='primary'
-              size='sm'
-              onClick={() => {
-                handleDecrementCartItemQuantity(product.id)
-              }}
-            >
-              <FaMinus />
-            </Button>
-            <Button
-              variant='bordered'
-              size='sm'
-              className=' text-center px-4 text-base font-semibold'
-              color='primary'
-            >
-              {product.quantity}
-            </Button>
-            <Button
-              isDisabled={isDisabled}
-              className='text-white'
-              color='primary'
-              size='sm'
-              isIconOnly
-              onClick={() => {
-                handleIncrementCartItemQuantity(product.id)
-              }}
-            >
-              <FaPlus />
-            </Button>
           </div>
         </div>
       </CardBody>

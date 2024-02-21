@@ -1,4 +1,5 @@
 'use client'
+import { useRoomSocket } from '@/hooks/useRoomSockets'
 import { type IProduct } from '@/interfaces/product'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 
@@ -17,16 +18,17 @@ export default function AddToCartButtonPopover ({
   product: IProduct | null
 }) {
   const { addToCart } = useCartsStore()
+  const { updateCart } = useRoomSocket()
 
   const handleAddToOrder = (product: IProduct) => {
     addToCart(product)
+    // updateCart()
   }
 
   return (
     <>
       {product != null && (
         <Popover
-          color='secondary'
           onOpenChange={() => {
             handleAddToOrder(product)
           }}
@@ -48,7 +50,7 @@ export default function AddToCartButtonPopover ({
               Agregar al carrito
             </Button>
           </PopoverTrigger>
-          <PopoverContent>
+          <PopoverContent className=' bg-secondary2'>
             <div className='px-1 py-2 '>
               <div className='text-small font-bold'>¡Producto Agregado!</div>
               <div className='text-tiny'>

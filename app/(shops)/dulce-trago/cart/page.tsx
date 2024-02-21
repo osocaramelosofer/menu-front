@@ -26,36 +26,9 @@ export default function CartPage () {
     getProductsList()
   }, [])
 
-  useEffect(() => {
-    socket.on('update cart', updatedCart => {
-      console.log('LOLOLOL', updatedCart)
-
-      setCart(updatedCart)
-    })
-
-    socket.on('current cart', currentCart => {
-      console.log('LOLO 2: ', currentCart)
-      setCart(currentCart)
-    })
-  }, [])
-  useEffect(() => {
-    socket.on('cart updated', ({ product, userInfo }) => {
-      // Agregar producto al carrito y manejar la información del usuario
-      addToCart(product)
-      console.log(userInfo)
-
-      // Aquí puedes manejar la información del usuario que agregó el producto
-    })
-  }, [])
-
   const handleJoinRoom = () => {
     socket.emit('join room', { roomId, userId })
   }
-  //   const handleSubmit = (product) => {
-  //     socket.emit('product in cart', roomId, productId)
-  //   }
-
-  console.log('MY CRAT: ', cart)
 
   return (
     <div className='flex flex-col border rounded-lg gap-4 w-full justify-center items-center p-12 overflow-hidden'>

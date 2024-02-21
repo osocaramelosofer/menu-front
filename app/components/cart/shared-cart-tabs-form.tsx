@@ -1,24 +1,15 @@
-import React from 'react'
-import {
-  Tabs,
-  Tab,
-  Input,
-  Link,
-  Button,
-  Card,
-  CardBody,
-  CardHeader
-} from '@nextui-org/react'
-import useSocket from '@/hooks/useSocket'
+import React, { type FormEvent } from 'react'
+import { Tabs, Tab, Input, Button, Card, CardBody } from '@nextui-org/react'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import { type Socket } from 'socket.io-client'
+import { useRoomSocket } from '@/hooks/useRoomSockets'
 
 export default function SharedCartTabsForm ({
   socket
 }: {
-  socket: Socket | null
+  socket?: Socket | null
 }) {
-  const [selected, setSelected] = React.useState('create')
+  const [selected, setSelected] = React.useState('join')
 
   const {
     cartList,
@@ -27,64 +18,37 @@ export default function SharedCartTabsForm ({
     roomId,
     username,
     setRoomId,
-    setUsername
+    setUsername,
+    setSharedCartList
   } = useCartsStore()
-  const handleCreateRoom = () => {
-    socket?.emit(
-      'create room',
-      // eslint-disable-next-line @typescript-eslint/member-delimiter-style
-      (response: { status: string; roomId: string; message: string }) => {
-        if (response.status === 'success') {
-          const newRoomId = response.roomId
-          // Puedes redirigir al usuario aquí o actualizar la UI para mostrar el roomId
-          console.log(`Room created with ID: ${newRoomId}`)
-          setRoomId(newRoomId)
-          handleJoinRoom(newRoomId, username)
-        } else {
-          console.error('Error creating room:', response.message)
-        }
-      }
-    )
-  }
+  const { handleCreateRoom, handleJoinRoom, updateCart } = useRoomSocket()
 
-  const handleJoinRoom = (roomId: string, username: string) => {
-    // Asegúrate de obtener un identificador único para el usuario
-    // setRoomId(roomId)
-    socket?.emit(
-      'join room',
-      { roomId, username },
-      (response: {
-        status: string
-        sharedCartList: any
-        message: any
-        members: any
-      }) => {
-        if (response.status === 'success') {
-          // Ahora el usuario está en la sala, puedes manejar la lógica para mostrar el carrito compartido
-          console.log(`Joined room with ID: ${roomId}`, response.sharedCartList)
-          console.log(`Joined room members: ${roomId}`, response.members)
-        } else {
-          // Manejar errores aquí
-          console.error('Error joining room:', response.message)
-        }
-      }
-    )
-  }
   return (
     <div className='flex flex-col w-full'>
-      <Card className='max-w-full w-[340px] h-[300px] shadow-none'>
+      <Card className='shadow-none border '>
         <CardBody className='overflow-hidden'>
           <Tabs
             fullWidth
+            size='sm'
             color='warning'
-            size='md'
+            variant='underlined'
+            className=' shadow-none'
             aria-label='Tabs form'
             selectedKey={selected}
             onSelectionChange={setSelected}
           >
             <Tab key='create' title='Crear'>
-              <form className='flex flex-col gap-4'>
+              <form
+                onSubmit={e => {
+                  e.preventDefault()
+                  handleCreateRoom()
+                }}
+                className='flex flex-col gap-4'
+              >
                 <Input
+                  size='sm'
+                  minLength={2}
+                  maxLength={10}
                   isRequired
                   label='Username'
                   placeholder='Enter your username'
@@ -93,22 +57,45 @@ export default function SharedCartTabsForm ({
                 />
 
                 <div className='flex gap-2 justify-end text-white'>
-                  <Button fullWidth color='primary' onPress={handleCreateRoom}>
+                  <Button type='submit' size='sm' fullWidth color='primary'>
                     Crear un Carrito Compartido
+                  </Button>
+                  <Button
+                    onClick={e => {
+                      e.preventDefault()
+                      updateCart()
+                    }}
+                    size='sm'
+                    fullWidth
+                    color='primary'
+                  >
+                    UPDATE
                   </Button>
                 </div>
               </form>
             </Tab>
             <Tab key='join' title='Unirse'>
-              <form className='flex flex-col gap-4 h-[300px]'>
+              <form
+                onSubmit={e => {
+                  e.preventDefault()
+                  handleJoinRoom(roomId, username)
+                }}
+                className='flex flex-col gap-4'
+              >
                 <Input
+                  size='sm'
                   isRequired
+                  minLength={2}
+                  maxLength={10}
                   label='Username'
                   placeholder='Enter your username'
                   value={username}
                   onValueChange={setUsername}
                 />
                 <Input
+                  size='sm'
+                  minLength={5}
+                  maxLength={5}
                   isRequired
                   label='Room ID'
                   placeholder='Enter an existing Room ID'
@@ -117,13 +104,7 @@ export default function SharedCartTabsForm ({
                 />
 
                 <div className='flex gap-2 justify-end text-white'>
-                  <Button
-                    fullWidth
-                    color='primary'
-                    onPress={() => {
-                      handleJoinRoom(roomId, username)
-                    }}
-                  >
+                  <Button type='submit' size='sm' fullWidth color='primary'>
                     Unirse a un Carrito Compartido
                   </Button>
                 </div>
