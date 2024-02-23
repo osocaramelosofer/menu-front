@@ -20,16 +20,7 @@ import SharedCartDropdown from '../cart/shared-cart-dropdown'
 
 export default function NavBar () {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-
-  const {
-    cartList,
-    cartPrice,
-    calculateCartPrice,
-    roomId,
-    username,
-    setSharedCartList,
-    sharedCartList
-  } = useCartsStore()
+  const { cartList, calculateCartPrice, isInSharedCart } = useCartsStore()
 
   return (
     <Navbar
@@ -59,7 +50,6 @@ export default function NavBar () {
                 calculateCartPrice()
               }}
               backdrop='opaque'
-              // className='max-h-[36rem] max-w-[23rem] relative'
               className='max-h-[90vh] max-w-[95vw] min-w-[95vw] md:max-w-sm md:min-w-[24rem] relative'
             >
               <DropdownTrigger>
@@ -68,12 +58,7 @@ export default function NavBar () {
                 </Button>
               </DropdownTrigger>
 
-              {/* eslint-disable-next-line multiline-ternary */}
-              {sharedCartList?.length > 0 ? (
-                <SharedCartDropdown />
-              ) : (
-                <CartDropdown />
-              )}
+              {isInSharedCart ? <SharedCartDropdown /> : <CartDropdown />}
             </Dropdown>
           </Badge>
         </div>

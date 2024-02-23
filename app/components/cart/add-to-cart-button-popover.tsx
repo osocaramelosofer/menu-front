@@ -10,29 +10,34 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@nextui-org/react'
-import { FaPlus } from 'react-icons/fa'
+import { useEffect } from 'react'
 
 export default function AddToCartButtonPopover ({
   product
 }: {
   product: IProduct | null
 }) {
-  const { addToCart } = useCartsStore()
+  const { addToCart, calculateCartPrice, cartList, cartPrice } = useCartsStore()
   const { updateCart } = useRoomSocket()
 
   const handleAddToOrder = (product: IProduct) => {
     addToCart(product)
-    // updateCart()
+    calculateCartPrice()
   }
+
+  useEffect(() => {
+    updateCart()
+  }, [cartPrice, cartList])
 
   return (
     <>
       {product != null && (
         <Popover
-          onOpenChange={() => {
+          className=' bg-success rounded-xl'
+          color='success'
+          onClose={() => {
             handleAddToOrder(product)
           }}
-          placement='bottom'
           showArrow
           offset={10}
         >
@@ -43,18 +48,20 @@ export default function AddToCartButtonPopover ({
               color='primary'
               variant='solid'
               className='text-white'
-              onPress={() => {
-                handleAddToOrder(product)
+              onClick={() => {
+                updateCart()
               }}
             >
               Agregar al carrito
             </Button>
           </PopoverTrigger>
-          <PopoverContent className=' bg-secondary2'>
+          <PopoverContent>
             <div className='px-1 py-2 '>
               <div className='text-small font-bold'>¡Producto Agregado!</div>
               <div className='text-tiny'>
-                Se ha agregado {product.name} <br />a tu carrito de compras.
+                Se ha agregado{' '}
+                <span className=' font-bold'>{product.name}</span> <br />a tu
+                carrito de compras.
               </div>
             </div>
           </PopoverContent>

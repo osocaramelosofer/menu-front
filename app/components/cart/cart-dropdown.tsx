@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   DropdownItem,
   DropdownMenu,
@@ -12,25 +12,12 @@ import {
 import { FaShoppingBag } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import CartProductCard from '../cart/cart-product-card'
-import useSocket from '@/hooks/useSocket'
 import SharedCartTabsForm from '../cart/shared-cart-tabs-form'
+import useSocket from '@/hooks/useSocket'
 
 export default function CartDropdown () {
-  const { cartList, cartPrice, setSharedCartList } = useCartsStore()
-  // const socket = useSocket()
-  // useEffect(() => {
-  //   if (socket !== null) {
-  //     socket.on('shared cart updated', updatedSharedCartList => {
-  //       console.log('Shared cart list:', updatedSharedCartList)
-  //       setSharedCartList(updatedSharedCartList)
-  //     })
-
-  //     // Limpieza al desmontar el componente
-  //     return () => {
-  //       socket.off('shared cart updated')
-  //     }
-  //   }
-  // }, [socket, cartPrice])
+  const { cartList, cartPrice } = useCartsStore()
+  const socket = useSocket()
 
   const itemClasses = {
     title: 'font-medium text-sm',
@@ -49,25 +36,27 @@ export default function CartDropdown () {
         textValue='Mi Carrito'
       >
         <h1 className=' text-xl font-semibold'>Mi Carrito</h1>
-        <Accordion itemClasses={itemClasses}>
-          <AccordionItem
-            key='1'
-            aria-label='Join to shared room'
-            startContent={
-              <Avatar
-                size='md'
-                classNames={{
-                  base: 'bg-gradient-to-br from-[#ed71ad] to-[#7277f1]',
-                  icon: ' display-none opacity-0'
-                }}
-              />
-            }
-            subtitle='Crea o únete a un carrito compartido.'
-            title='Carrito compartido'
-          >
-            <SharedCartTabsForm />
-          </AccordionItem>
-        </Accordion>
+        {socket !== null && (
+          <Accordion itemClasses={itemClasses}>
+            <AccordionItem
+              key='1'
+              aria-label='Join to shared room'
+              startContent={
+                <Avatar
+                  size='md'
+                  classNames={{
+                    base: 'bg-gradient-to-br from-[#ed71ad] to-[#7277f1]',
+                    icon: ' display-none opacity-0'
+                  }}
+                />
+              }
+              subtitle='Crea o únete a un carrito compartido.'
+              title='Carrito compartido'
+            >
+              <SharedCartTabsForm />
+            </AccordionItem>
+          </Accordion>
+        )}
       </DropdownItem>
       {/* eslint-disable-next-line multiline-ternary */}
       {cartList.length === 0 ? (

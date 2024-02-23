@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { produce } from 'immer'
 import { type IProduct } from '@/interfaces/product'
-import { createJSONStorage, persist } from 'zustand/middleware'
+// import { createJSONStorage, persist } from 'zustand/middleware'
 
 export interface ISharedCartList {
   cartList: IProduct[]
@@ -22,6 +22,9 @@ interface CartState {
 
   roomId: string
   setRoomId: (text: string) => void
+
+  isInSharedCart: boolean
+  setIsInSharedCart: (value: boolean) => void
 
   socketId: string
   setSocketId: (id: string | undefined) => void
@@ -57,6 +60,11 @@ export const useCartsStore = create<CartState>(
       roomId: '',
       setRoomId: (text: string) => {
         set({ roomId: text })
+      },
+
+      isInSharedCart: false,
+      setIsInSharedCart: (value: boolean) => {
+        set({ isInSharedCart: value })
       },
 
       socketId: '',

@@ -11,7 +11,8 @@ import {
   Button,
   AvatarGroup,
   Dropdown,
-  DropdownTrigger
+  DropdownTrigger,
+  Badge
 } from '@nextui-org/react'
 
 import {
@@ -26,7 +27,8 @@ import CartProductCard from '../cart/cart-product-card'
 import { useRoomSocket } from '@/hooks/useRoomSockets'
 
 export default function SharedCartDropdown () {
-  const { cartList, roomId, username, sharedCartList } = useCartsStore()
+  const { cartList, roomId, username, sharedCartList, cartPrice } =
+    useCartsStore()
 
   const totalPrice = sharedCartList.reduce(
     (sum, cart) => sum + Number(cart.cartPrice),
@@ -36,7 +38,7 @@ export default function SharedCartDropdown () {
 
   React.useEffect(() => {
     updateCart()
-  }, [totalPrice, cartList])
+  }, [totalPrice, cartList, cartPrice])
 
   // Crea una copia de sharedCartList y ordénala
   const sortedCartList = [...sharedCartList].sort((a, b) => {
@@ -147,13 +149,26 @@ export default function SharedCartDropdown () {
               title={
                 <div className='flex gap-2 justify-between items-center'>
                   <div className=' flex items-center gap-2 '>
-                    <Avatar
+                    <Badge
+                      isDot
+                      variant='solid'
+                      content={cart.cartList.length}
                       size='sm'
-                      classNames={{
-                        base: 'bg-gradient-to-br from-background to-secondary maw-w-[2rem] max-h-[2rem]',
-                        icon: ' display-none opacity-0'
-                      }}
-                    />
+                      showOutline={false}
+                      color='success'
+                      shape='rectangle'
+                      placement='top-left'
+                    >
+                      <Avatar
+                        icon={<FaUserAlt />}
+                        isBordered
+                        size='sm'
+                        classNames={{
+                          base: 'bg-gradient-to-br from-background to-secondary maw-w-[2rem] max-h-[2rem]',
+                          icon: 'text-primary text-lg'
+                        }}
+                      />
+                    </Badge>
                     <div>
                       <p className=' font-semibold'>Orden de:</p>
                       <p className=' opacity-80'>

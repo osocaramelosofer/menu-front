@@ -4,26 +4,23 @@ import { type ISharedCartList, useCartsStore } from '@/store/dulce_trago/carts-s
 
 export function useRoomSocket () {
   const socket = useSocket()
-  const [shouldUpdate, setShouldUpdate] = useState(false)
   const {
     cartList,
     cartPrice,
-    calculateCartPrice,
     roomId,
     username,
     setRoomId,
-    setUsername,
     setSharedCartList,
-    socketId
+    addToCart, setIsInSharedCart
   } = useCartsStore()
 
   // Handler para crear una sala
   const handleCreateRoom = useCallback(() => {
     socket?.emit('create room', (response: { status: string, roomId: any, message: any }) => {
       if (response.status === 'success') {
-        console.log(`Room created with ID: ${response.roomId}`)
+        // console.log(`Room created with ID: ${response.roomId}`)
         setRoomId(response.roomId) // Asume que tienes una función setRoomId en tu estado global o local
-
+        setIsInSharedCart(true)
         handleJoinRoom(response.roomId, username)
       } else {
         console.error('Error creating room:', response.message)
@@ -35,8 +32,9 @@ export function useRoomSocket () {
   const handleJoinRoom = useCallback((roomId: string, username: string) => {
     socket?.emit('join room', { roomId, username }, (response: { status: string, sharedCartList: any, message: any, members: any }) => {
       if (response.status === 'success') {
-        console.log(`Joined room with ID: ${roomId}`, response.sharedCartList)
-        console.log(`Joined room members: ${roomId}`, response.members)
+        // console.log(`Joined room with ID: ${roomId}`, response.sharedCartList)
+        // console.log(`Joined room members: ${roomId}`, response.members)
+        setIsInSharedCart(true)
       } else {
         console.error('Error joining room:', response.message)
       }
@@ -45,12 +43,10 @@ export function useRoomSocket () {
 
   const updateCart = useCallback(() => {
     socket?.emit('UPDATE_CART', { roomId, username, cartList, cartPrice }, (response: { status: string, message: any, sharedCartList: any }) => {
-      console.log('RES: ', response)
+      // console.log('RES: ', response)
 
       if (response.status === 'success') {
-        console.log('Cart updated successfully')
-        // setSharedCartList(response.sharedCartList)
-        // setShouldUpdate(true)
+        // console.log('Cart updated successfully')
       } else {
         console.error('Error updating cart:', response.message)
       }
@@ -60,10 +56,11 @@ export function useRoomSocket () {
   const handleLeaveRoom = useCallback((roomId: string) => {
     socket?.emit('leave room', { roomId, username }, (response: { status: string, message: any }) => {
       if (response.status === 'success') {
-        console.log(response.message)
+        // console.log(response.message)
         // Realizar acciones después de dejar la sala, como actualizar el estado
         setRoomId('')
         setSharedCartList([])
+        setIsInSharedCart(false)
         // handleCartUpdate(roomId)
       } else {
         console.error(response.message)
@@ -74,8 +71,6 @@ export function useRoomSocket () {
   useEffect(() => {
     // Escuchar el evento de carrito compartido actualizado
     const handleSharedCartUpdated = (newSharedCartList: ISharedCartList[]) => {
-      console.log('new..')
-
       setSharedCartList(newSharedCartList)
     }
 
@@ -85,7 +80,7 @@ export function useRoomSocket () {
     return () => {
       socket?.off('SHARED_CART_UPDATED', handleSharedCartUpdated)
     }
-  }, [socket])
+  }, [socket, cartList, addToCart])
 
   return {
     handleCreateRoom,
