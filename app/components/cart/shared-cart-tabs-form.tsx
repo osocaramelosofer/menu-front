@@ -3,11 +3,17 @@ import { Tabs, Tab, Input, Button, Card, CardBody } from '@nextui-org/react'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import { useRoomSocket } from '@/hooks/useRoomSockets'
 
-export default function SharedCartTabsForm () {
+export default function SharedCartTabsForm ({
+  handleCreateRoom,
+  handleJoinRoom
+}: {
+  handleCreateRoom: () => void
+  handleJoinRoom: (username: string, roomId: string) => void
+}) {
   const [selected, setSelected] = React.useState<any>('join')
 
   const { roomId, username, setRoomId, setUsername } = useCartsStore()
-  const { handleCreateRoom, handleJoinRoom } = useRoomSocket()
+  // const { handleCreateRoom, handleJoinRoom } = useRoomSocket()
 
   return (
     <div className='flex flex-col w-full'>
@@ -27,7 +33,7 @@ export default function SharedCartTabsForm () {
               <form
                 onSubmit={e => {
                   e.preventDefault()
-                  handleCreateRoom(username)
+                  handleCreateRoom()
                 }}
                 className='flex flex-col gap-4'
               >

@@ -14,8 +14,14 @@ import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import CartProductCard from '../cart/cart-product-card'
 import SharedCartTabsForm from '../cart/shared-cart-tabs-form'
 
-export default function CartDropdown () {
-  const { cartList, cartPrice } = useCartsStore()
+export default function CartDropdown ({
+  handleCreateRoom,
+  handleJoinRoom
+}: {
+  handleCreateRoom: () => void
+  handleJoinRoom: (username: string, roomId: string) => void
+}) {
+  const { cartList, cartPrice, socketId } = useCartsStore()
 
   const itemClasses = {
     title: 'font-medium text-sm',
@@ -35,7 +41,7 @@ export default function CartDropdown () {
       >
         <h1 className=' text-xl font-semibold'>Mi Carrito</h1>
 
-        <Accordion itemClasses={itemClasses}>
+        <Accordion hidden={socketId === undefined} itemClasses={itemClasses}>
           <AccordionItem
             key='1'
             aria-label='Join to shared room'
@@ -51,7 +57,10 @@ export default function CartDropdown () {
             subtitle='Crea o únete a un carrito compartido.'
             title='Carrito compartido'
           >
-            <SharedCartTabsForm />
+            <SharedCartTabsForm
+              handleCreateRoom={handleCreateRoom}
+              handleJoinRoom={handleJoinRoom}
+            />
           </AccordionItem>
         </Accordion>
       </DropdownItem>

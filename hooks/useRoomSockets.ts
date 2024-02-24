@@ -11,17 +11,17 @@ export function useRoomSocket () {
     username,
     setRoomId,
     setSharedCartList,
-    addToCart, setIsInSharedCart, isInSharedCart
+    addToCart, setIsInSharedCart, isInSharedCart, sharedCartList
   } = useCartsStore()
 
   // Handler para crear una sala
-  const handleCreateRoom = useCallback((username: string) => {
-    socket?.emit('create room', { username }, (response: { status: string, roomId: any, message: any }) => {
+  const handleCreateRoom = useCallback(() => {
+    socket?.emit('create room', (response: { status: string, roomId: any, message: any }) => {
       if (response.status === 'success') {
         setIsInSharedCart(true)
         console.log(`Room created with ID: ${response.roomId}`)
         setRoomId(response.roomId) // Asume que tienes una función setRoomId en tu estado global o local
-        // handleJoinRoom(response.roomId, username)
+        handleJoinRoom(response.roomId, username)
       } else {
         console.error('Error creating room:', response.message)
       }
@@ -37,15 +37,15 @@ export function useRoomSocket () {
         setIsInSharedCart(true)
 
         // UPDATE CART
-        socket?.emit('UPDATE_CART', { roomId, username, cartList, cartPrice }, (response: { status: string, message: any, sharedCartList: any }) => {
-          console.log('RES: ', response)
+        // socket?.emit('UPDATE_CART', { roomId, username, cartList, cartPrice }, (response: { status: string, message: any, sharedCartList: any }) => {
+        //   console.log('RES: ', response)
 
-          if (response.status === 'success') {
-            // console.log('Cart updated successfully')
-          } else {
-            console.error('Error updating cart:', response.message)
-          }
-        })
+        //   if (response.status === 'success') {
+        //     // console.log('Cart updated successfully')
+        //   } else {
+        //     console.error('Error updating cart:', response.message)
+        //   }
+        // })
       } else {
         console.error('Error joining room:', response.message)
       }
@@ -54,7 +54,7 @@ export function useRoomSocket () {
 
   const updateCart = useCallback(() => {
     socket?.emit('UPDATE_CART', { roomId, username, cartList, cartPrice }, (response: { status: string, message: any, sharedCartList: any }) => {
-      console.log('RES: ', response)
+      // console.log('RES: ', response)
 
       if (response.status === 'success') {
         // console.log('Cart updated successfully')
@@ -62,7 +62,7 @@ export function useRoomSocket () {
         console.error('Error updating cart:', response.message)
       }
     })
-  }, [socket, roomId, username, cartList, cartPrice, isInSharedCart])
+  }, [socket, roomId, username, cartList, cartPrice, isInSharedCart, sharedCartList, addToCart])
 
   const handleLeaveRoom = useCallback((roomId: string) => {
     socket?.emit('leave room', { roomId, username }, (response: { status: string, message: any }) => {
@@ -91,7 +91,7 @@ export function useRoomSocket () {
     return () => {
       socket?.off('SHARED_CART_UPDATED', handleSharedCartUpdated)
     }
-  }, [socket, cartList, addToCart, isInSharedCart])
+  }, [socket, updateCart])
 
   return {
     handleCreateRoom,

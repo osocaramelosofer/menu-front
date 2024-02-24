@@ -24,21 +24,20 @@ import {
 } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import CartProductCard from '../cart/cart-product-card'
-import { useRoomSocket } from '@/hooks/useRoomSockets'
 
-export default function SharedCartDropdown () {
-  const { cartList, roomId, username, sharedCartList, cartPrice } =
-    useCartsStore()
+export default function SharedCartDropdown ({
+  updateCart,
+  handleLeaveRoom
+}: {
+  updateCart: () => void
+  handleLeaveRoom: (roomId: string) => void
+}) {
+  const { roomId, username, sharedCartList } = useCartsStore()
 
   const totalPrice = sharedCartList.reduce(
     (sum, cart) => sum + Number(cart.cartPrice),
     0
   )
-  const { handleLeaveRoom: leaveRoom, updateCart } = useRoomSocket()
-
-  React.useEffect(() => {
-    updateCart()
-  }, [totalPrice, cartList, cartPrice])
 
   // Crea una copia de sharedCartList y ordénala
   const sortedCartList = [...sharedCartList].sort((a, b) => {
@@ -88,7 +87,7 @@ export default function SharedCartDropdown () {
                 color='danger'
                 startContent={<FaCartArrowDown />}
                 onPress={() => {
-                  leaveRoom(roomId)
+                  handleLeaveRoom(roomId)
                 }}
                 textValue='leave room button'
                 className=' text-danger'
@@ -153,11 +152,12 @@ export default function SharedCartDropdown () {
                       isDot
                       variant='solid'
                       content={cart.cartList.length}
-                      size='sm'
+                      size='md'
                       showOutline={false}
                       color='success'
                       shape='rectangle'
                       placement='top-left'
+                      className=' text-white font-semibold'
                     >
                       <Avatar
                         icon={<FaUserAlt />}

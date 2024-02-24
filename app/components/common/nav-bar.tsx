@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -17,11 +17,21 @@ import { FaShoppingBag } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import CartDropdown from '../cart/cart-dropdown'
 import SharedCartDropdown from '../cart/shared-cart-dropdown'
+import { useRoomSocket } from '@/hooks/useRoomSockets'
 
 export default function NavBar () {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
-  const { calculateCartPrice, cartList, isInSharedCart } = useCartsStore()
+  const { calculateCartPrice, cartList, isInSharedCart, cartPrice, socketId } =
+    useCartsStore()
+  const { handleCreateRoom, handleJoinRoom, handleLeaveRoom, updateCart } =
+    useRoomSocket()
+
+  React.useEffect(() => {
+    if (isInSharedCart) {
+      updateCart()
+    }
+  }, [cartList, cartPrice, isInSharedCart])
 
   return (
     <Navbar
@@ -59,7 +69,18 @@ export default function NavBar () {
                 </Button>
               </DropdownTrigger>
 
-              {isInSharedCart ? <SharedCartDropdown /> : <CartDropdown />}
+              {/* eslint-disable-next-line multiline-ternary */}
+              {isInSharedCart ? (
+                <SharedCartDropdown
+                  handleLeaveRoom={handleLeaveRoom}
+                  updateCart={updateCart}
+                />
+              ) : (
+                <CartDropdown
+                  handleCreateRoom={handleCreateRoom}
+                  handleJoinRoom={handleJoinRoom}
+                />
+              )}
             </Dropdown>
           </Badge>
         </div>

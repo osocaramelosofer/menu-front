@@ -26,7 +26,7 @@ interface CartState {
   isInSharedCart: boolean
   setIsInSharedCart: (value: boolean) => void
 
-  socketId: string
+  socketId: string | undefined
   setSocketId: (id: string | undefined) => void
 
   addToCart: (product: IProduct) => void
@@ -67,7 +67,7 @@ export const useCartsStore = create<CartState>(
         set({ isInSharedCart: value })
       },
 
-      socketId: '',
+      socketId: undefined,
       setSocketId: (id: string | undefined) => { set({ socketId: id }) },
 
       isModalOpen: false,

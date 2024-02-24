@@ -1,32 +1,12 @@
-// import { useEffect, useState } from 'react'
-// import io, { type Socket } from 'socket.io-client'
-
-// const SOCKET_URL = 'http://localhost:3001'
-// export default function useSocket (): Socket | null {
-//   const [socket, setSocket] = useState<Socket | null>(null)
-
-//   useEffect(() => {
-//     // Inicializar conexión Socket.io
-//     const socketIo = io(SOCKET_URL)
-//     setSocket(socketIo)
-
-//     return () => {
-//       socketIo.disconnect()
-//     }
-//   }, [])
-
-//   return socket
-// }
-
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import { useEffect, useState } from 'react'
 import io, { type Socket } from 'socket.io-client'
-import { useRoomSocket } from './useRoomSockets'
 
 const SOCKET_URL = 'http://localhost:3001'
 
 export default function useSocket () {
   const [socket, setSocket] = useState<Socket | null>(null)
+
   const { setSocketId, username, roomId, cartList, cartPrice } = useCartsStore() // Suponiendo que tienes estas variables en tu store
 
   useEffect(() => {
@@ -48,15 +28,23 @@ export default function useSocket () {
             // Verificar la respuesta y actualizar el estado si es necesario
             if (response.status === 'success') {
               console.log('Reconnected successfully')
-              socketIo.emit('UPDATE_CART', { roomId, username, cartList, cartPrice }, (response: { status: string, message: any, sharedCartList: any }) => {
-                console.log('RES: ', response)
+              socketIo.emit(
+                'UPDATE_CART',
+                { roomId, username, cartList, cartPrice },
+                (response: {
+                  status: string
+                  message: any
+                  sharedCartList: any
+                }) => {
+                  // console.log('RES: ', response)
 
-                if (response.status === 'success') {
-                  // console.log('Cart updated successfully')
-                } else {
-                  console.error('Error updating cart:', response.message)
+                  if (response.status === 'success') {
+                    // console.log('Cart updated successfully')
+                  } else {
+                    console.error('Error updating cart:', response.message)
+                  }
                 }
-              })
+              )
             }
           }
         )

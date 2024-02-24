@@ -1,5 +1,4 @@
 'use client'
-import { useRoomSocket } from '@/hooks/useRoomSockets'
 import { type IProduct } from '@/interfaces/product'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 
@@ -10,26 +9,17 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@nextui-org/react'
-import { useEffect } from 'react'
 
 export default function AddToCartButtonPopover ({
   product
 }: {
   product: IProduct | null
 }) {
-  const { addToCart, calculateCartPrice, cartList, cartPrice, isInSharedCart } =
-    useCartsStore()
-  const { updateCart } = useRoomSocket()
+  const { addToCart, calculateCartPrice } = useCartsStore()
 
   const handleAddToOrder = (product: IProduct) => {
     addToCart(product)
     calculateCartPrice()
-  }
-
-  if (isInSharedCart) {
-    useEffect(() => {
-      updateCart()
-    }, [cartPrice, cartList])
   }
 
   return (
@@ -39,7 +29,7 @@ export default function AddToCartButtonPopover ({
           className=' bg-success rounded-xl'
           color='success'
           onClose={() => {
-            handleAddToOrder(product)
+            calculateCartPrice()
           }}
           showArrow
           offset={10}
@@ -51,13 +41,16 @@ export default function AddToCartButtonPopover ({
               color='primary'
               variant='solid'
               className='text-white'
-              onClick={
-                isInSharedCart
-                  ? () => {
-                      updateCart()
-                    }
-                  : () => {}
-              }
+              onClick={() => {
+                handleAddToOrder(product)
+              }}
+              // onClick={
+              //   isInSharedCart
+              //     ? () => {
+              //         updateCart()
+              //       }
+              //     : () => {}
+              // }
             >
               Agregar al carrito
             </Button>

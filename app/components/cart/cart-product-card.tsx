@@ -3,7 +3,6 @@ import { Button, Card, CardBody, Chip, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
 import { FaMinus, FaPlus, FaTimes } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
-import { useRoomSocket } from '@/hooks/useRoomSockets'
 
 export default function CartProductCard ({
   product,
@@ -102,7 +101,8 @@ export default function CartProductCard ({
           <div className='flex justify-between items-center'>
             <div className='flex gap-4'>
               <button
-                onClick={() => {
+                onClick={e => {
+                  e.preventDefault()
                   handleDecrementCartItemQuantity(product.id)
                 }}
                 disabled={(isDisabled ?? false) || product.quantity === 1}
@@ -120,7 +120,8 @@ export default function CartProductCard ({
               </div>
 
               <button
-                onClick={() => {
+                onClick={e => {
+                  e.preventDefault()
                   handleIncrementCartItemQuantity(product.id)
                 }}
                 disabled={isDisabled}
