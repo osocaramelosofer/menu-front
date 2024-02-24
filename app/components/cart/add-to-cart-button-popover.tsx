@@ -17,7 +17,8 @@ export default function AddToCartButtonPopover ({
 }: {
   product: IProduct | null
 }) {
-  const { addToCart, calculateCartPrice, cartList, cartPrice } = useCartsStore()
+  const { addToCart, calculateCartPrice, cartList, cartPrice, isInSharedCart } =
+    useCartsStore()
   const { updateCart } = useRoomSocket()
 
   const handleAddToOrder = (product: IProduct) => {
@@ -25,9 +26,11 @@ export default function AddToCartButtonPopover ({
     calculateCartPrice()
   }
 
-  useEffect(() => {
-    updateCart()
-  }, [cartPrice, cartList])
+  if (isInSharedCart) {
+    useEffect(() => {
+      updateCart()
+    }, [cartPrice, cartList])
+  }
 
   return (
     <>
@@ -48,9 +51,13 @@ export default function AddToCartButtonPopover ({
               color='primary'
               variant='solid'
               className='text-white'
-              onClick={() => {
-                updateCart()
-              }}
+              onClick={
+                isInSharedCart
+                  ? () => {
+                      updateCart()
+                    }
+                  : () => {}
+              }
             >
               Agregar al carrito
             </Button>

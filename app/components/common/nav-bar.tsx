@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -20,7 +20,8 @@ import SharedCartDropdown from '../cart/shared-cart-dropdown'
 
 export default function NavBar () {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-  const { cartList, calculateCartPrice, isInSharedCart } = useCartsStore()
+
+  const { calculateCartPrice, cartList, isInSharedCart } = useCartsStore()
 
   return (
     <Navbar

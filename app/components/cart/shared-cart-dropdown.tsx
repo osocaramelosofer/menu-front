@@ -186,7 +186,7 @@ export default function SharedCartDropdown () {
                 </div>
               }
               className={`flex flex-col gap-1  bg-background rounded-lg px-1 py-2 mb-3 ${
-                cart.username === username ? ' opacity-100' : ' opacity-60'
+                cart.username === username ? ' opacity-100' : ' opacity-50'
               }`}
             >
               {/* eslint-disable-next-line multiline-ternary */}

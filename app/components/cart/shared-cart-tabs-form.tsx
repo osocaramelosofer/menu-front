@@ -27,7 +27,7 @@ export default function SharedCartTabsForm () {
               <form
                 onSubmit={e => {
                   e.preventDefault()
-                  handleCreateRoom()
+                  handleCreateRoom(username)
                 }}
                 className='flex flex-col gap-4'
               >
