@@ -9,7 +9,12 @@ import {
   Button,
   Dropdown,
   DropdownTrigger,
-  Badge
+  Badge,
+  Modal,
+  ModalBody,
+  ModalContent,
+  DropdownMenu,
+  DropdownItem
 } from '@nextui-org/react'
 import { DulceTragoLogo } from '../logo'
 

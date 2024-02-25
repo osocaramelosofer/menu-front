@@ -11,7 +11,7 @@ export function useRoomSocket () {
     username,
     setRoomId,
     setSharedCartList,
-    addToCart, setIsInSharedCart, isInSharedCart, sharedCartList
+    addToCart, setIsInSharedCart, isInSharedCart, sharedCartList, setSocketId
   } = useCartsStore()
 
   // Handler para crear una sala

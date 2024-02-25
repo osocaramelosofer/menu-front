@@ -25,7 +25,7 @@ export default function ProductDetailModal () {
   if (product?.main_image != null && product !== null) {
     const pathArray = product.main_image.split('/')
     const uploadIndex = pathArray.indexOf('upload')
-    pathArray.splice(uploadIndex + 1, 0, 'w_500,q_auto,f_webp')
+    pathArray.splice(uploadIndex + 1, 0, 'w_450,q_auto,f_webp')
     const optimizedImagePath = pathArray.join('/')
     image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
   } else {
@@ -55,12 +55,12 @@ export default function ProductDetailModal () {
             </ModalHeader>
             <ModalBody>
               {/* Product Image */}
-              <div className='w-full flex-1  shadow-sm relative rounded-xl'>
+              <div className='w-full flex-1  shadow-sm relative rounded-xl aspect-square'>
                 <Image
                   alt='Woman listing to music'
                   // removeWrapper
 
-                  className='object-cover h-full w-full rounded-xl'
+                  className='object-cover h-full w-full rounded-xl aspect-square'
                   src={image}
                 />
               </div>

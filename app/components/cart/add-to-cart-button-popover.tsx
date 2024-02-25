@@ -44,13 +44,6 @@ export default function AddToCartButtonPopover ({
               onClick={() => {
                 handleAddToOrder(product)
               }}
-              // onClick={
-              //   isInSharedCart
-              //     ? () => {
-              //         updateCart()
-              //       }
-              //     : () => {}
-              // }
             >
               Agregar al carrito
             </Button>

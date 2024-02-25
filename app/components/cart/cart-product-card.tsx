@@ -1,8 +1,9 @@
 'use client'
-import { Button, Card, CardBody, Chip, Image } from '@nextui-org/react'
+import { Button, Card, CardBody, Chip, Code, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
 import { FaMinus, FaPlus, FaTimes } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useProductsStore } from '@/store/dulce_trago/products-store'
 
 export default function CartProductCard ({
   product,
@@ -15,7 +16,7 @@ export default function CartProductCard ({
   if (product?.main_image != null && product !== null) {
     const pathArray = product.main_image.split('/')
     const uploadIndex = pathArray.indexOf('upload')
-    pathArray.splice(uploadIndex + 1, 0, 'w_500,q_auto,f_webp')
+    pathArray.splice(uploadIndex + 1, 0, 'w_60,q_auto,f_webp')
     const optimizedImagePath = pathArray.join('/')
     image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
   } else {
@@ -40,6 +41,11 @@ export default function CartProductCard ({
     return <span>{truncate(text, maxLength)}</span>
   }
 
+  const { setSelectedProduct, openModal } = useProductsStore()
+  const handleSelectedProduct = () => {
+    setSelectedProduct(product)
+    openModal()
+  }
   const {
     incrementCartItemQuantity,
     decrementCartItemQuantity,
@@ -62,10 +68,15 @@ export default function CartProductCard ({
   }
 
   return (
-    <Card className=' rounded-xl shadow-xs border overflow-hidden mb-4 border-white  bg-gradient-to-br from-secondary/50 to-background'>
+    <Card
+      isPressable
+      // onClick={handleSelectedProduct}
+      className='rounded-xl shadow-xs border overflow-hidden mb-4 border-white w-full  bg-gradient-to-br from-secondary/50 to-background'
+    >
       <CardBody className='flex flex-row gap-2'>
         <div className=' absolute right-1 top-1 '>
           <Button
+            as={Chip}
             isDisabled={isDisabled}
             onPress={() => {
               handleRemoveCartItem(product.id)
@@ -99,36 +110,44 @@ export default function CartProductCard ({
             {product.category.name}
           </div> */}
           <div className='flex justify-between items-center'>
-            <div className='flex gap-4'>
-              <button
+            <div className='flex'>
+              <Button
+                as={Code}
+                size='sm'
+                color='primary'
+                isIconOnly
                 onClick={e => {
                   e.preventDefault()
                   handleDecrementCartItemQuantity(product.id)
                 }}
-                disabled={(isDisabled ?? false) || product.quantity === 1}
-                className={`flex w-6 h-6 rounded-md bg-primary text-white justify-center items-center text-tiny ${
+                isDisabled={(isDisabled ?? false) || product.quantity === 1}
+                className={`min-w-[1.5rem] max-w-[1.5rem] min-h-[1.5rem] max-h-[1.5rem] rounded-md text-white ${
                   (isDisabled ?? false) || product.quantity === 1
                     ? ' opacity-50'
                     : ''
                 }`}
               >
                 <FaMinus />
-              </button>
+              </Button>
 
-              <div className=' text-center flex w-fit bg-transparent text-primary items-center font-bold'>
+              <div className='text-center min-w-[3rem] max-w-[3rem] flex bg-transparent text-primary items-center font-bold justify-center'>
                 {product.quantity}
               </div>
 
-              <button
+              <Button
+                as={Code}
+                size='sm'
+                color='primary'
+                isIconOnly
                 onClick={e => {
                   e.preventDefault()
                   handleIncrementCartItemQuantity(product.id)
                 }}
-                disabled={isDisabled}
-                className=' flex w-6 h-6 rounded-md bg-primary text-white justify-center items-center text-tiny'
+                isDisabled={(isDisabled ?? false) || product.quantity === 99}
+                className=' min-w-[1.5rem] max-w-[1.5rem] min-h-[1.5rem] max-h-[1.5rem] rounded-md text-white'
               >
                 <FaPlus />
-              </button>
+              </Button>
             </div>
             <Chip variant='flat' size='sm' color='success'>
               ${product.price}

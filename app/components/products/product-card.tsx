@@ -14,7 +14,7 @@ export default function ProductCard ({ product }: { product: IProduct }) {
   if (product?.main_image != null && product !== null) {
     const pathArray = product.main_image.split('/')
     const uploadIndex = pathArray.indexOf('upload')
-    pathArray.splice(uploadIndex + 1, 0, 'w_500,q_auto,f_webp')
+    pathArray.splice(uploadIndex + 1, 0, 'w_280,q_auto,f_webp')
     const optimizedImagePath = pathArray.join('/')
     image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
   } else {

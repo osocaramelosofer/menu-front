@@ -6,7 +6,10 @@ import {
   DropdownMenu,
   Accordion,
   AccordionItem,
-  Avatar
+  Avatar,
+  Modal,
+  ModalBody,
+  ModalContent
 } from '@nextui-org/react'
 
 import { FaShoppingBag } from 'react-icons/fa'
