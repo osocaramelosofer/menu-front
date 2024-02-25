@@ -70,6 +70,8 @@ export async function fetchFilteredProducts (currentCategoryId: string, offset: 
   if (!response.ok) {
     throw new Error('Error al cargar los productos FILTRADOS')
   }
-
+  // await new Promise((resolve) => setTimeout(resolve, 4000))
   return await response.json()
 }
+
+// ADMIN CRUD

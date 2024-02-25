@@ -1,4 +1,5 @@
 'use client'
+
 import { useProductsStore } from '@/store/dulce_trago/products-store'
 
 import {
@@ -11,6 +12,7 @@ import {
   Image,
   Chip
 } from '@nextui-org/react'
+import AddToCartButtonPopover from '../cart/add-to-cart-button-popover'
 
 export default function ProductDetailModal () {
   const {
@@ -23,7 +25,7 @@ export default function ProductDetailModal () {
   if (product?.main_image != null && product !== null) {
     const pathArray = product.main_image.split('/')
     const uploadIndex = pathArray.indexOf('upload')
-    pathArray.splice(uploadIndex + 1, 0, 'w_500,q_auto,f_webp')
+    pathArray.splice(uploadIndex + 1, 0, 'w_450,q_auto,f_webp')
     const optimizedImagePath = pathArray.join('/')
     image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
   } else {
@@ -32,7 +34,7 @@ export default function ProductDetailModal () {
 
   return (
     <Modal
-      backdrop='blur'
+      backdrop='opaque'
       isOpen={isModalOpen}
       onClose={closeModal}
       radius='lg'
@@ -53,12 +55,12 @@ export default function ProductDetailModal () {
             </ModalHeader>
             <ModalBody>
               {/* Product Image */}
-              <div className='w-full flex-1  shadow-sm relative rounded-xl'>
+              <div className='w-full flex-1  shadow-sm relative rounded-xl aspect-square'>
                 <Image
                   alt='Woman listing to music'
                   // removeWrapper
 
-                  className='object-cover h-full w-full rounded-xl'
+                  className='object-cover h-full w-full rounded-xl aspect-square'
                   src={image}
                 />
               </div>
@@ -89,23 +91,26 @@ export default function ProductDetailModal () {
                 </div>
               </div> */}
             </ModalBody>
-            <ModalFooter className='flex flex-col justify-between items-center gap-4'>
+            <ModalFooter>
               <div className=' flex flex-1 w-full justify-between items-end'>
-                <div className='flex flex-col justify-center items-center'>
-                  <p className='text-sm font-medium'>Precio</p>
-                  <h3 className='text-2xl font-bold '>
+                <div>
+                  <p className='text-sm text-center'>Precio</p>
+                  <h3 className='text-xl font-bold text-center'>
                     <span className='text-success'>$</span>
                     {product?.price}
                   </h3>
                 </div>
-                <Button
-                  color='primary'
-                  variant='solid'
-                  className='text-white'
-                  onPress={closeModal}
-                >
-                  Cerrar
-                </Button>
+                <div className=' flex gap-2 items-end'>
+                  <Button
+                    size='sm'
+                    color='danger'
+                    variant='flat'
+                    onPress={closeModal}
+                  >
+                    Cerrar
+                  </Button>
+                  <AddToCartButtonPopover product={product} />
+                </div>
               </div>
             </ModalFooter>
           </>

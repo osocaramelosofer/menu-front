@@ -4,41 +4,39 @@ import React from 'react'
 import {
   Navbar,
   NavbarBrand,
-  NavbarMenuItem,
-  NavbarMenu,
   NavbarContent,
-  NavbarItem,
   Link,
   Button,
   Dropdown,
-  DropdownItem,
+  DropdownTrigger,
+  Badge,
+  Modal,
+  ModalBody,
+  ModalContent,
   DropdownMenu,
-  DropdownTrigger
+  DropdownItem
 } from '@nextui-org/react'
 import { DulceTragoLogo } from '../logo'
-import {
-  CoffeeIcon,
-  HomeIcon,
-  JarIcon,
-  MenuIcon,
-  PaintbrushIcon
-} from '@/lib/icons'
 
-import { FaArrowLeft } from 'react-icons/fa'
-import { usePathname } from 'next/navigation'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { FaShoppingBag } from 'react-icons/fa'
+import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import CartDropdown from '../cart/cart-dropdown'
+import SharedCartDropdown from '../cart/shared-cart-dropdown'
+import { useRoomSocket } from '@/hooks/useRoomSockets'
 
 export default function NavBar () {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
-  const menuItems = [
-    { name: 'Menu', route: '/dulce-trago', icon: <HomeIcon /> },
-    { name: 'Cafés Regionales', route: '/dulce-trago', icon: <CoffeeIcon /> },
-    { name: 'Conservas', route: '/dulce-trago', icon: <JarIcon /> },
-    { name: 'Pinta y Crea', route: '/dulce-trago', icon: <PaintbrushIcon /> }
-  ]
+  const { calculateCartPrice, cartList, isInSharedCart, cartPrice, socketId } =
+    useCartsStore()
+  const { handleCreateRoom, handleJoinRoom, handleLeaveRoom, updateCart } =
+    useRoomSocket()
 
-  const pathname = usePathname()
+  React.useEffect(() => {
+    if (isInSharedCart) {
+      updateCart()
+    }
+  }, [cartList, cartPrice, isInSharedCart])
 
   return (
     <Navbar
@@ -47,85 +45,51 @@ export default function NavBar () {
       onMenuOpenChange={setIsMenuOpen}
       className='w-screen overflow-x-hidden bg-primary text-white'
     >
-      {/* <NavbarContent
-        className={`${pathname === '/dulce-trago' ? 'hidden' : ''}`}
-      >
-        <div>
-          <Link href='/dulce-trago' className='text-white'>
-            <FaArrowLeft size='20' />
-          </Link>
-        </div>
-      </NavbarContent> */}
-
-      <NavbarContent className='sm:hidden w-full'>
-        <div className='flex w-full justify-between items-center'>
-          <NavbarBrand as={Link} href='/dulce-trago/' className='max-w-fit'>
+      <NavbarContent className='w-full'>
+        <div className='flex w-full justify-end items-center relative'>
+          <NavbarBrand
+            as={Link}
+            href='/dulce-trago/'
+            className='max-w-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+          >
             <DulceTragoLogo />
           </NavbarBrand>
+          <Badge
+            content={cartList.length}
+            size='sm'
+            showOutline={false}
+            color='danger'
+            shape='circle'
+          >
+            <Dropdown
+              onOpenChange={() => {
+                calculateCartPrice()
+              }}
+              backdrop='opaque'
+              className='max-h-[90vh] max-w-[95vw] min-w-[95vw] md:max-w-sm md:min-w-[24rem] relative'
+            >
+              <DropdownTrigger>
+                <Button isIconOnly color='primary' radius='full'>
+                  <FaShoppingBag size={22} />
+                </Button>
+              </DropdownTrigger>
 
-          <Dropdown>
-            <DropdownTrigger>
-              <Button isIconOnly color='primary' radius='full'>
-                <MenuIcon />
-              </Button>
-            </DropdownTrigger>
-
-            <DropdownMenu variant='faded' aria-label='Dropdown menu with icons'>
-              {menuItems.map((menuItem, index) => {
-                return (
-                  <DropdownItem
-                    key={`${menuItem.name}-${index}`}
-                    startContent={menuItem.icon}
-                    as={Link}
-                    href={menuItem.route}
-                  >
-                    {menuItem.name}
-                  </DropdownItem>
-                )
-              })}
-            </DropdownMenu>
-          </Dropdown>
+              {/* eslint-disable-next-line multiline-ternary */}
+              {isInSharedCart ? (
+                <SharedCartDropdown
+                  handleLeaveRoom={handleLeaveRoom}
+                  updateCart={updateCart}
+                />
+              ) : (
+                <CartDropdown
+                  handleCreateRoom={handleCreateRoom}
+                  handleJoinRoom={handleJoinRoom}
+                />
+              )}
+            </Dropdown>
+          </Badge>
         </div>
       </NavbarContent>
-
-      <NavbarBrand
-        as={Link}
-        href='/dulce-trago/'
-        className='max-w-fit hidden sm:flex'
-      >
-        <DulceTragoLogo />
-      </NavbarBrand>
-      <NavbarContent className='hidden sm:flex gap-4' justify='center'>
-        {menuItems.map((item, index) => (
-          <NavbarItem key={`${item.name}-${index}`}>
-            <Link
-              className={`${
-                index === 2 ? 'text-white' : 'text-white/60'
-              } font-medium `}
-              href='#'
-              size='md'
-            >
-              {item.name}
-            </Link>
-          </NavbarItem>
-        ))}
-      </NavbarContent>
-
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item.name}-${index}`}>
-            <Link
-              className={`${
-                index === 2 ? 'text-primary' : 'text-primary/50'
-              } font-medium w-full `}
-              href='#'
-              size='lg'
-            >
-              {item.name}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
     </Navbar>
   )
 }

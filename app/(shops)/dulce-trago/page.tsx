@@ -7,7 +7,6 @@ import FeaturedProductsSkeleton from '@/app/components/skeletons/featured-produc
 import FeaturedProductsList from '@/app/components/featured-products/featured-products-list'
 import ProductsList from '@/app/components/products/products-list'
 import ProductDetailModal from '@/app/components/common/product-detail-modal'
-import CardsCarousel from '@/app/components/carousel/cards-carousel'
 
 interface RootPageProps {
   searchParams: {
@@ -32,12 +31,12 @@ export default async function DulceTragoPage ({ searchParams }: RootPageProps) {
       {/* </Suspense> */}
       <Categories />
       <Spacer y={6} />
-      {/* <Suspense key={Math.random()} fallback={<ProductsSkeleton />}> */}
-      <ProductsList
-        currentCategoryId={currentCategoryId}
-        currentOffset={currentOffset}
-      />
-      {/* </Suspense> */}
+      <Suspense key={Math.random()} fallback={<ProductsSkeleton />}>
+        <ProductsList
+          currentCategoryId={currentCategoryId}
+          currentOffset={currentOffset}
+        />
+      </Suspense>
       <ProductDetailModal />
     </main>
   )

@@ -12,22 +12,30 @@ import {
   Image
 } from '@nextui-org/react'
 import { FaDollarSign, FaChevronRight } from 'react-icons/fa'
+import io from 'socket.io-client'
+import AddToCartButtonPopover from '../cart/add-to-cart-button-popover'
 
 export default function FeaturedProductCard ({
   product
 }: {
   product: IProduct
 }) {
+  // const socket = io('http://localhost:3001')
   const { setSelectedProduct, openModal } = useProductsStore()
   const handleSelectedProduct = () => {
     setSelectedProduct(product)
     openModal()
   }
+  // const handleAddToCart = (product: IProduct) => {
+  //   const userInfo = { userId: 'user123', userName: 'Usuario1' } // Ejemplo
+  //   // socket.emit('add to cart', { product, userInfo })
+  //   addToCart(product)
+  // }
   let image = ''
   if (product?.main_image != null && product !== null) {
     const pathArray = product.main_image.split('/')
     const uploadIndex = pathArray.indexOf('upload')
-    pathArray.splice(uploadIndex + 1, 0, 'w_500,q_auto,f_webp')
+    pathArray.splice(uploadIndex + 1, 0, 'w_180,q_auto,f_webp')
     const optimizedImagePath = pathArray.join('/')
     image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
   } else {
@@ -82,6 +90,7 @@ export default function FeaturedProductCard ({
           <FaChevronRight />
         </Button>
       </CardFooter>
+      {/* <AddToCartButtonPopover product={product} /> */}
     </Card>
   )
 }

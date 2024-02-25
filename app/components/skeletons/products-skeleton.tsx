@@ -3,7 +3,7 @@ import { Skeleton } from '@nextui-org/react'
 export default function ProductsSkeleton () {
   return (
     <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
-      {Array(7)
+      {Array(5)
         .fill(null)
         .map((_, index) => (
           <div

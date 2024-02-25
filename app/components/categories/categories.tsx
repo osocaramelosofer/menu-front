@@ -10,6 +10,10 @@ import CategoriesSkeleton from '../skeletons/categories-skeleton'
 export default function Categories () {
   const { categories, getCategoriesList, loading } = useCategoriesStore()
 
+  const sortedCategories = categories.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
+
   useEffect(() => {
     getCategoriesList()
   }, [])
@@ -47,7 +51,7 @@ export default function Categories () {
         orientation='horizontal'
         className='flex overflow-x-auto gap-4 pb-5'
       >
-        {categories.map(category => (
+        {sortedCategories.map(category => (
           <CategoryItem key={category.id} category={category} />
         ))}
       </ScrollShadow>
