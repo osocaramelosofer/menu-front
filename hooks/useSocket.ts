@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import io, { type Socket } from 'socket.io-client'
 
 // const SOCKET_URL = 'http://localhost:3001'
-const SOCKET_URL = 'https://menu-app-server-io.vercel.app/'
+const SOCKET_URL = 'https://menu-app-server-io.vercel.app'
 
 export default function useSocket () {
   const [socket, setSocket] = useState<Socket | null>(null)
