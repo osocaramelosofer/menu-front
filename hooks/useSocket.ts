@@ -2,7 +2,7 @@ import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import { useEffect, useState } from 'react'
 import io, { type Socket } from 'socket.io-client'
 
-const SOCKET_URL = 'http://192.168.0.6:3001'
+const SOCKET_URL = 'http://localhost:3001'
 // const SOCKET_URL = 'https://menu-app-server-io.vercel.app/'
 
 export default function useSocket () {
