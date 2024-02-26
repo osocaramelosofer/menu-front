@@ -12,17 +12,7 @@ export default function useSocket () {
 
   useEffect(() => {
     // Inicializar conexión Socket.io
-    const socketIo = io(SOCKET_URL, {
-      withCredentials: false,
-
-      transportOptions: {
-        polling: {
-          extraHeaders: {
-            'my-custom-header': 'abc'
-          }
-        }
-      }
-    })
+    const socketIo = io(SOCKET_URL)
 
     // Manejador de eventos de reconexión en el cliente
     socketIo.on('connect', () => {
