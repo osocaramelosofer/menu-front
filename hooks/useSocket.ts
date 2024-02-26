@@ -13,7 +13,7 @@ export default function useSocket () {
   useEffect(() => {
     // Inicializar conexión Socket.io
     const socketIo = io(SOCKET_URL, {
-      withCredentials: true,
+      withCredentials: false,
 
       transportOptions: {
         polling: {
