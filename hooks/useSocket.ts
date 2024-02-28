@@ -4,6 +4,7 @@ import io, { type Socket } from 'socket.io-client'
 
 // const SOCKET_URL = 'http://localhost:3001'
 const SOCKET_URL = 'https://menu-app-server-io.vercel.app'
+// var socket = io("/",{transports: ['polling','websocket']});
 
 export default function useSocket () {
   const [socket, setSocket] = useState<Socket | null>(null)
@@ -12,7 +13,7 @@ export default function useSocket () {
 
   useEffect(() => {
     // Inicializar conexión Socket.io
-    const socketIo = io(SOCKET_URL)
+    const socketIo = io(SOCKET_URL, {transports: ['polling','websocket']})
 
     // Manejador de eventos de reconexión en el cliente
     socketIo.on('connect', () => {
