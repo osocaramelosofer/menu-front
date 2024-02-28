@@ -6,10 +6,7 @@ import {
   DropdownMenu,
   Accordion,
   AccordionItem,
-  Avatar,
-  Modal,
-  ModalBody,
-  ModalContent
+  Avatar
 } from '@nextui-org/react'
 
 import { FaShoppingBag } from 'react-icons/fa'
@@ -21,8 +18,8 @@ export default function CartDropdown ({
   handleCreateRoom,
   handleJoinRoom
 }: {
-  handleCreateRoom: () => void
-  handleJoinRoom: (username: string, roomId: string) => void
+  handleCreateRoom?: () => void
+  handleJoinRoom?: (username: string, roomId: string) => void
 }) {
   const { cartList, cartPrice, socketId } = useCartsStore()
 
@@ -60,10 +57,10 @@ export default function CartDropdown ({
             subtitle='Crea o únete a un carrito compartido.'
             title='Carrito compartido'
           >
-            <SharedCartTabsForm
+            {/* <SharedCartTabsForm
               handleCreateRoom={handleCreateRoom}
               handleJoinRoom={handleJoinRoom}
-            />
+            /> */}
           </AccordionItem>
         </Accordion>
       </DropdownItem>

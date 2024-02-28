@@ -13,7 +13,7 @@ export default function useSocket () {
 
   useEffect(() => {
     // Inicializar conexión Socket.io
-    const socketIo = io(SOCKET_URL, {transports: ['polling','websocket']})
+    const socketIo = io(SOCKET_URL, { transports: ['polling', 'websocket'] })
 
     // Manejador de eventos de reconexión en el cliente
     socketIo.on('connect', () => {

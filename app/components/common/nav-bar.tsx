@@ -9,12 +9,7 @@ import {
   Button,
   Dropdown,
   DropdownTrigger,
-  Badge,
-  Modal,
-  ModalBody,
-  ModalContent,
-  DropdownMenu,
-  DropdownItem
+  Badge
 } from '@nextui-org/react'
 import { DulceTragoLogo } from '../logo'
 
@@ -27,16 +22,16 @@ import { useRoomSocket } from '@/hooks/useRoomSockets'
 export default function NavBar () {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
-  const { calculateCartPrice, cartList, isInSharedCart, cartPrice, socketId } =
+  const { calculateCartPrice, cartList, isInSharedCart, cartPrice } =
     useCartsStore()
-  const { handleCreateRoom, handleJoinRoom, handleLeaveRoom, updateCart } =
-    useRoomSocket()
+  // const { handleCreateRoom, handleJoinRoom, handleLeaveRoom, updateCart } =
+  //   useRoomSocket()
 
-  React.useEffect(() => {
-    if (isInSharedCart) {
-      updateCart()
-    }
-  }, [cartList, cartPrice, isInSharedCart])
+  // React.useEffect(() => {
+  //   if (isInSharedCart) {
+  //     updateCart()
+  //   }
+  // }, [cartList, cartPrice, isInSharedCart])
 
   return (
     <Navbar
@@ -75,7 +70,7 @@ export default function NavBar () {
               </DropdownTrigger>
 
               {/* eslint-disable-next-line multiline-ternary */}
-              {isInSharedCart ? (
+              {/* {isInSharedCart ? (
                 <SharedCartDropdown
                   handleLeaveRoom={handleLeaveRoom}
                   updateCart={updateCart}
@@ -85,7 +80,9 @@ export default function NavBar () {
                   handleCreateRoom={handleCreateRoom}
                   handleJoinRoom={handleJoinRoom}
                 />
-              )}
+              )} */}
+
+              <CartDropdown />
             </Dropdown>
           </Badge>
         </div>
