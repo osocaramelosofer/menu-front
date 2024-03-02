@@ -1,5 +1,8 @@
 'use server'
 
+import type { IProduct, IProductPost } from '@/interfaces/product'
+import { revalidatePath } from 'next/cache'
+
 // Categories
 export async function fetchAllCategories () {
   const requestOptions: RequestInit = {
@@ -36,6 +39,43 @@ export async function fetchAllProducts () {
   const data = await response.json()
   // await new Promise((resolve) => setTimeout(resolve, 10000))
   return data
+}
+
+export async function createProduct (product: IProductPost) {
+  const requestOptions: RequestInit = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(product),
+    redirect: 'follow',
+    cache: 'no-store'
+  }
+
+  const response = await fetch(
+    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/',
+    requestOptions
+  )
+
+  if (!response.ok) {
+    throw new Error('Error al crear el producto')
+  }
+
+  return await response.json()
+}
+
+export const addProduct = async (formData: FormData) => {
+  const productBody: IProductPost = {
+    category: Number(formData.get('category')),
+    variants: [],
+    name: formData.get('name') as string,
+    main_image: formData.get('main_image') as string,
+    description: formData.get('description') as string,
+    price: formData.get('price') as string,
+    store: 2
+  }
+  // console.log(productBody)
+  await createProduct(productBody)
+
+  revalidatePath('dulce-trago/admin')
 }
 
 // export async function fetchFilteredProducts (currentCategoryId: string) {

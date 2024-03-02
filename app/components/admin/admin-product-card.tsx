@@ -13,17 +13,12 @@ import {
 } from '@nextui-org/react'
 import { FaDollarSign, FaChevronRight } from 'react-icons/fa'
 
-export default function FeaturedProductCard ({
-  product
-}: {
-  product: IProduct
-}) {
+export default function AdminProductCard ({ product }: { product: IProduct }) {
   const { setSelectedProduct, openModal } = useProductsStore()
   const handleSelectedProduct = () => {
     setSelectedProduct(product)
     openModal()
   }
-
   let image = ''
   if (product?.main_image != null && product !== null) {
     const pathArray = product.main_image.split('/')
@@ -54,7 +49,7 @@ export default function FeaturedProductCard ({
 
         {/* Card Info */}
         <div className='flex flex-col justify-between gap-1'>
-          <div className='font-semibold text-sm line-clamp-1'>
+          <div className='font-semibold text-sm line-clamp-3'>
             {product.name}
           </div>
           <div className='text-xs opacity-70 line-clamp-2'>
@@ -83,7 +78,6 @@ export default function FeaturedProductCard ({
           <FaChevronRight />
         </Button>
       </CardFooter>
-      {/* <AddToCartButtonPopover product={product} /> */}
     </Card>
   )
 }

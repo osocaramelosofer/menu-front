@@ -37,7 +37,6 @@ export default async function DulceTragoPage ({ searchParams }: RootPageProps) {
           currentOffset={currentOffset}
         />
       </Suspense>
-      <ProductDetailModal />
     </main>
   )
 }
