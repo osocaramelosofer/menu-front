@@ -25,11 +25,12 @@ export default function ProductCard ({ product }: { product: IProduct }) {
     <Card
       isPressable
       onClick={handleSelectedProduct}
-      className='cursor-pointer rounded-xl shadow-xs border border-white  bg-gradient-to-br from-secondary/50 to-background'
+      className='cursor-pointer rounded-xl shadow-xs border border-white  bg-gradient-to-br from-secondary/50 to-background overflow-hidden'
     >
-      <CardBody className='flex flex-row md:flex-col gap-2'>
+      <CardBody className='flex flex-row md:flex-col gap-2 overflow-hidden'>
         {/* Card Image */}
         <Image
+          loading='lazy'
           width={300}
           height={300}
           className=' object-cover max-w-[8rem] md:min-w-full aspect-square'
@@ -51,12 +52,12 @@ export default function ProductCard ({ product }: { product: IProduct }) {
           {/* Footer */}
           <div className='justify-end flex flex-row items-center'>
             <Chip
-              startContent={<FaDollarSign />}
+              className=' text-sm px-0'
               endContent={<FaChevronRight />}
               variant='light'
               color='primary'
             >
-              {product.price}
+              <strong>$ {product.price}</strong>
             </Chip>
           </div>
         </div>

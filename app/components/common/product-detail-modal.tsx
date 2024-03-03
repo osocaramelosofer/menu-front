@@ -39,6 +39,7 @@ export default function ProductDetailModal () {
       onClose={closeModal}
       radius='lg'
       scrollBehavior='inside'
+      className=' overflow-hidden'
     >
       <ModalContent>
         {closeModal => (
@@ -68,7 +69,9 @@ export default function ProductDetailModal () {
               {/* Product Description */}
               <div>
                 <h5 className='font-bold'>Descripción</h5>
-                <p className='opacity-80 text-sm'>{product?.description}</p>
+                <p className='opacity-80 text-sm overflow-x-hidden'>
+                  {product?.description}
+                </p>
               </div>
               {/* Product Sizes  */}
               {/* <div className=' flex  flex-1 flex-col w-full'>

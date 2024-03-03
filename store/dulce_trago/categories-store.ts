@@ -1,6 +1,7 @@
 import { fetchAllCategories } from '@/lib/actions'
 import { type Category } from '@/interfaces/product'
 import { create } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
 
 interface State {
   loading: boolean
@@ -19,34 +20,39 @@ const initialCategoryState: Category = {
   description: 'Todos los productos'
 }
 
-export const useCategoriesStore = create<State>((set, get) => {
-  return {
-    loading: true,
-    categories: [],
-    currentCategory: initialCategoryState,
-    getCategoriesList: () => {
-      set({ loading: true })
-      fetchAllCategories()
-        .then((response) => {
-          set({ categories: response })
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        .finally(() => {
-          set({ loading: false })
-        })
-    },
+export const useCategoriesStore = create<State>()(
+  persist(
+    (set, get) => ({
+      loading: true,
+      categories: [],
+      currentCategory: initialCategoryState,
+      getCategoriesList: () => {
+        set({ loading: true })
+        fetchAllCategories()
+          .then((response) => {
+            set({ categories: response })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+          .finally(() => {
+            set({ loading: false })
+          })
+      },
 
-    setCurrentCategory: (category) => {
-      set({ currentCategory: category })
-    },
-    resetCurrentCategory: () => {
-      set({ currentCategory: initialCategoryState })
-    },
-    getInitialCategory: () => {
-      return initialCategoryState
+      setCurrentCategory: (category) => {
+        set({ currentCategory: category })
+      },
+      resetCurrentCategory: () => {
+        set({ currentCategory: initialCategoryState })
+      },
+      getInitialCategory: () => {
+        return initialCategoryState
+      }
+    }),
+    {
+      name: 'categories-storage',
+      storage: createJSONStorage(() => sessionStorage)
     }
-
-  }
-})
+  )
+)

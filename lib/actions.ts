@@ -58,6 +58,7 @@ export async function createProduct (product: IProductPost) {
   if (!response.ok) {
     throw new Error('Error al crear el producto')
   }
+  // await new Promise((resolve) => setTimeout(resolve, 7000))
 
   return await response.json()
 }
@@ -76,6 +77,28 @@ export const addProduct = async (formData: FormData) => {
   await createProduct(productBody)
 
   revalidatePath('dulce-trago/admin')
+}
+
+export async function deleteProduct (productId: number) {
+  const requestOptions: RequestInit = {
+    method: 'DELETE',
+    redirect: 'follow',
+    cache: 'no-store'
+  }
+
+  const response = await fetch(
+    `https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/${productId}`,
+    requestOptions
+  )
+
+  if (!response.ok) {
+    throw new Error('Error al eliminar el producto')
+  }
+
+  // console.log(response.json())
+  revalidatePath('dulce-trago/admin')
+
+  // return await response.json()
 }
 
 // export async function fetchFilteredProducts (currentCategoryId: string) {

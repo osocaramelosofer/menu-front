@@ -1,23 +1,21 @@
 'use client'
 
-import { Button, Image, Input } from '@nextui-org/react'
+import { Image } from '@nextui-org/react'
 import { CldUploadWidget } from 'next-cloudinary'
 import { useState } from 'react'
-import { FaImage, FaPhotoVideo, FaPlusCircle } from 'react-icons/fa'
+import { FaImage } from 'react-icons/fa'
 
 const uploadPreset = 'jg7mvaof'
 
 export default function UploadProductImage () {
   const [mainImageValue, setMainImageValue] = useState('')
-  //   const [mainImageUrlValue, setMainImageUrlValue] = useState('')
+
   return (
     <CldUploadWidget
       onSuccess={(results: any) => {
-        console.log('Public ID', results)
         setMainImageValue(
           `${results?.info?.resource_type}/${results?.info?.type}/${results?.info?.path}`
         )
-        // setMainImageUrlValue(results?.info?.url)
       }}
       uploadPreset={uploadPreset}
       options={{
@@ -36,7 +34,7 @@ export default function UploadProductImage () {
               border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600 rounded-xl'
           >
             <FaImage size={50} />
-            <div className='font-semibold text-md text-center'>
+            <div className='font-medium text-md text-center opacity-60'>
               Haz clic para cargar una imagen
             </div>
             {mainImageValue.length > 0 && (
@@ -44,22 +42,18 @@ export default function UploadProductImage () {
                 <Image
                   alt='Woman listing to music'
                   // removeWrapper
-                  className='object-cover h-full w-full aspect-square'
+                  className='object-cover min-h-full min-w-full aspect-square'
                   src={`https://res.cloudinary.com/drzrkaoje/${mainImageValue}`}
                 />
-                <input type='hidden' value={mainImageValue} name='main_image' />
+                <input
+                  // required
+                  type='hidden'
+                  value={mainImageValue}
+                  name='main_image'
+                />
               </div>
             )}
           </div>
-          //   <Button
-          //     color='success'
-          //     onClick={() => {
-          //       open()
-          //     }}
-          //   >
-          //     Upload image
-          //     <input type='hidden' name='main_image' value={mainImageValue} />
-          //   </Button>
         )
       }}
     </CldUploadWidget>

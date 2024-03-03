@@ -11,7 +11,7 @@ import {
   Code,
   Image
 } from '@nextui-org/react'
-import { FaDollarSign, FaChevronRight } from 'react-icons/fa'
+import { FaChevronRight } from 'react-icons/fa'
 
 export default function FeaturedProductCard ({
   product
@@ -45,6 +45,7 @@ export default function FeaturedProductCard ({
       <CardBody className='flex flex-col gap-2 max-w-[8.5rem] md:max-w-[12rem] overflow-hidden'>
         {/* Card Image */}
         <Image
+          loading='lazy'
           width={200}
           height={200}
           className=' object-cover aspect-square w-full h-full rounded-xl'
@@ -63,14 +64,9 @@ export default function FeaturedProductCard ({
         </div>
       </CardBody>
       {/* Footer */}
-      <CardFooter className='justify-between flex flex-row items-center pt-0'>
-        <Chip
-          className=' text-sm'
-          startContent={<FaDollarSign />}
-          variant='light'
-          color='primary'
-        >
-          {product.price}
+      <CardFooter className='justify-between w-full flex flex-row items-center pt-0'>
+        <Chip className=' text-sm px-0' variant='light' color='primary'>
+          <strong>$ {product.price}</strong>
         </Chip>
         <Button
           as={Code}
