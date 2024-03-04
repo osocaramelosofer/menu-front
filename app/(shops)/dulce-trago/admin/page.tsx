@@ -4,6 +4,7 @@ import AdminHeader from '@/app/components/admin/admin-header'
 
 import type { Category, IProduct } from '@/interfaces/product'
 import { fetchAllCategories, fetchAllProducts } from '@/lib/actions'
+import { ScrollShadow } from '@nextui-org/react'
 
 import { getServerSession } from 'next-auth'
 
@@ -17,13 +18,16 @@ export default async function DulceTragoAdminPage () {
   if (session === null) {
     redirect('/api/auth/signin')
   }
+  const sortedCategories = categories.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
 
   return (
     <main className='flex flex-col w-full h-full px-4 pb-8'>
       <AdminHeader session={session} />
 
-      <section>
-        {categories.map(category => (
+      <section className=' flex flex-col gap-4'>
+        {sortedCategories.map(category => (
           <AdminAccordionProducts
             key={category.id}
             products={products}
@@ -31,26 +35,7 @@ export default async function DulceTragoAdminPage () {
           />
         ))}
       </section>
-      {/* <Accordion isCompact selectionMode='multiple'>
-        <AccordionItem key={'1'} textValue={'lol'}>
-          <ScrollShadow
-            size={20}
-            orientation='horizontal'
-            className='flex overflow-x-auto gap-4 pb-5'
-          >
-            {products.reverse().map((product, index) => (
-              <AdminProductCard
-                key={`${product.id}${index}`}
-                product={product}
-              />
-            ))}
-          </ScrollShadow>
-        </AccordionItem>
-      </Accordion> */}
-      {/* </section> */}
 
-      {/* <AdminUserInfo session={session} /> */}
-      {/* <AdminProductForm /> */}
       <AddNewProductModal categories={categories} />
     </main>
   )

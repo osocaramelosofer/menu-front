@@ -4,7 +4,7 @@ import { Image, Tabs, Tab, Card, CardBody } from '@nextui-org/react'
 
 export default function ProductDetail ({ product }: { product: IProduct }) {
   const image =
-    'https://res.cloudinary.com/drzrkaoje/image/upload/w_500,q_auto,f_webp/v1703270775/zcje1pvi5cbolkkpe41z.jpg'
+    'https://res.cloudinary.com/drzrkaoje/image/upload/450,q_auto,f_webp/v1703270775/zcje1pvi5cbolkkpe41z.jpg'
   return (
     <div className='mt-5 grid justify-center'>
       <div className='max-w-[500px]'>

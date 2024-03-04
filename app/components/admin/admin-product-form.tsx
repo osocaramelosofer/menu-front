@@ -95,9 +95,7 @@ export default function AdminProductForm ({
         </Select>
         <input type='hidden' name='category' value={categoryValue} />
 
-        <div className='flex flex-col mt-10'>
-          <SubmitButton />
-        </div>
+        <SubmitButton />
       </form>
     </section>
   )

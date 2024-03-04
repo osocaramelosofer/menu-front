@@ -2,7 +2,8 @@
 import { Card, CardBody, Chip, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
-import { FaChevronRight, FaDollarSign } from 'react-icons/fa'
+import { FaChevronRight } from 'react-icons/fa'
+import { getOptimizedImageUrl } from '@/lib/utils'
 
 export default function ProductCard ({ product }: { product: IProduct }) {
   const { setSelectedProduct, openModal } = useProductsStore()
@@ -10,16 +11,7 @@ export default function ProductCard ({ product }: { product: IProduct }) {
     setSelectedProduct(product)
     openModal()
   }
-  let image = ''
-  if (product?.main_image != null && product !== null) {
-    const pathArray = product.main_image.split('/')
-    const uploadIndex = pathArray.indexOf('upload')
-    pathArray.splice(uploadIndex + 1, 0, 'w_280,q_auto,f_webp')
-    const optimizedImagePath = pathArray.join('/')
-    image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
-  } else {
-    image = 'https://i.imgur.com/VjWugqlm.png'
-  }
+  const image = getOptimizedImageUrl(product.main_image, 280)
 
   return (
     <Card

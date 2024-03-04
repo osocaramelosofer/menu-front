@@ -13,7 +13,7 @@ export default function AdminAccordionProducts ({
   category: Category
 }) {
   return (
-    <Accordion>
+    <Accordion isCompact variant='bordered'>
       <AccordionItem
         key={category.id}
         textValue={category.name}

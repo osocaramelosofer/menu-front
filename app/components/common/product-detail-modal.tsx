@@ -13,6 +13,7 @@ import {
   Chip
 } from '@nextui-org/react'
 import AddToCartButtonPopover from '../cart/add-to-cart-button-popover'
+import { getOptimizedImageUrl } from '@/lib/utils'
 
 export default function ProductDetailModal () {
   const {
@@ -20,17 +21,6 @@ export default function ProductDetailModal () {
     isModalOpen,
     closeModal
   } = useProductsStore()
-
-  let image = ''
-  if (product?.main_image != null && product !== null) {
-    const pathArray = product.main_image.split('/')
-    const uploadIndex = pathArray.indexOf('upload')
-    pathArray.splice(uploadIndex + 1, 0, 'w_450,q_auto,f_webp')
-    const optimizedImagePath = pathArray.join('/')
-    image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
-  } else {
-    image = 'https://i.imgur.com/VjWugqlm.png'
-  }
 
   return (
     <Modal
@@ -56,15 +46,16 @@ export default function ProductDetailModal () {
             </ModalHeader>
             <ModalBody>
               {/* Product Image */}
-              <div className='w-full flex-1  shadow-sm relative rounded-xl aspect-square'>
-                <Image
-                  alt='Woman listing to music'
-                  // removeWrapper
-
-                  className='object-cover h-full w-full rounded-xl aspect-square'
-                  src={image}
-                />
-              </div>
+              {product != null && (
+                <div className='w-full flex-1  shadow-sm relative rounded-xl aspect-square'>
+                  <Image
+                    alt='Woman listing to music'
+                    // removeWrapper
+                    className='object-cover h-full w-full rounded-xl aspect-square'
+                    src={getOptimizedImageUrl(product.main_image, 450)}
+                  />
+                </div>
+              )}
 
               {/* Product Description */}
               <div>

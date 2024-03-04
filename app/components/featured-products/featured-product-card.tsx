@@ -1,6 +1,7 @@
 'use client'
 
 import { type IProduct } from '@/interfaces/product'
+import { getOptimizedImageUrl } from '@/lib/utils'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
 import {
   Button,
@@ -24,16 +25,7 @@ export default function FeaturedProductCard ({
     openModal()
   }
 
-  let image = ''
-  if (product?.main_image != null && product !== null) {
-    const pathArray = product.main_image.split('/')
-    const uploadIndex = pathArray.indexOf('upload')
-    pathArray.splice(uploadIndex + 1, 0, 'w_180,q_auto,f_webp')
-    const optimizedImagePath = pathArray.join('/')
-    image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
-  } else {
-    image = 'https://i.imgur.com/VjWugqlm.png'
-  }
+  const image = getOptimizedImageUrl(product.main_image, 180)
 
   return (
     <Card

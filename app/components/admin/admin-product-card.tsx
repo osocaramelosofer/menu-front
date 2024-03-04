@@ -2,6 +2,7 @@
 
 import { type IProduct } from '@/interfaces/product'
 import { deleteProduct } from '@/lib/actions'
+import { getOptimizedImageUrl } from '@/lib/utils'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
 import {
   Button,
@@ -18,7 +19,7 @@ import {
   Switch
 } from '@nextui-org/react'
 import { useState } from 'react'
-import { FaDollarSign, FaEllipsisV, FaTrash } from 'react-icons/fa'
+import { FaEllipsisV, FaTrash } from 'react-icons/fa'
 
 export default function AdminProductCard ({ product }: { product: IProduct }) {
   const { setSelectedProduct, openModal, selectedProduct } = useProductsStore()
@@ -27,16 +28,9 @@ export default function AdminProductCard ({ product }: { product: IProduct }) {
     setSelectedProduct(product)
     // openModal()
   }
-  let image = ''
-  if (product?.main_image != null && product !== null) {
-    const pathArray = product.main_image.split('/')
-    const uploadIndex = pathArray.indexOf('upload')
-    pathArray.splice(uploadIndex + 1, 0, 'w_200,q_auto,f_webp')
-    const optimizedImagePath = pathArray.join('/')
-    image = 'https://res.cloudinary.com/drzrkaoje/' + optimizedImagePath
-  } else {
-    image = 'https://i.imgur.com/VjWugqlm.png'
-  }
+
+  const image = getOptimizedImageUrl(product.main_image, 180)
+
   const handleDeleteProduct = async () => {
     setLoading(true)
     await deleteProduct(product.id)
