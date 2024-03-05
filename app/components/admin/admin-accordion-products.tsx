@@ -3,7 +3,14 @@ import AdminProductCard from '@/app/components/admin/admin-product-card'
 
 import type { Category, IProduct } from '@/interfaces/product'
 
-import { Accordion, AccordionItem, ScrollShadow } from '@nextui-org/react'
+import {
+  Accordion,
+  AccordionItem,
+  Badge,
+  Chip,
+  ScrollShadow,
+  Spacer
+} from '@nextui-org/react'
 
 export default function AdminAccordionProducts ({
   products,
@@ -18,7 +25,21 @@ export default function AdminAccordionProducts ({
         key={category.id}
         textValue={category.name}
         subtitle={category.description}
-        title={category.name}
+        title={
+          <div className=' flex items-center justify-between w-full'>
+            <h2 className='font-medium'>{category.name}</h2>
+            <Chip size='sm' color='warning' variant='flat'>
+              <strong>
+                {
+                  products.filter(
+                    product => product.category.id === category.id
+                  ).length
+                }{' '}
+              </strong>
+              productos
+            </Chip>
+          </div>
+        }
       >
         <ScrollShadow
           size={20}

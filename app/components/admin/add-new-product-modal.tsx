@@ -3,8 +3,6 @@
 import { Modal, ModalContent, ModalHeader, ModalBody } from '@nextui-org/react'
 import AdminProductForm from './admin-product-form'
 import { useAdminStore } from '@/store/dulce_trago/admin-store'
-import { useCategoriesStore } from '@/store/dulce_trago/categories-store'
-import { useEffect } from 'react'
 import type { Category } from '@/interfaces/product'
 
 export default function AddNewProductModal ({
