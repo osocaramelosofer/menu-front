@@ -81,7 +81,6 @@ export default function NavBar () {
                   handleJoinRoom={handleJoinRoom}
                 />
               )} */}
-
               <CartDropdown />
             </Dropdown>
           </Badge>
