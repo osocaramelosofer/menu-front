@@ -15,7 +15,7 @@ export default function PopoverInfo ({
   subtitle: string
 }) {
   return (
-    <Popover placement='bottom' showArrow className='dark'>
+    <Popover shouldBlockScroll placement='bottom' showArrow className='dark'>
       <PopoverTrigger>
         <Button
           isIconOnly

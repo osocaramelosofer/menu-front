@@ -28,7 +28,6 @@ const config: Config = {
           colors: {
             primary: '#371E08',
             secondary: '#CCB7A5',
-            secondary2: '#c5e9f9',
             background: '#fcfcfc'
           }
         },
@@ -36,7 +35,6 @@ const config: Config = {
           colors: {
             primary: '#371E08',
             secondary: '#CCB7A5',
-            secondary2: '#c5e9f9',
             background: '#fcfcfc'
           }
         },
@@ -45,9 +43,7 @@ const config: Config = {
           colors: {
             primary: '#371E08', // this change the header
             secondary: '#CCB7A5',
-            secondary2: '#c5e9f9',
-            content1: '#CCB7A5' // card background
-            // foreground: '#371E08',  text color
+            background: "#fcfcfc",
           }
         }
       }

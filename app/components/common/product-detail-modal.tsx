@@ -49,8 +49,7 @@ export default function ProductDetailModal () {
               {product != null && (
                 <div className='w-full flex-1  shadow-sm relative rounded-xl aspect-square'>
                   <Image
-                    alt='Woman listing to music'
-                    // removeWrapper
+                    alt='Product image in a detail modal'
                     className='object-cover h-full w-full rounded-xl aspect-square'
                     src={getOptimizedImageUrl(product.main_image, 450)}
                   />
@@ -98,7 +97,7 @@ export default function ProductDetailModal () {
                   <Button
                     size='sm'
                     color='danger'
-                    variant='flat'
+                    variant='light'
                     onPress={closeModal}
                   >
                     Cerrar

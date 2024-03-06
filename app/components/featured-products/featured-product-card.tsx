@@ -8,11 +8,13 @@ import {
   Card,
   CardBody,
   CardFooter,
+  CardHeader,
   Chip,
   Code,
   Image
 } from '@nextui-org/react'
 import { FaChevronRight } from 'react-icons/fa'
+import AddToCartButtonPopover from '../cart/add-to-cart-button-popover'
 
 export default function FeaturedProductCard ({
   product
@@ -30,48 +32,40 @@ export default function FeaturedProductCard ({
   return (
     <Card
       isPressable
+      disableRipple
+      as={'div'}
       onPress={handleSelectedProduct}
-      className='cursor-pointer rounded-xl shadow-xs border border-white
-       bg-gradient-to-br from-secondary/50 to-background min-w-fit overflow-hidden'
+      className='cursor-pointer rounded-xl shadow-xs border border-white max-w-[12rem] min-w-[12rem]
+       bg-gradient-to-br from-secondary/50 to-background w-full overflow-hidden'
     >
-      <CardBody className='flex flex-col gap-2 max-w-[8.5rem] md:max-w-[12rem] overflow-hidden'>
+      <CardHeader>
         {/* Card Image */}
         <Image
+          // isZoomed
+          isBlurred
           loading='lazy'
-          width={200}
-          height={200}
-          className=' object-cover aspect-square w-full h-full rounded-xl'
+          width={300}
+          height={300}
+          className='object-cover min-w-full aspect-square'
           src={image}
-          alt='NextUI Image with fallback'
+          alt='Dulce Trago Product Image'
         />
-
+      </CardHeader>
+      <CardBody>
         {/* Card Info */}
-        <div className='flex flex-col justify-between gap-1'>
-          <div className='font-semibold text-sm line-clamp-1'>
+        <div className='flex justify-between items-center min-w-full flex-1'>
+          <h3 className='font-semibold text-small line-clamp-1'>
             {product.name}
-          </div>
-          <div className='text-xs opacity-70 line-clamp-2'>
-            {product.description}
-          </div>
+          </h3>
+          <p className='text-small font-medium text-default-500'>
+            ${product.price}
+          </p>
         </div>
       </CardBody>
       {/* Footer */}
       <CardFooter className='justify-between w-full flex flex-row items-center pt-0'>
-        <Chip className=' text-sm px-0' variant='light' color='primary'>
-          <strong>$ {product.price}</strong>
-        </Chip>
-        <Button
-          as={Code}
-          onPress={handleSelectedProduct}
-          className=' text-white rounded-xl'
-          size='sm'
-          isIconOnly
-          color='primary'
-        >
-          <FaChevronRight />
-        </Button>
+        <AddToCartButtonPopover product={product} />
       </CardFooter>
-      {/* <AddToCartButtonPopover product={product} /> */}
     </Card>
   )
 }

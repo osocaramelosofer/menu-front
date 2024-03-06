@@ -72,7 +72,7 @@ export default function CartDropdown ({
           showDivider
           isReadOnly
         >
-          <div className=' flex flex-col justify-center items-center my-4'>
+          <div className=' flex flex-col justify-center items-center my-4 sweetDrink'>
             <h2 className=' text-xl font-medium'>Sin productos</h2>
             <p className=' mb-2 line-clamp-2 opacity-70 text-center'>
               No has agregado productos a tu carrito aún.
@@ -82,7 +82,7 @@ export default function CartDropdown ({
         </DropdownItem>
       ) : (
         <DropdownItem
-          className='border-none'
+          className='border-none sweetDrink'
           showDivider
           isReadOnly
           textValue='List of products in cart'

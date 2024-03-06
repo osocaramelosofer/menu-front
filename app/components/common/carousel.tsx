@@ -210,7 +210,7 @@ React.ComponentProps<typeof Button>
       isIconOnly
       variant={variant}
       size={size}
-      className={'min-h-[1rem] w-[1rem] rounded-full'}
+      className={'min-h-[1rem] w-[1rem] rounded-full hidden md:flex'}
       isDisabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
@@ -233,7 +233,7 @@ React.ComponentProps<typeof Button>
       variant={variant}
       isIconOnly
       size={size}
-      className={'min-h-[1rem] w-[1rem] rounded-full'}
+      className={'min-h-[1rem] w-[1rem] rounded-full hidden md:flex'}
       isDisabled={!canScrollNext}
       onClick={scrollNext}
       {...props}

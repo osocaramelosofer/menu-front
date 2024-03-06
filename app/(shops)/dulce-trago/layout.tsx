@@ -16,7 +16,7 @@ export default async function PageLayout ({
   children: React.ReactNode
 }) {
   return (
-    <main className=' flex flex-col items-center max-w-7xl mx-auto  relative'>
+    <main className='flex sweetDrink flex-col items-center max-w-7xl mx-auto relative'>
       <NavBar />
       {children}
       <ProductDetailModal />

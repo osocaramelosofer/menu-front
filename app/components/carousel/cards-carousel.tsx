@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Image, CardFooter, CardHeader, Chip } from '@nextui-org/react'
 
-import { Carousel, CarouselContent, CarouselItem } from '../common/carousel'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from '../common/carousel'
 
 import type { CarouselApi } from '../common/carousel'
 interface IPromos {
@@ -35,7 +41,7 @@ const CardsCarousel = ({ data: promos }: { data: IPromos[] }) => {
       <CarouselContent>
         {promos.map((item, index) => (
           <CarouselItem key={item.id}>
-            <Card isPressable radius='lg' className='border-none text-left'>
+            <Card radius='lg' className='border-none text-left'>
               <CardHeader
                 className='absolute z-10 flex-col w-fit min-h-full items-start bg-gradient-to-r
                      from-black/70 via-black/50 to-transparent'
@@ -43,14 +49,15 @@ const CardsCarousel = ({ data: promos }: { data: IPromos[] }) => {
                 <p className='text-tiny text-white/50 uppercase font-bold'>
                   Tu dulce experiencia
                 </p>
-                <h4 className='text-white font-medium text-xl lg:text-3xl max-w-[16rem] lg:max-w-sm'>
+                <h1 className='text-white font-medium text-xl md:text-3xl max-w-[14rem] md:max-w-sm'>
                   {item.title}
-                </h4>
+                </h1>
               </CardHeader>
 
               <Image
-                alt='Special promo food image'
-                className='object-cover min-w-full h-52 lg:h-72 z-0'
+                alt='Special promo image'
+                isBlurred
+                className='object-cover min-w-full h-52 md:h-72 z-0'
                 width={700}
                 height={500}
                 src={item.img}
@@ -59,23 +66,14 @@ const CardsCarousel = ({ data: promos }: { data: IPromos[] }) => {
                 <p className='text-tiny text-white/90 line-clamp-2'>
                   {item.subtitle}
                 </p>
-                <Chip
-                  className='text-tiny text-white bg-black/20 ml-3'
-                  variant='solid'
-                  color='default'
-                  radius='lg'
-                  size='md'
-                >
-                  Ver mas
-                </Chip>
               </CardFooter>
             </Card>
           </CarouselItem>
         ))}
       </CarouselContent>
       {/* Controls and Dots indicators */}
-      <div className='flex justify-center items-center pt-3 text-center text-sm text-muted-foreground'>
-        {/* <CarouselPrevious /> */}
+      <div className='flex justify-center items-center pt-3 text-center gap-3 text-sm text-muted-foreground'>
+        <CarouselPrevious />
         <div className=' flex gap-2 items-center'>
           {promos.map((_, index) => (
             <div
@@ -87,7 +85,7 @@ const CardsCarousel = ({ data: promos }: { data: IPromos[] }) => {
           ))}
         </div>
 
-        {/* <CarouselNext /> */}
+        <CarouselNext />
       </div>
     </Carousel>
   )

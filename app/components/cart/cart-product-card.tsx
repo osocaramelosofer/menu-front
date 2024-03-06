@@ -34,10 +34,10 @@ export default function CartProductCard ({
   }
 
   const { setSelectedProduct, openModal } = useProductsStore()
-  const handleSelectedProduct = () => {
-    setSelectedProduct(product)
-    openModal()
-  }
+  // const handleSelectedProduct = () => {
+  //   setSelectedProduct(product)
+  //   openModal()
+  // }
   const {
     incrementCartItemQuantity,
     decrementCartItemQuantity,
@@ -60,11 +60,7 @@ export default function CartProductCard ({
   }
 
   return (
-    <Card
-      isPressable
-      // onClick={handleSelectedProduct}
-      className='rounded-xl shadow-xs border overflow-hidden mb-4 border-white w-full  bg-gradient-to-br from-secondary/50 to-background'
-    >
+    <Card className='rounded-xl shadow-xs border overflow-hidden mb-4 border-white w-full  bg-gradient-to-br from-secondary/50 to-background'>
       <CardBody className='flex flex-row gap-2'>
         <div className=' absolute right-1 top-1 '>
           <Button
@@ -95,16 +91,13 @@ export default function CartProductCard ({
 
         <div className='justify-start overflow-hidden flex flex-col flex-1 gap-2'>
           {/*  Info */}
-          <h2 className='font-semibold text-sm line-clamp-1 pr-3'>
+          <h3 className='font-semibold text-sm line-clamp-1 pr-3'>
             <TruncateText text={product.name} maxLength={22} />
-          </h2>
-          {/* <div className=' text-xs bg-warning/20 text-warning-600 w-fit px-3 rounded-full py-[2px]'>
-            {product.category.name}
-          </div> */}
+          </h3>
+
           <div className='flex justify-between items-center'>
             <div className='flex'>
               <Button
-                as={Code}
                 size='sm'
                 color='primary'
                 isIconOnly
@@ -127,7 +120,6 @@ export default function CartProductCard ({
               </div>
 
               <Button
-                as={Code}
                 size='sm'
                 color='primary'
                 isIconOnly

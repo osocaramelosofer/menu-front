@@ -4,7 +4,6 @@ import { useCartsStore } from '@/store/dulce_trago/carts-store'
 
 import {
   Button,
-  Chip,
   Popover,
   PopoverContent,
   PopoverTrigger
@@ -26,7 +25,8 @@ export default function AddToCartButtonPopover ({
     <>
       {product != null && (
         <Popover
-          className=' bg-success rounded-xl'
+          shouldBlockScroll
+          className='bg-success rounded-xl'
           color='success'
           onClose={() => {
             calculateCartPrice()
@@ -36,11 +36,11 @@ export default function AddToCartButtonPopover ({
         >
           <PopoverTrigger>
             <Button
-              as={Chip}
+              fullWidth
               size='sm'
               color='primary'
               variant='solid'
-              className='text-white'
+              className='text-white sweetDrink'
               onClick={() => {
                 handleAddToOrder(product)
               }}

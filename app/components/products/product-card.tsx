@@ -1,5 +1,5 @@
 'use client'
-import { Card, CardBody, Chip, Image } from '@nextui-org/react'
+import { Card, CardBody, CardHeader, Chip, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
 import { FaChevronRight } from 'react-icons/fa'
@@ -16,42 +16,40 @@ export default function ProductCard ({ product }: { product: IProduct }) {
   return (
     <Card
       isPressable
+      disableRipple
       onClick={handleSelectedProduct}
-      className='cursor-pointer rounded-xl shadow-xs border border-white  bg-gradient-to-br from-secondary/50 to-background overflow-hidden'
+      className='cursor-pointer rounded-xl shadow-xs border-2 border-white  bg-gradient-to-br from-secondary/50 to-background
+       overflow-hidden flex flex-row md:flex-col p-3 gap-3'
     >
-      <CardBody className='flex flex-row md:flex-col gap-2 overflow-hidden'>
+      <CardHeader className='flex flex-1 p-0'>
         {/* Card Image */}
         <Image
+          isBlurred
           loading='lazy'
           width={300}
           height={300}
-          className=' object-cover max-w-[8rem] md:min-w-full aspect-square'
+          className='object-cover min-w-full max-w-[8rem] md:max-w-full aspect-square'
           src={image}
           alt='Dulce Trago Product Image'
         />
+      </CardHeader>
+      <CardBody className='flex flex-col gap-3 justify-between h-full p-0'>
+        {/* Card Info */}
+        <div className='flex flex-col gap-1'>
+          <h3 className='font-semibold text-small line-clamp-1'>
+            {product.name}
+          </h3>
+          <p className='text-small opacity-70 line-clamp-2'>
+            {product.description}
+          </p>
+        </div>
 
-        <div className='justify-between flex flex-col flex-1 gap-2'>
-          {/* Card Info */}
-          <div className='flex flex-col gap-1'>
-            <div className='font-semibold text-base line-clamp-1'>
-              {product.name}
-            </div>
-            <div className='font-medium text-sm opacity-70 line-clamp-2'>
-              {product.description}
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className='justify-end flex flex-row items-center'>
-            <Chip
-              className=' text-sm px-0'
-              endContent={<FaChevronRight />}
-              variant='light'
-              color='primary'
-            >
-              <strong>$ {product.price}</strong>
-            </Chip>
-          </div>
+        {/* Footer */}
+        <div className='justify-between flex flex-row items-center'>
+          <Chip className=' text-sm px-0' variant='flat' color='primary'>
+            <p className='text-sm font-semibold'>${product.price}</p>
+          </Chip>
+          <FaChevronRight />
         </div>
       </CardBody>
     </Card>

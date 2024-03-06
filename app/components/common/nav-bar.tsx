@@ -38,7 +38,7 @@ export default function NavBar () {
       isBordered
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      className='w-screen overflow-x-hidden bg-primary text-white'
+      className='w-screen overflow-x-hidden bg-primary text-white '
     >
       <NavbarContent className='w-full'>
         <div className='flex w-full justify-end items-center relative'>
