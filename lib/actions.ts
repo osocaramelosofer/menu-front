@@ -114,14 +114,14 @@ export async function deleteProduct (productId: number) {
 //   return await response.json()
 // }
 
-export async function fetchFilteredProducts (currentCategoryId: string, offset: number, resultsPeerPage: number) {
+export async function fetchFilteredProducts (shopId: string | number, currentCategoryId: string, offset: string | number, resultsPeerPage: number) {
 // Assuming each page has 5 items
   const requestOptions: RequestInit = {
     method: 'GET',
     redirect: 'follow',
     cache: 'no-store'
   }
-  const baseURL = 'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products?store=2'
+  const baseURL = `https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products?store=${shopId}`
 
   // Construct URL with dynamic offset and category
   let finalURL = `${baseURL}&limit=${resultsPeerPage}&offset=${offset}`
@@ -138,3 +138,59 @@ export async function fetchFilteredProducts (currentCategoryId: string, offset: 
 }
 
 // ADMIN CRUD
+
+// <============================================== STORES ==========================================>
+export async function fetchAllStores () {
+  const requestOptions: RequestInit = {
+    method: 'GET',
+    redirect: 'follow',
+    cache: 'no-store'
+  }
+  const response = await fetch(
+    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/stores/', requestOptions
+  )
+  if (!response.ok) {
+    throw new Error('Error al cargar las stores')
+  }
+  const data = await response.json()
+  // await new Promise((resolve) => setTimeout(resolve, 10000))
+  return data
+}
+
+export async function fetchStoreById (storeId: number | string) {
+  const requestOptions: RequestInit = {
+    method: 'GET',
+    redirect: 'follow',
+    cache: 'no-store'
+  }
+  const response = await fetch(
+    `https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/stores/${storeId}`, requestOptions
+  )
+  if (!response.ok) {
+    return null
+    // throw new Error('Error al cargar la store usando el storeId')
+  }
+  const data = await response.json()
+  // await new Promise((resolve) => setTimeout(resolve, 10000))
+  return data
+  // return { error: false, store: data }
+}
+
+export async function fetchStoreProducts (storeId: number | string) {
+  const requestOptions: RequestInit = {
+    method: 'GET',
+    redirect: 'follow',
+    cache: 'no-store'
+  }
+  const response = await fetch(
+    `https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products?store=${storeId}`, requestOptions
+  )
+  if (!response.ok) {
+    return null
+    // throw new Error('Error al cargar la store usando el storeId')
+  }
+  const data = await response.json()
+  // await new Promise((resolve) => setTimeout(resolve, 10000))
+  return data
+  // return { error: false, store: data }
+}

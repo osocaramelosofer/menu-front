@@ -18,8 +18,9 @@ import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import CartDropdown from '../cart/cart-dropdown'
 import SharedCartDropdown from '../cart/shared-cart-dropdown'
 import { useRoomSocket } from '@/hooks/useRoomSockets'
+import type { IStore } from '@/interfaces/store'
 
-export default function NavBar () {
+export default function NavBar ({ store }: { store: IStore }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   const { calculateCartPrice, cartList, isInSharedCart, cartPrice } =
@@ -44,10 +45,11 @@ export default function NavBar () {
         <div className='flex w-full justify-end items-center relative'>
           <NavbarBrand
             as={Link}
-            href='/dulce-trago/'
+            href={`/${store.id}`}
             className='max-w-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
           >
-            <DulceTragoLogo />
+            <h1 className=' text-white capitalize'>{store.name}</h1>
+            {/* <DulceTragoLogo /> */}
           </NavbarBrand>
           <Badge
             content={cartList.length}

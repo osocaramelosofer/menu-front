@@ -1,11 +1,15 @@
 import type { IProduct } from '@/interfaces/product'
 import { ScrollShadow } from '@nextui-org/react'
 import EmptyState from '../common/empty-products'
-import { fetchAllProducts } from '@/lib/actions'
+import { fetchAllProducts, fetchStoreProducts } from '@/lib/actions'
 import FeaturedProductCard from './featured-product-card'
 
-export default async function FeaturedProductsList () {
-  const products: IProduct[] = await fetchAllProducts()
+export default async function FeaturedProductsList ({
+  products
+}: {
+  products: IProduct[]
+}) {
+  // const products: IProduct[] = await fetchAllProducts()
 
   // Filtrar solo los productos con ID impar
   const oddIdProducts = products.filter(
