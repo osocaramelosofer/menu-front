@@ -7,7 +7,7 @@ import CategoryItem from './category-item'
 import { useCategoriesStore } from '@/store/dulce_trago/categories-store'
 import CategoriesSkeleton from '../skeletons/categories-skeleton'
 
-export default function Categories () {
+export default function Categories ({ storeId }: { storeId: string | number }) {
   const { categories, getCategoriesList, loading } = useCategoriesStore()
 
   const sortedCategories = categories.sort((a, b) =>
@@ -24,7 +24,7 @@ export default function Categories () {
   const currentCategoryName = params.get('categoryName')
 
   const handleResetCategoryFilter = () => {
-    router.push('/dulce-trago', { scroll: false })
+    router.push(`/${storeId}`, { scroll: false })
   }
 
   if (loading) {

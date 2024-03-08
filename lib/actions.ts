@@ -114,7 +114,7 @@ export async function deleteProduct (productId: number) {
 //   return await response.json()
 // }
 
-export async function fetchFilteredProducts (shopId: string | number, currentCategoryId: string, offset: string | number, resultsPeerPage: number) {
+export async function fetchFilteredProducts (shopId: string | number, currentCategoryId?: string, offset?: string, resultsPeerPage?: number) {
 // Assuming each page has 5 items
   const requestOptions: RequestInit = {
     method: 'GET',
@@ -131,9 +131,11 @@ export async function fetchFilteredProducts (shopId: string | number, currentCat
 
   const response = await fetch(finalURL, requestOptions)
   if (!response.ok) {
+    console.log(response.ok)
+
     throw new Error('Error al cargar los productos FILTRADOS')
   }
-  // await new Promise((resolve) => setTimeout(resolve, 4000))
+  await new Promise((resolve) => setTimeout(resolve, 4000))
   return await response.json()
 }
 
@@ -176,7 +178,7 @@ export async function fetchStoreById (storeId: number | string) {
   // return { error: false, store: data }
 }
 
-export async function fetchStoreProducts (storeId: number | string) {
+export async function fetchAllStoreProducts (storeId: number | string) {
   const requestOptions: RequestInit = {
     method: 'GET',
     redirect: 'follow',

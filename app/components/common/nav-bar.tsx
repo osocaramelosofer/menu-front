@@ -11,7 +11,6 @@ import {
   DropdownTrigger,
   Badge
 } from '@nextui-org/react'
-import { DulceTragoLogo } from '../logo'
 
 import { FaShoppingBag } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
@@ -45,10 +44,10 @@ export default function NavBar ({ store }: { store: IStore }) {
         <div className='flex w-full justify-end items-center relative'>
           <NavbarBrand
             as={Link}
-            href={`/${store.id}`}
+            href={`/${store?.id}`}
             className='max-w-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
           >
-            <h1 className=' text-white capitalize'>{store.name}</h1>
+            <h1 className=' text-white capitalize'>{store?.name}</h1>
             {/* <DulceTragoLogo /> */}
           </NavbarBrand>
           <Badge

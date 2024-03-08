@@ -24,7 +24,7 @@ export const useProductsStore = create<State>((set, get) => {
     loading: true,
     products: [],
     selectedProduct: null,
-    resultsPeerPage: 5,
+    resultsPeerPage: 10,
 
     isModalOpen: false,
     openModal: () => { set({ isModalOpen: true }) },

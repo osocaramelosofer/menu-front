@@ -4,16 +4,12 @@ import { type IProduct } from '@/interfaces/product'
 import { getOptimizedImageUrl } from '@/lib/utils'
 import { useProductsStore } from '@/store/dulce_trago/products-store'
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-  Chip,
-  Code,
   Image
 } from '@nextui-org/react'
-import { FaChevronRight } from 'react-icons/fa'
 import AddToCartButtonPopover from '../cart/add-to-cart-button-popover'
 
 export default function FeaturedProductCard ({

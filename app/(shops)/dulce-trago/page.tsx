@@ -29,7 +29,7 @@ export default async function DulceTragoPage ({ searchParams }: RootPageProps) {
       {/* <Suspense fallback={<FeaturedProductsSkeleton />}> */}
       {/* <FeaturedProductsList storeId='2' /> */}
       {/* </Suspense> */}
-      <Categories />
+      <Categories storeId={2} />
       <Spacer y={6} />
       {/* <Suspense key={Math.random()} fallback={<ProductsSkeleton />}>
         <ProductsList

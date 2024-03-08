@@ -1,8 +1,8 @@
-import type { Store } from '@/interfaces/store'
+import type { IStore } from '@/interfaces/store'
 import { fetchAllStores } from '@/lib/actions'
 
 export default async function HomePage () {
-  const stores: Store[] = await fetchAllStores()
+  const stores: IStore[] = await fetchAllStores()
   return (
     <main
       className='flex flex-col items-center justify-center h-screen max-w-7xl gap-4 px-4
