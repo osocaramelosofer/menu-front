@@ -20,6 +20,7 @@ const authOptions = {
           headers: { 'Content-Type': 'application/json' }
         })
         const data = await res.json()
+        console.log('DATAAA: ', data)
 
         // Verifica si la autenticación fue exitosa y si el objeto tiene la propiedad 'user'
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -31,6 +32,8 @@ const authOptions = {
             email: data.user.email,
             image: '' // Aquí puedes poner una URL de imagen predeterminada o dejarlo vacío si no tienes esta información
           }
+          console.log('USER: ', user)
+
           return user
         }
 

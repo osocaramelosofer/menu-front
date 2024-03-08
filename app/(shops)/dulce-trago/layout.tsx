@@ -17,7 +17,7 @@ export default async function PageLayout ({
 }) {
   return (
     <main className='flex flex-col items-center max-w-7xl mx-auto relative'>
-      <NavBar />
+      {/* <NavBar /> */}
       {children}
       <ProductDetailModal />
     </main>

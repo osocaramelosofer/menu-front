@@ -10,9 +10,11 @@ import { useAdminStore } from '@/store/dulce_trago/admin-store'
 import { SubmitButton } from './submit-button'
 
 export default function AdminProductForm ({
-  categories
+  categories,
+  storeId
 }: {
   categories: Category[]
+  storeId: string | number
 }) {
   const { closeModal } = useAdminStore()
   const [categoryValue, setCategoryValue] = useState<string>('')
@@ -70,7 +72,7 @@ export default function AdminProductForm ({
       <form
         ref={ref}
         action={async formData => {
-          await addProduct(formData)
+          await addProduct(formData, storeId)
           closeModal()
         }}
         className='flex flex-col gap-5'

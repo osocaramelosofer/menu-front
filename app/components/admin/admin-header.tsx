@@ -22,7 +22,7 @@ export default function AdminHeader ({ session }: { session: Session | null }) {
   }
 
   return (
-    <section className='flex justify-between items-center w-full sticky top-16 z-20 bg-background py-4 mb-4'>
+    <section className='flex justify-between items-center w-full sticky top-0 z-20 bg-background py-4 mb-4'>
       <Dropdown placement='bottom-start'>
         <DropdownTrigger>
           <User

@@ -22,11 +22,10 @@ import { useState } from 'react'
 import { FaEllipsisV, FaTrash } from 'react-icons/fa'
 
 export default function AdminProductCard ({ product }: { product: IProduct }) {
-  const { setSelectedProduct, openModal, selectedProduct } = useProductsStore()
+  const { setSelectedProduct, selectedProduct } = useProductsStore()
   const [loading, setLoading] = useState(false)
   const handleSelectedProduct = () => {
     setSelectedProduct(product)
-    // openModal()
   }
 
   const image = getOptimizedImageUrl(product.main_image, 180)

@@ -1,5 +1,5 @@
 export interface IStore {
-  id: string
+  id: string | number
   name: string
   address: string
   description: string

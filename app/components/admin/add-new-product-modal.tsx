@@ -6,9 +6,11 @@ import { useAdminStore } from '@/store/dulce_trago/admin-store'
 import type { Category } from '@/interfaces/product'
 
 export default function AddNewProductModal ({
-  categories
+  categories,
+  storeId
 }: {
   categories: Category[]
+  storeId: string | number
 }) {
   const { isModalOpen, closeModal } = useAdminStore()
 
@@ -25,7 +27,7 @@ export default function AddNewProductModal ({
           <>
             <ModalHeader>¡Pon algo a la venta!</ModalHeader>
             <ModalBody>
-              <AdminProductForm categories={categories} />
+              <AdminProductForm categories={categories} storeId={storeId} />
             </ModalBody>
           </>
         )}

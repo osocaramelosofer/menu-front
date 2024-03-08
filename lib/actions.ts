@@ -63,7 +63,7 @@ export async function createProduct (product: IProductPost) {
   return await response.json()
 }
 
-export const addProduct = async (formData: FormData) => {
+export const addProduct = async (formData: FormData, storeId: string | number) => {
   const productBody: IProductPost = {
     category: Number(formData.get('category')),
     variants: [],
@@ -71,7 +71,7 @@ export const addProduct = async (formData: FormData) => {
     main_image: formData.get('main_image') as string,
     description: formData.get('description') as string,
     price: formData.get('price') as string,
-    store: 2
+    store: Number(storeId)
   }
   // console.log(productBody)
   await createProduct(productBody)

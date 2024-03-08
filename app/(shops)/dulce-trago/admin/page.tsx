@@ -14,9 +14,9 @@ export default async function DulceTragoAdminPage () {
   const products: IProduct[] = await fetchAllProducts()
   const categories: Category[] = await fetchAllCategories()
 
-  if (session === null) {
-    redirect('/api/auth/signin')
-  }
+  // if (session === null) {
+  //   redirect('/api/auth/signin')
+  // }
   const sortedCategories = categories.sort((a, b) =>
     a.name.localeCompare(b.name)
   )
@@ -35,7 +35,7 @@ export default async function DulceTragoAdminPage () {
         ))}
       </section>
 
-      <AddNewProductModal categories={categories} />
+      {/* <AddNewProductModal categories={categories} /> */}
     </main>
   )
 }
