@@ -35,7 +35,7 @@ export default function CategoryItem ({ category }: { category: Category }) {
       className='min-w-fit flex text-sm'
     >
       <p className={`${isSelected ? 'text-white' : 'text-primary'}`}>
-        {category.name}
+        {category.name} - test
       </p>
     </Button>
   )
