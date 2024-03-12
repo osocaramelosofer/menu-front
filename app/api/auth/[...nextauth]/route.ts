@@ -1,3 +1,4 @@
+import { BASE_URL } from '@/lib/utils'
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -11,7 +12,7 @@ const authOptions = {
       },
       async authorize (credentials) {
         // Aquí llamas a tu API de backend para verificar las credenciales
-        const res = await fetch('https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/auth/login/', {
+        const res = await fetch(`${BASE_URL}/auth/login/`, {
           method: 'POST',
           body: JSON.stringify({
             username: credentials?.username,

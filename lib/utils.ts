@@ -21,3 +21,6 @@ export function getOptimizedImageUrl (mainImageUrl: string, width: number | stri
   const cloudinaryBaseUrl = 'https://res.cloudinary.com/drzrkaoje/'
   return cloudinaryBaseUrl + optimizedImagePath
 }
+
+// export const BASE_URL: string = 'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1'
+export const BASE_URL: string = '192.168.0.11:8000/api/v1'

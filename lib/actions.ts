@@ -2,6 +2,7 @@
 
 import type { IProduct, IProductPost } from '@/interfaces/product'
 import { revalidatePath } from 'next/cache'
+import { BASE_URL } from './utils'
 
 // Categories
 export async function fetchAllCategories () {
@@ -11,7 +12,7 @@ export async function fetchAllCategories () {
     cache: 'no-store'
   }
   const response = await fetch(
-    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/categories/', requestOptions
+    `${BASE_URL}/products/categories/`, requestOptions
   )
   if (!response.ok) {
     throw new Error('Error al cargar las categorías')
@@ -31,7 +32,7 @@ export async function fetchAllProducts () {
     cache: 'no-store'
   }
   const response = await fetch(
-    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/', requestOptions
+    `${BASE_URL}/products/products/`, requestOptions
   )
   if (!response.ok) {
     throw new Error('Error al cargar los productos')
@@ -51,7 +52,7 @@ export async function createProduct (product: IProductPost) {
   }
 
   const response = await fetch(
-    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/',
+    `${BASE_URL}/products/products/`,
     requestOptions
   )
 
@@ -87,7 +88,7 @@ export async function deleteProduct (productId: number) {
   }
 
   const response = await fetch(
-    `https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/${productId}`,
+    `${BASE_URL}/products/products/${productId}`,
     requestOptions
   )
 
@@ -102,7 +103,7 @@ export async function deleteProduct (productId: number) {
 }
 
 // export async function fetchFilteredProducts (currentCategoryId: string) {
-//   const baseURL = 'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products?store=2&limit=5&offset=0'
+//   const baseURL = `${BASE_URL}/products/products?store=2&limit=5&offset=0'
 //   const finalURL = baseURL + `&category=${currentCategoryId}`
 
 //   const response = await fetch((currentCategoryId !== undefined) ? finalURL : baseURL)
@@ -121,7 +122,7 @@ export async function fetchFilteredProducts (shopId: string | number, currentCat
     redirect: 'follow',
     cache: 'no-store'
   }
-  const baseURL = `https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products?store=${shopId}`
+  const baseURL = `${BASE_URL}/products/products?store=${shopId}`
 
   // Construct URL with dynamic offset and category
   let finalURL = `${baseURL}&limit=${resultsPeerPage}&offset=${offset}`
@@ -149,7 +150,7 @@ export async function fetchAllStores () {
     cache: 'no-store'
   }
   const response = await fetch(
-    'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/stores/', requestOptions
+    `${BASE_URL}/stores/`, requestOptions
   )
   if (!response.ok) {
     throw new Error('Error al cargar las stores')
@@ -166,7 +167,7 @@ export async function fetchStoreById (storeId: number | string) {
     cache: 'no-store'
   }
   const response = await fetch(
-    `https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/stores/${storeId}`, requestOptions
+    `${BASE_URL}/stores/${storeId}`, requestOptions
   )
   if (!response.ok) {
     return null
@@ -185,7 +186,7 @@ export async function fetchAllStoreProducts (storeId: number | string) {
     cache: 'no-store'
   }
   const response = await fetch(
-    `https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products?store=${storeId}`, requestOptions
+    `${BASE_URL}/products/products?store=${storeId}`, requestOptions
   )
   if (!response.ok) {
     return null
