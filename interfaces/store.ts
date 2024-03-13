@@ -1,3 +1,5 @@
+import type { Category } from './product'
+
 export interface IStore {
   id: string | number
   name: string
@@ -19,4 +21,5 @@ export interface IStore {
   status: string
   average_rating: number
   amenities: string
+  categories: Category[]
 }

@@ -23,7 +23,8 @@ export default function FeaturedProductCard ({
     openModal()
   }
 
-  const image = getOptimizedImageUrl(product.main_image, 180)
+  // const image = getOptimizedImageUrl(product.main_image, 180)
+  const image = 'https://i.imgur.com/mhYwQyfm.png'
 
   return (
     <Card

@@ -11,7 +11,8 @@ export default function ProductCard ({ product }: { product: IProduct }) {
     setSelectedProduct(product)
     openModal()
   }
-  const image = getOptimizedImageUrl(product.main_image, 280)
+  // const image = getOptimizedImageUrl(product.main_image, 280)
+  const image = 'https://i.imgur.com/mhYwQyfm.png'
 
   return (
     <Card

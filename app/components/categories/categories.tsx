@@ -1,22 +1,21 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
+import type { Category } from '@/interfaces/product'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Chip, ScrollShadow } from '@nextui-org/react'
 import CategoryItem from './category-item'
-import { useCategoriesStore } from '@/store/dulce_trago/categories-store'
-import CategoriesSkeleton from '../skeletons/categories-skeleton'
 
-export default function Categories ({ storeId }: { storeId: string | number }) {
-  const { categories, getCategoriesList, loading } = useCategoriesStore()
-
+export default function Categories ({
+  categories,
+  storeId
+}: {
+  categories: Category[]
+  storeId: string | number
+}) {
   const sortedCategories = categories.sort((a, b) =>
     a.name.localeCompare(b.name)
   )
-
-  useEffect(() => {
-    getCategoriesList()
-  }, [])
 
   const router = useRouter()
   const params = useSearchParams()
@@ -25,10 +24,6 @@ export default function Categories ({ storeId }: { storeId: string | number }) {
 
   const handleResetCategoryFilter = () => {
     router.push(`/${storeId}`, { scroll: false })
-  }
-
-  if (loading) {
-    return <CategoriesSkeleton />
   }
 
   return (

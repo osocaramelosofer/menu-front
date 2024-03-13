@@ -1,5 +1,6 @@
 'use client'
 
+import type { Session } from 'next-auth'
 import {
   Button,
   Dropdown,
@@ -11,7 +12,6 @@ import {
 
 import { useAdminStore } from '@/store/dulce_trago/admin-store'
 import { FaPlus } from 'react-icons/fa'
-import type { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
 
 export default function AdminHeader ({ session }: { session: Session | null }) {
@@ -21,6 +21,10 @@ export default function AdminHeader ({ session }: { session: Session | null }) {
     await signOut()
   }
 
+  const handleOpenAdminModal = () => {
+    openModal()
+  }
+
   return (
     <section className='flex justify-between items-center w-full sticky top-0 z-20 bg-background py-4 mb-4'>
       <Dropdown placement='bottom-start'>
@@ -28,24 +32,18 @@ export default function AdminHeader ({ session }: { session: Session | null }) {
           <User
             as='button'
             className='transition-transform'
-            description={session?.user?.email}
-            name={session?.user?.name}
+            description={'Admin'}
+            name={session?.user?.email}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label='User Actions' variant='flat'>
-          <DropdownItem
-            textValue='profile'
-            showDivider
-            key='profile'
-            className='h-14 gap-2'
-          >
-            <p className=' font-medium'>{session?.user?.name}</p>
+          <DropdownItem textValue='profile' showDivider key='profile'>
             <p className=' font-medium'>{session?.user?.email}</p>
           </DropdownItem>
 
           <DropdownItem
             isReadOnly
-            textValue='delete product'
+            textValue='logout'
             onPress={handleLogout}
             key='delete'
             className='text-danger'
@@ -69,7 +67,7 @@ export default function AdminHeader ({ session }: { session: Session | null }) {
         startContent={<FaPlus />}
         color='primary'
         variant='flat'
-        onPress={openModal}
+        onPress={handleOpenAdminModal}
       >
         Add New Product
       </Button>

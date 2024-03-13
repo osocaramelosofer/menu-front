@@ -28,7 +28,8 @@ export default function AdminProductCard ({ product }: { product: IProduct }) {
     setSelectedProduct(product)
   }
 
-  const image = getOptimizedImageUrl(product.main_image, 180)
+  // const image = getOptimizedImageUrl(product.main_image, 180)
+  const image = 'https://i.imgur.com/mhYwQyfm.png'
 
   const handleDeleteProduct = async () => {
     setLoading(true)

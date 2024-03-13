@@ -22,6 +22,8 @@ export default function ProductDetailModal () {
     closeModal
   } = useProductsStore()
 
+  const image = 'https://i.imgur.com/mhYwQyfl.png'
+
   return (
     <Modal
       backdrop='opaque'
@@ -40,7 +42,7 @@ export default function ProductDetailModal () {
                 <h1 className='font-bold text-2xl'>{product?.name}</h1>
 
                 <Chip size='sm' color='warning' variant='flat'>
-                  {product?.category.name}
+                  {product?.category?.name}
                 </Chip>
               </div>
             </ModalHeader>
@@ -51,7 +53,8 @@ export default function ProductDetailModal () {
                   <Image
                     alt='Product image in a detail modal'
                     className='object-cover h-full w-full rounded-xl aspect-square'
-                    src={getOptimizedImageUrl(product.main_image, 450)}
+                    // src={getOptimizedImageUrl(product.main_image, 450)}
+                    src={image}
                   />
                 </div>
               )}

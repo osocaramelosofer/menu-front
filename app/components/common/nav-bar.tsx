@@ -12,15 +12,18 @@ import {
   Badge
 } from '@nextui-org/react'
 
-import { FaShoppingBag } from 'react-icons/fa'
+import { FaShoppingBag, FaUserShield } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import CartDropdown from '../cart/cart-dropdown'
 import SharedCartDropdown from '../cart/shared-cart-dropdown'
 import { useRoomSocket } from '@/hooks/useRoomSockets'
 import type { IStore } from '@/interfaces/store'
+import { getSession } from 'next-auth/react'
 
 export default function NavBar ({ store }: { store: IStore }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
+  const session = getSession()
 
   const { calculateCartPrice, cartList, isInSharedCart, cartPrice } =
     useCartsStore()
@@ -41,7 +44,19 @@ export default function NavBar ({ store }: { store: IStore }) {
       className='w-screen overflow-x-hidden bg-primary text-white '
     >
       <NavbarContent className='w-full'>
-        <div className='flex w-full justify-end items-center relative'>
+        <div className='flex w-full justify-between items-center relative'>
+          {session !== null && (
+            <Button
+              as={Link}
+              href={`${store.id}/dashboard`}
+              size='sm'
+              isIconOnly
+              color='default'
+              variant='flat'
+            >
+              <FaUserShield />
+            </Button>
+          )}
           <NavbarBrand
             as={Link}
             href={`/${store?.id}`}

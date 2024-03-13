@@ -3,18 +3,21 @@
 import React, { type ChangeEvent, useRef, useState } from 'react'
 import type { Category } from '@/interfaces/product'
 import { addProduct } from '@/lib/actions'
-import { Input, Select, SelectItem, Textarea } from '@nextui-org/react'
+import { Button, Input, Select, SelectItem, Textarea } from '@nextui-org/react'
 import UploadProductImage from './upload-product-image'
-import PopoverInfo from '../common/popover-info'
 import { useAdminStore } from '@/store/dulce_trago/admin-store'
 import { SubmitButton } from './submit-button'
+import { FaPlus } from 'react-icons/fa'
+import AdminCategoryForm from './admin-category-form'
 
 export default function AdminProductForm ({
   categories,
-  storeId
+  storeId,
+  changeTab
 }: {
   categories: Category[]
   storeId: string | number
+  changeTab: () => void
 }) {
   const { closeModal } = useAdminStore()
   const [categoryValue, setCategoryValue] = useState<string>('')
@@ -77,16 +80,7 @@ export default function AdminProductForm ({
         }}
         className='flex flex-col gap-5'
       >
-        <div className=' flex gap-2'>
-          <h2 className=' font-medium opacity-80'>
-            Agrega una foto de tu producto
-          </h2>
-          <PopoverInfo
-            title='¡Muestra a todos cómo es tu producto!'
-            subtitle='Recuerda que solamente podrás elegir una imagen, elige con sabiduría y haz que tu producto luzca lo mejor posible. ¡La elección es tuya, asegúrate de que sea la mejor!'
-          />
-        </div>
-        <UploadProductImage />
+        {/* <UploadProductImage /> */}
 
         <Input
           isRequired
@@ -120,21 +114,27 @@ export default function AdminProductForm ({
           }
         />
 
-        <Select
-          isRequired
-          label='Categoría'
-          placeholder='Elige una categoría'
-          onChange={handleSelectionChange}
-        >
-          {categories.map(category => (
-            <SelectItem key={category.id} value={category.id}>
-              {category.name}
-            </SelectItem>
-          ))}
-        </Select>
+        <div className='flex gap-3 items-end'>
+          <Select
+            isRequired
+            isDisabled={categories.length === 0}
+            label='Categoría'
+            placeholder='Elige una categoría'
+            onChange={handleSelectionChange}
+          >
+            {categories.map(category => (
+              <SelectItem key={category.id} value={category.id}>
+                {category.name}
+              </SelectItem>
+            ))}
+          </Select>
+          <Button isIconOnly onPress={changeTab}>
+            <FaPlus />
+          </Button>
+        </div>
         <input type='hidden' name='category' value={categoryValue} />
 
-        <SubmitButton />
+        <SubmitButton label='Crear Nuevo Producto' />
       </form>
     </section>
   )

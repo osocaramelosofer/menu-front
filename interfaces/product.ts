@@ -67,27 +67,17 @@ export interface IProduct {
 }
 
 export interface IProductPost {
-  category: number
-  tags?: Tag[]
-  additional_images?: AdditionalImage[]
-  promotions?: Promotion[]
-  variants: Variant[]
-  name: string
   main_image?: string
+  name: string
   description: string
-  price: string
-  variant_title?: string
-  is_available?: boolean
-  calories?: number
-  average_rating?: number
-  preparation_time?: string
-  portion_size?: string
-  ingredients?: string
-  origin?: string
-  sales_count?: number
-  visit_count?: number
-  store: number
-  quantity?: number
+  price: number
+  categoryId: number
+  storeId: number
+}
+
+export interface ICategoryPost {
+  name: string
+  storeId: number
 }
 
 export interface IApiResponse {

@@ -16,8 +16,7 @@ export default function CategoryItem ({ category }: { category: Category }) {
         url: pathname,
         query: {
           categoryId: isSelected ? null : category.id,
-          categoryName: isSelected ? null : category.name,
-          offset: 0
+          categoryName: isSelected ? null : category.name
         }
       },
       { skipNull: true, skipEmptyString: true }

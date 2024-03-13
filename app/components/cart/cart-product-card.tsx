@@ -13,7 +13,8 @@ export default function CartProductCard ({
   product: IProduct
   isDisabled?: boolean
 }) {
-  const image = getOptimizedImageUrl(product.main_image, 60)
+  // const image = getOptimizedImageUrl(product.main_image, 60)
+  const image = 'https://i.imgur.com/mhYwQyfm.png'
 
   function TruncateText ({
     text,
@@ -33,11 +34,6 @@ export default function CartProductCard ({
     return <span>{truncate(text, maxLength)}</span>
   }
 
-  const { setSelectedProduct, openModal } = useProductsStore()
-  // const handleSelectedProduct = () => {
-  //   setSelectedProduct(product)
-  //   openModal()
-  // }
   const {
     incrementCartItemQuantity,
     decrementCartItemQuantity,

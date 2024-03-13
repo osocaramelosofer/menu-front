@@ -4,7 +4,7 @@ import { useFormStatus } from 'react-dom'
 import { Button } from '@nextui-org/react'
 import { FaPlus } from 'react-icons/fa'
 
-export function SubmitButton () {
+export function SubmitButton ({ label }: { label: string }) {
   const { pending } = useFormStatus()
 
   return (
@@ -18,7 +18,7 @@ export function SubmitButton () {
       type='submit'
       className='text-white'
     >
-      Crear Nuevo Producto
+      {label}
     </Button>
   )
 }

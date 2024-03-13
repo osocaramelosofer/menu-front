@@ -23,9 +23,8 @@ export default function CustomPagination ({
     const currentQueryParams = Object.fromEntries(params.entries())
     const updatedQuery = {
       ...currentQueryParams,
-      offset: newOffset.toString(),
-      page: newPage.toString(),
-      resultsPeerPage: resultsPeerPage.toString()
+      page: newPage.toString()
+      // resultsPeerPage: resultsPeerPage.toString()
     }
 
     const url = qs.stringifyUrl(
