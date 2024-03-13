@@ -16,7 +16,7 @@ export function SubmitButton ({ label }: { label: string }) {
       fullWidth
       variant='shadow'
       type='submit'
-      className='text-white'
+      className='text-white capitalize'
     >
       {label}
     </Button>

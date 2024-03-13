@@ -12,18 +12,17 @@ import {
   Badge
 } from '@nextui-org/react'
 
-import { FaShoppingBag, FaUserShield } from 'react-icons/fa'
+import { FaShoppingBag } from 'react-icons/fa'
 import { useCartsStore } from '@/store/dulce_trago/carts-store'
 import CartDropdown from '../cart/cart-dropdown'
 import SharedCartDropdown from '../cart/shared-cart-dropdown'
 import { useRoomSocket } from '@/hooks/useRoomSockets'
 import type { IStore } from '@/interfaces/store'
-import { getSession } from 'next-auth/react'
+
+import NavbarBrandDropdown from './navbar-brand-dropdown'
 
 export default function NavBar ({ store }: { store: IStore }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-
-  const session = getSession()
 
   const { calculateCartPrice, cartList, isInSharedCart, cartPrice } =
     useCartsStore()
@@ -44,27 +43,16 @@ export default function NavBar ({ store }: { store: IStore }) {
       className='w-screen overflow-x-hidden bg-primary text-white '
     >
       <NavbarContent className='w-full'>
-        <div className='flex w-full justify-between items-center relative'>
-          {session !== null && (
-            <Button
-              as={Link}
-              href={`${store.id}/dashboard`}
-              size='sm'
-              isIconOnly
-              color='default'
-              variant='flat'
-            >
-              <FaUserShield />
-            </Button>
-          )}
-          <NavbarBrand
+        <div className='flex w-full justify-end items-center relative'>
+          <NavbarBrandDropdown store={store} />
+          {/* <NavbarBrand
             as={Link}
             href={`/${store?.id}`}
             className='max-w-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
           >
             <h1 className=' text-white capitalize'>{store?.name}</h1>
-            {/* <DulceTragoLogo /> */}
-          </NavbarBrand>
+            <DulceTragoLogo /> 
+          </NavbarBrand> */}
           <Badge
             content={cartList.length}
             size='sm'

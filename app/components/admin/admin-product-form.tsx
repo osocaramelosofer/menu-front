@@ -116,6 +116,7 @@ export default function AdminProductForm ({
 
         <div className='flex gap-3 items-end'>
           <Select
+            size='sm'
             isRequired
             isDisabled={categories.length === 0}
             label='Categoría'
@@ -128,7 +129,7 @@ export default function AdminProductForm ({
               </SelectItem>
             ))}
           </Select>
-          <Button isIconOnly onPress={changeTab}>
+          <Button isIconOnly size='lg' onPress={changeTab}>
             <FaPlus />
           </Button>
         </div>

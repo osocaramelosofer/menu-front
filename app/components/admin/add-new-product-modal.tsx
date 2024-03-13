@@ -6,7 +6,8 @@ import {
   ModalHeader,
   ModalBody,
   Tabs,
-  Tab
+  Tab,
+  Chip
 } from '@nextui-org/react'
 import AdminProductForm from './admin-product-form'
 import { useAdminStore } from '@/store/dulce_trago/admin-store'
@@ -53,6 +54,16 @@ export default function AddNewProductModal ({
                   />
                 </Tab>
                 <Tab key='categories' title='Categorías'>
+                  <p className=' font-medium text-sm'>
+                    Tus categorías ({categories.length})
+                  </p>
+                  <div className=' flex flex-wrap gap-2 mt-2'>
+                    {categories.map(category => (
+                      <Chip key={category.id} size='sm'>
+                        {category.name}
+                      </Chip>
+                    ))}
+                  </div>
                   <AdminCategoryForm
                     storeId={storeId}
                     changeTab={() => setSelected('products')}

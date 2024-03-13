@@ -34,7 +34,7 @@ export default function AdminAccordionProducts ({
                   products.filter(
                     product => product.category.id === category.id
                   ).length
-                }{' '}
+                }
               </strong>
               productos
             </Chip>
