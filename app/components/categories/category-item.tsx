@@ -1,8 +1,8 @@
 import qs from 'query-string'
-import type { Category } from '@/interfaces/product'
+import type { ICategory } from '@/interfaces/product'
 import { Button } from '@nextui-org/react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-export default function CategoryItem ({ category }: { category: Category }) {
+export default function CategoryItem ({ category }: { category: ICategory }) {
   const router = useRouter()
   const params = useSearchParams()
   const pathname = usePathname()

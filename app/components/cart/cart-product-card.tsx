@@ -2,8 +2,8 @@
 import { Button, Card, CardBody, Chip, Code, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
 import { FaMinus, FaPlus, FaTimes } from 'react-icons/fa'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
-import { useProductsStore } from '@/store/dulce_trago/products-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
+import { useProductsStore } from '@/zustand-store/products-store'
 import { getOptimizedImageUrl } from '@/lib/utils'
 
 export default function CartProductCard ({

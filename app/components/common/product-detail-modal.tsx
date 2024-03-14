@@ -1,6 +1,6 @@
 'use client'
 
-import { useProductsStore } from '@/store/dulce_trago/products-store'
+import { useProductsStore } from '@/zustand-store/products-store'
 
 import {
   Modal,

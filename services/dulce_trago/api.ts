@@ -1,4 +1,4 @@
-import type { IProduct, Category } from '@/interfaces/product'
+import type { IProduct, ICategory } from '@/interfaces/product'
 import { BASE_URL } from '@/lib/utils'
 
 const api = {
@@ -9,7 +9,8 @@ const api = {
       cache: 'no-store'
     }
     const response = await fetch(
-      `${BASE_URL}/products/products/`, requestOptions
+      `${BASE_URL}/products/products/`,
+      requestOptions
     )
     const jsonResponse = await response.json()
 
@@ -21,11 +22,14 @@ const api = {
       redirect: 'follow',
       cache: 'no-store'
     }
-    const response = await fetch(`${BASE_URL}/products/products/${id}/`, requestOptions)
+    const response = await fetch(
+      `${BASE_URL}/products/products/${id}/`,
+      requestOptions
+    )
     const jsonResponse = await response.json()
     return jsonResponse
   },
-  categories: async (): Promise<Category[]> => {
+  categories: async (): Promise<ICategory[]> => {
     const requestOptions = {
       method: 'GET',
       redirect: 'follow' as RequestRedirect
@@ -45,8 +49,8 @@ const api = {
       redirect: 'follow' as RequestRedirect
     }
     const response = await fetch(
-    `${BASE_URL}/products/products${params}`,
-    requestOptions
+      `${BASE_URL}/products/products${params}`,
+      requestOptions
     )
     if (!response.ok) {
       throw new Error('Error al cargar los productos')

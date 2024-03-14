@@ -1,7 +1,7 @@
 'use client'
 import { Card, CardBody, CardHeader, Chip, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
-import { useProductsStore } from '@/store/dulce_trago/products-store'
+import { useProductsStore } from '@/zustand-store/products-store'
 import { FaChevronRight } from 'react-icons/fa'
 import { getOptimizedImageUrl } from '@/lib/utils'
 

@@ -13,7 +13,7 @@ import {
 } from '@nextui-org/react'
 
 import { FaShoppingBag } from 'react-icons/fa'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
 import CartDropdown from '../cart/cart-dropdown'
 import SharedCartDropdown from '../cart/shared-cart-dropdown'
 import { useRoomSocket } from '@/hooks/useRoomSockets'

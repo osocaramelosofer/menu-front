@@ -22,7 +22,7 @@ import {
   FaShoppingBag,
   FaUserAlt
 } from 'react-icons/fa'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
 import CartProductCard from '../cart/cart-product-card'
 
 export default function SharedCartDropdown ({

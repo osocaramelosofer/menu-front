@@ -1,9 +1,8 @@
 import React from 'react'
-import type { Category, IApiResponse } from '@/interfaces/product'
+import type { ICategory, IApiResponse } from '@/interfaces/product'
 import type { IStore } from '@/interfaces/store'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
-import AddNewProductModal from '@/app/components/admin/add-new-product-modal'
 import AdminAccordionProducts from '@/app/components/admin/admin-accordion-products'
 import AdminHeader from '@/app/components/admin/admin-header'
 import {
@@ -14,20 +13,24 @@ import {
 import NoAccessPermission from '@/app/components/admin/no-access-permission'
 import NavBar from '@/app/components/common/nav-bar'
 
+// modals
+import { ProductCategoryModal, StoreModal } from '@/app/components/admin/modals'
+import AddProductButton from '@/app/components/admin/add-product-button'
+
 export default async function DashboardPage ({
   params
 }: {
-  params: { shopId: string }
+  params: { storeId: string }
 }) {
   const session = await getServerSession()
   const userEmail = session?.user?.email
   const user = await fetchUserByEmail(userEmail)
 
-  const store: IStore = await fetchStoreById(params.shopId)
+  const store: IStore = await fetchStoreById(params.storeId)
   const allStoreProducts: IApiResponse = await fetchAllStoreProducts(
-    params.shopId
+    params.storeId
   )
-  const categories: Category[] = store.categories.sort((a, b) =>
+  const categories: ICategory[] = store.categories.sort((a, b) =>
     a.name.localeCompare(b.name)
   )
 
@@ -42,10 +45,10 @@ export default async function DashboardPage ({
   return (
     <React.Fragment>
       <NavBar store={store} />
-      <main className='flex flex-col w-full min-h-full px-4 pb-8'>
+      <main className='flex flex-col w-full px-4 pb-20 relative'>
         <AdminHeader session={session} />
 
-        <section className=' flex flex-col gap-4'>
+        <section className=' flex flex-col gap-4 mb-4 relative'>
           {categories.map(category => (
             <AdminAccordionProducts
               key={category.id}
@@ -53,9 +56,11 @@ export default async function DashboardPage ({
               category={category}
             />
           ))}
+          <AddProductButton />
         </section>
       </main>
-      <AddNewProductModal categories={categories} storeId={store.id} />
+      <ProductCategoryModal categories={categories} store={store} />
+      <StoreModal store={store} />
     </React.Fragment>
   )
 }

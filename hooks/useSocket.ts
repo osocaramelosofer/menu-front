@@ -1,4 +1,4 @@
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
 import { useEffect, useState } from 'react'
 import io, { type Socket } from 'socket.io-client'
 

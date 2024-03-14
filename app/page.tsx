@@ -30,11 +30,12 @@ export default async function HomePage () {
         >
           Digital menus for your culinary success.
         </p>
-        <ul className='flex gap-4 justify-center lg:justify-start mt-8'>
+        <ul className='flex gap-4 justify-center lg:justify-start mt-8 flex-wrap'>
           {stores.map(store => (
             <li key={store.id}>
               <a
-                className=' flex-1 flex text-sm text-success bg-success/10 px-6 py-2 capitalize rounded-lg'
+                className='flex-1 flex text-sm font-medium shadow-sm shadow-[#FF9359] text-white
+                 bg-gradient-to-br from-[#FF9359] to-[#FF725B] px-6 py-2 capitalize rounded-lg'
                 href={`/${store.id}`}
               >
                 {store.name}

@@ -10,7 +10,7 @@ import {
 } from '@nextui-org/react'
 
 import { FaShoppingBag } from 'react-icons/fa'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
 import CartProductCard from '../cart/cart-product-card'
 import SharedCartTabsForm from '../cart/shared-cart-tabs-form'
 

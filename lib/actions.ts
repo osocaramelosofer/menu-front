@@ -8,6 +8,8 @@ import type {
 import { revalidatePath } from 'next/cache'
 import { BASE_URL } from './utils'
 
+// STORE
+
 // Categories
 export async function fetchAllCategories () {
   const requestOptions: RequestInit = {

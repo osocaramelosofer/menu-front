@@ -10,8 +10,8 @@ import {
   User
 } from '@nextui-org/react'
 
-import { useAdminStore } from '@/store/dulce_trago/admin-store'
-import { FaPlus } from 'react-icons/fa'
+import { useAdminStore } from '@/zustand-store/admin-store'
+import { FaCog, FaPlus, FaSignOutAlt } from 'react-icons/fa'
 import { signOut } from 'next-auth/react'
 
 export default function AdminHeader ({ session }: { session: Session | null }) {
@@ -21,56 +21,37 @@ export default function AdminHeader ({ session }: { session: Session | null }) {
     await signOut()
   }
 
-  const handleOpenAdminModal = () => {
-    openModal()
+  const handleOpenModal = () => {
+    openModal('storeModal')
   }
 
   return (
-    <section className='flex justify-between items-center w-full sticky top-0 z-20 bg-background py-4 mb-4'>
-      <Dropdown placement='bottom-start'>
-        <DropdownTrigger>
-          <User
-            as='button'
-            className='transition-transform'
-            description={'Admin'}
-            name={session?.user?.email}
-          />
-        </DropdownTrigger>
-        <DropdownMenu aria-label='User Actions' variant='flat'>
-          <DropdownItem textValue='profile' showDivider key='profile'>
-            <p className=' font-medium'>{session?.user?.email}</p>
-          </DropdownItem>
-
-          <DropdownItem
-            isReadOnly
-            textValue='logout'
-            onPress={handleLogout}
-            key='delete'
-            className='text-danger'
-            color='danger'
-          >
-            <Button
-              size='sm'
-              fullWidth
-              color='danger'
-              variant='flat'
-              onPress={handleLogout}
-            >
-              Cerrar Sesión
-            </Button>
-          </DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-
-      <Button
-        size='sm'
-        startContent={<FaPlus />}
-        color='primary'
-        variant='flat'
-        onPress={handleOpenAdminModal}
-      >
-        Add New Product
-      </Button>
+    <section className='flex flex-col w-full gap-3 sticky top-[4rem] z-10 bg-background py-4 mb-4'>
+      <User
+        as='button'
+        className='transition-transform w-fit'
+        description={session?.user?.email}
+        name='Admin'
+      />
+      <div className=' flex w-full items-center justify-center gap-3'>
+        <Button
+          size='sm'
+          startContent={<FaCog />}
+          variant='faded'
+          onPress={handleOpenModal}
+        >
+          Administra tu negocio
+        </Button>
+        <Button
+          size='sm'
+          color='danger'
+          variant='faded'
+          startContent={<FaSignOutAlt />}
+          onPress={handleLogout}
+        >
+          Cerrar sesión
+        </Button>
+      </div>
     </section>
   )
 }

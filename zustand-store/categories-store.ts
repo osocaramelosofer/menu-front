@@ -1,20 +1,20 @@
 import { fetchAllCategories } from '@/lib/actions'
-import { type Category } from '@/interfaces/product'
+import { type ICategory } from '@/interfaces/product'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
 interface State {
   loading: boolean
-  categories: Category[]
-  currentCategory: Category
+  categories: ICategory[]
+  currentCategory: ICategory
 
   getCategoriesList: () => void
-  setCurrentCategory: (category: Category) => void
+  setCurrentCategory: (category: ICategory) => void
   resetCurrentCategory: () => void
-  getInitialCategory: () => Category
+  getInitialCategory: () => ICategory
 }
 
-const initialCategoryState: Category = {
+const initialCategoryState: ICategory = {
   id: 0,
   name: 'Todos',
   description: 'Todos los productos'
@@ -29,10 +29,10 @@ export const useCategoriesStore = create<State>()(
       getCategoriesList: () => {
         set({ loading: true })
         fetchAllCategories()
-          .then((response) => {
+          .then(response => {
             set({ categories: response })
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err)
           })
           .finally(() => {
@@ -40,7 +40,7 @@ export const useCategoriesStore = create<State>()(
           })
       },
 
-      setCurrentCategory: (category) => {
+      setCurrentCategory: category => {
         set({ currentCategory: category })
       },
       resetCurrentCategory: () => {

@@ -1,4 +1,4 @@
-export interface Category {
+export interface ICategory {
   id: number
   name: string
   description?: string
@@ -41,7 +41,7 @@ export interface Variant {
 
 export interface IProduct {
   id: number
-  category: Category
+  category: ICategory
   tags: Tag[]
   additional_images: AdditionalImage[]
   promotions: Promotion[]

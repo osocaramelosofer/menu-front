@@ -2,7 +2,7 @@
 
 import { type IProduct } from '@/interfaces/product'
 import { getOptimizedImageUrl } from '@/lib/utils'
-import { useProductsStore } from '@/store/dulce_trago/products-store'
+import { useProductsStore } from '@/zustand-store/products-store'
 import {
   Card,
   CardBody,

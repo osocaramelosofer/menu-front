@@ -2,8 +2,8 @@
 
 import { Image } from '@nextui-org/react'
 import { CldUploadWidget } from 'next-cloudinary'
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
+
 import { FaImage } from 'react-icons/fa'
 import PopoverInfo from '../common/popover-info'
 
@@ -26,6 +26,8 @@ export default function UploadProductImage () {
 
       <CldUploadWidget
         onSuccess={(results: any) => {
+          console.log(results)
+
           setMainImageValue(
             `${results?.info?.resource_type}/${results?.info?.type}/${results?.info?.path}`
           )

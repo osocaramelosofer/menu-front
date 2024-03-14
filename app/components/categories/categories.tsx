@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import type { Category } from '@/interfaces/product'
+import type { ICategory } from '@/interfaces/product'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Chip, ScrollShadow } from '@nextui-org/react'
 import CategoryItem from './category-item'
@@ -10,7 +10,7 @@ export default function Categories ({
   categories,
   storeId
 }: {
-  categories: Category[]
+  categories: ICategory[]
   storeId: string | number
 }) {
   const sortedCategories = categories.sort((a, b) =>

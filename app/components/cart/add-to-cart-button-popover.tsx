@@ -1,6 +1,6 @@
 'use client'
 import { type IProduct } from '@/interfaces/product'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
 
 import {
   Button,

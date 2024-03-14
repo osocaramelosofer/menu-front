@@ -19,17 +19,16 @@ interface RootPageProps {
     categoryName?: string
     page?: string
   }
-  params: { shopId: number | string }
+  params: { storeId: number | string }
 }
 
 export default async function Page ({ searchParams, params }: RootPageProps) {
-  const store: IStore = await fetchStoreById(params.shopId)
+  const store: IStore = await fetchStoreById(params.storeId)
   // const allStoreProducts: IApiResponse = await fetchAllStoreProducts(
   //   params.shopId
   // )
 
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (!store) {
+  if (store === null) {
     return notFound()
   }
 
@@ -42,17 +41,17 @@ export default async function Page ({ searchParams, params }: RootPageProps) {
 
         <h2 className='text-base font-semibold'>Productos Destacados</h2>
         <Suspense fallback={<FeaturedProductsSkeleton />}>
-          <FeaturedProductsList storeId={params.shopId} />
+          <FeaturedProductsList storeId={params.storeId} />
         </Suspense>
         <Suspense fallback={<CategoriesSkeleton />}>
-          <Categories categories={store.categories} storeId={params.shopId} />
+          <Categories categories={store.categories} storeId={params.storeId} />
         </Suspense>
 
         <Spacer y={6} />
 
         <Suspense key={Math.random()} fallback={<ProductsSkeleton />}>
           <ProductsList
-            storeId={params.shopId}
+            storeId={params.storeId}
             currentCategoryId={searchParams.categoryId}
             currentPage={searchParams.page}
           />
