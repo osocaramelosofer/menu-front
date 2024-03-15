@@ -20,7 +20,7 @@ export default async function ProductsList ({
   const resultsPeerPage = 3
 
   const url: string = `${BASE_URL}/products?store=${storeId}&resultsPerPage=${resultsPeerPage}&page=${
-    currentPage || '1'
+    currentPage != null || '1'
   }&categoryId=${currentCategoryId}`
 
   const products: IApiResponse = await fetchPaginatedProducts(url)

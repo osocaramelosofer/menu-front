@@ -42,6 +42,7 @@ const authOptions = {
   callbacks: {
     async jwt ({ token, user }: any) {
       // Si 'user' está definido, entonces es el objeto usuario retornado desde el provider
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (user) {
         token.user = user
       }
