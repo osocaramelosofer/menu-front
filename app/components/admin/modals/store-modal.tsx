@@ -3,6 +3,7 @@ import type { IStore } from '@/interfaces/store'
 import { Modal, ModalContent, ModalHeader, ModalBody } from '@nextui-org/react'
 import { useAdminStore } from '@/zustand-store/admin-store'
 import StoreForm from '../forms/store-form'
+import clsx from 'clsx'
 
 export default function StoreModal ({ store }: { store: IStore }) {
   const { isModalOpen, closeModal } = useAdminStore()
@@ -18,6 +19,7 @@ export default function StoreModal ({ store }: { store: IStore }) {
       onClose={handleCloseModal}
       radius='lg'
       scrollBehavior='inside'
+      className={clsx('', store.themeColor ?? '')}
     >
       <ModalContent>
         <ModalHeader>Tu negocio</ModalHeader>

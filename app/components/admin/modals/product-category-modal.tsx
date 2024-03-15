@@ -14,6 +14,7 @@ import {
 } from '@nextui-org/react'
 import { useAdminStore } from '@/zustand-store/admin-store'
 import { ProductForm, CategoryForm } from '../forms'
+import clsx from 'clsx'
 
 export default function ProductCategoryModal ({
   categories,
@@ -36,7 +37,7 @@ export default function ProductCategoryModal ({
       onClose={handleCloseModal}
       radius='lg'
       scrollBehavior='inside'
-      className=' min-h-[90vh]'
+      className={clsx(' min-h-[90vh]', store.themeColor ?? '')}
     >
       <ModalContent>
         <ModalHeader>¡Pon algo a la venta!</ModalHeader>

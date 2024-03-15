@@ -2,27 +2,40 @@
 
 import { Button, Image } from '@nextui-org/react'
 import { CldUploadWidget } from 'next-cloudinary'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { FaImage } from 'react-icons/fa'
 import PopoverInfo from '../common/popover-info'
+import { getOptimizedImageUrl } from '@/lib/utils'
 
 const uploadPreset = 'jg7mvaof'
 
-export default function UploadProductImage () {
+export default function UploadProductImage ({
+  inputName,
+  storeLogo,
+  popoverLabel
+}: {
+  inputName: string
+  storeLogo?: string
+  popoverLabel: React.ReactNode
+}) {
   const [mainImageValue, setMainImageValue] = useState('')
+  const [imageSrc, setImageSrc] = useState('')
+
+  // Actualiza imageSrc cada vez que storeLogo o mainImageValue cambien
+  useEffect(() => {
+    if (mainImageValue.length > 0) {
+      // Si mainImageValue tiene un valor, usar ese valor
+      setImageSrc(mainImageValue)
+    } else if (storeLogo !== undefined) {
+      // Si mainImageValue no tiene valor pero storeLogo sí, usar storeLogo
+      setImageSrc(storeLogo)
+    }
+  }, [storeLogo, mainImageValue])
 
   return (
     <React.Fragment>
-      <div className=' flex gap-2'>
-        <h2 className=' font-medium opacity-80'>
-          Agrega una foto de tu producto
-        </h2>
-        <PopoverInfo
-          title='¡Muestra a todos cómo es tu producto!'
-          subtitle='Recuerda que solamente podrás elegir una imagen, elige con sabiduría y haz que tu producto luzca lo mejor posible. ¡La elección es tuya, asegúrate de que sea la mejor!'
-        />
-      </div>
+      {popoverLabel}
 
       <CldUploadWidget
         onSuccess={(results: any) => {
@@ -52,19 +65,19 @@ export default function UploadProductImage () {
               <div className='font-medium text-md text-center opacity-60'>
                 Haz clic para cargar una imagen
               </div>
-              {mainImageValue.length > 0 && (
+              {imageSrc.length > 0 && (
                 <div className='absolute inset-0 w-full flex-1'>
                   <Image
                     alt='Woman listing to music'
                     // removeWrapper
                     className='object-cover min-h-full min-w-full aspect-square'
-                    src={`https://res.cloudinary.com/drzrkaoje/${mainImageValue}`}
+                    src={getOptimizedImageUrl(imageSrc, 330)}
                   />
                   <input
-                    // required
+                    required
                     type='hidden'
-                    value={mainImageValue}
-                    name='main_image'
+                    value={imageSrc}
+                    name={inputName}
                   />
                 </div>
               )}

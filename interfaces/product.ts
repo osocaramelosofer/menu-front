@@ -47,7 +47,7 @@ export interface IProduct {
   promotions: Promotion[]
   variants: Variant[]
   name: string
-  main_image: string
+  image: string
   created_at: string
   updated_at: string
   description: string
@@ -67,7 +67,7 @@ export interface IProduct {
 }
 
 export interface IProductPost {
-  main_image?: string
+  image?: string | null
   name: string
   description: string
   price: number

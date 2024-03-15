@@ -11,15 +11,14 @@ export default function ProductCard ({ product }: { product: IProduct }) {
     setSelectedProduct(product)
     openModal()
   }
-  // const image = getOptimizedImageUrl(product.main_image, 280)
-  const image = 'https://i.imgur.com/mhYwQyfm.png'
+  const image = getOptimizedImageUrl(product.image, 280)
 
   return (
     <Card
       isPressable
       disableRipple
       onClick={handleSelectedProduct}
-      className='cursor-pointer rounded-xl shadow-xs border border-black border-opacity-5  bg-gradient-to-br from-secondary/50 to-background
+      className='cursor-pointer rounded-xl shadow-xs border border-black border-opacity-5  bg-gradient-to-br from-primary/5 to-background
        overflow-hidden flex flex-row md:flex-col p-3 gap-3'
     >
       <CardHeader className='flex flex-1 p-0'>

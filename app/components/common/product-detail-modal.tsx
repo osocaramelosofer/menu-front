@@ -1,5 +1,6 @@
 'use client'
 
+import clsx from 'clsx'
 import { useProductsStore } from '@/zustand-store/products-store'
 
 import {
@@ -15,14 +16,16 @@ import {
 import AddToCartButtonPopover from '../cart/add-to-cart-button-popover'
 import { getOptimizedImageUrl } from '@/lib/utils'
 
-export default function ProductDetailModal () {
+export default function ProductDetailModal ({
+  themeColor
+}: {
+  themeColor?: string
+}) {
   const {
     selectedProduct: product,
     isModalOpen,
     closeModal
   } = useProductsStore()
-
-  const image = 'https://i.imgur.com/mhYwQyfl.png'
 
   return (
     <Modal
@@ -31,7 +34,7 @@ export default function ProductDetailModal () {
       onClose={closeModal}
       radius='lg'
       scrollBehavior='inside'
-      className=' overflow-hidden valienteTheme'
+      className={clsx('overflow-hidden', themeColor ?? '')}
     >
       <ModalContent>
         {closeModal => (
@@ -53,8 +56,7 @@ export default function ProductDetailModal () {
                   <Image
                     alt='Product image in a detail modal'
                     className='object-cover h-full w-full rounded-xl aspect-square'
-                    // src={getOptimizedImageUrl(product.main_image, 450)}
-                    src={image}
+                    src={getOptimizedImageUrl(product.image, 450)}
                   />
                 </div>
               )}

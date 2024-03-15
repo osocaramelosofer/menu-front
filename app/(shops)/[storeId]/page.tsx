@@ -12,6 +12,7 @@ import ProductsSkeleton from '@/app/components/skeletons/products-skeleton'
 import ProductsList from '@/app/components/products/products-list'
 import Categories from '@/app/components/categories/categories'
 import CategoriesSkeleton from '@/app/components/skeletons/categories-skeleton'
+import clsx from 'clsx'
 
 interface RootPageProps {
   searchParams: {
@@ -32,11 +33,18 @@ export default async function Page ({ searchParams, params }: RootPageProps) {
     return notFound()
   }
 
+  console.log('STOIRE: ', store)
+
   return (
     <React.Fragment>
       <NavBar store={store} />
 
-      <main className=' valienteTheme flex flex-col w-full h-full px-4 py-8'>
+      <main
+        className={clsx(
+          'flex flex-col w-full h-full px-4 py-8',
+          store.themeColor ?? ''
+        )}
+      >
         {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
         <StoreBanner store={store} />
 
@@ -59,7 +67,7 @@ export default async function Page ({ searchParams, params }: RootPageProps) {
         </Suspense>
       </main>
 
-      <ProductDetailModal />
+      <ProductDetailModal themeColor={store.themeColor} />
     </React.Fragment>
   )
 }

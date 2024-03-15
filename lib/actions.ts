@@ -89,13 +89,16 @@ export const addProduct = async (
   formData: FormData,
   storeId: string | number
 ) => {
+  const image = formData.get('image') as string
+  const imageToSend = image === '' ? null : image
   const productBody: IProductPost = {
     // main_image: formData.get('main_image') as string,
     name: formData.get('name') as string,
     description: formData.get('description') as string,
     price: Number(formData.get('price')),
     categoryId: Number(formData.get('category')),
-    storeId: Number(storeId)
+    storeId: Number(storeId),
+    image: imageToSend
   }
   // console.log(productBody)
   await createProduct(productBody)

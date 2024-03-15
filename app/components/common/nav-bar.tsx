@@ -20,6 +20,7 @@ import { useRoomSocket } from '@/hooks/useRoomSockets'
 import type { IStore } from '@/interfaces/store'
 
 import NavbarBrandDropdown from './navbar-brand-dropdown'
+import clsx from 'clsx'
 
 export default function NavBar ({ store }: { store: IStore }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
@@ -40,12 +41,14 @@ export default function NavBar ({ store }: { store: IStore }) {
       isBordered
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      className='w-screen overflow-x-hidden bg-primary text-white valienteTheme'
+      className={clsx(
+        'w-screen overflow-x-hidden bg-primary text-white',
+        store.themeColor ?? ''
+      )}
     >
       <NavbarContent className='w-full'>
-        <div className='flex w-full justify-end items-center relative'>
-          <NavbarBrandDropdown store={store} />
-
+        <NavbarBrandDropdown store={store} />
+        <div className='flex w-full flex-1 justify-end items-center relative'>
           <Badge
             content={cartList.length}
             size='sm'
@@ -58,7 +61,10 @@ export default function NavBar ({ store }: { store: IStore }) {
                 calculateCartPrice()
               }}
               backdrop='opaque'
-              className='max-h-[90vh] max-w-[95vw] min-w-[95vw] md:max-w-sm md:min-w-[24rem] relative valienteTheme'
+              className={clsx(
+                'max-h-[90vh] max-w-[95vw] min-w-[95vw] md:max-w-sm md:min-w-[24rem] relative',
+                store.themeColor ?? ''
+              )}
             >
               <DropdownTrigger>
                 <Button isIconOnly color='primary' radius='full'>

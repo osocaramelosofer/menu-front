@@ -29,9 +29,9 @@ export default function CategoryItem ({ category }: { category: ICategory }) {
       onClick={handleCategoryChange}
       key={`${category.id}${category.name}`}
       variant={isSelected ? 'solid' : 'flat'}
-      color={isSelected ? 'primary' : 'secondary'}
+      color={isSelected ? 'primary' : 'default'}
       size='sm'
-      className='min-w-fit flex text-sm'
+      className='min-w-fit flex text-sm font-medium'
     >
       <p className={`${isSelected ? 'text-white' : 'text-primary'}`}>
         {category.name}

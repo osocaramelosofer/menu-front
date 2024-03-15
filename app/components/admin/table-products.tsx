@@ -12,6 +12,7 @@ import {
 } from '@nextui-org/react'
 
 import DropdownProductActions from './dropdown-product-actions'
+import { getOptimizedImageUrl } from '@/lib/utils'
 
 export default function TableProduct ({
   products,
@@ -23,9 +24,11 @@ export default function TableProduct ({
   const filteredProducts = products.filter(
     product => product.category.id === category.id
   )
-  const image = 'https://i.imgur.com/mhYwQyfm.png'
 
   const renderCell = React.useCallback((product: IProduct, columnKey: any) => {
+    console.log(product)
+
+    const image = getOptimizedImageUrl(product.image, 40)
     switch (columnKey) {
       case 'product':
         return (

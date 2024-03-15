@@ -13,19 +13,21 @@ export interface IStore {
   id: number
   name: string
   description: string
-  address: string
-  logo: string
+  logoUrl: string
+  address?: string
+  igUrl?: string
+  phone?: string
+  themeColor?: string
   categories: ICategory[]
   users: IUser[]
   banner: IBanner
 }
 export interface IStoreForm {
-  id?: number
-  name?: string
-  description?: string
-  address?: string
-  logo?: string
-  categories?: ICategory[]
-  users?: IUser[]
+  name: string
+  description: string
+  logoUrl: string
+  address?: string | null
+  igUrl?: string | null
+  phone?: string | null
   banner?: IBanner
 }

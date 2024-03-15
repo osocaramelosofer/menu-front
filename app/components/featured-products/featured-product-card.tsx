@@ -23,8 +23,7 @@ export default function FeaturedProductCard ({
     openModal()
   }
 
-  // const image = getOptimizedImageUrl(product.main_image, 180)
-  const image = 'https://i.imgur.com/mhYwQyfm.png'
+  const image = getOptimizedImageUrl(product.image, 180)
 
   return (
     <Card
@@ -33,7 +32,7 @@ export default function FeaturedProductCard ({
       as={'div'}
       onPress={handleSelectedProduct}
       className='cursor-pointer rounded-xl shadow-xs border border-black border-opacity-5 max-w-[12rem] min-w-[12rem]
-       bg-gradient-to-br from-secondary/50 to-background w-full overflow-hidden'
+       bg-gradient-to-br from-primary/10 to-background w-full overflow-hidden'
     >
       <CardHeader>
         {/* Card Image */}

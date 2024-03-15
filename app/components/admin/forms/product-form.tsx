@@ -8,6 +8,7 @@ import { useAdminStore } from '@/zustand-store/admin-store'
 import { SubmitButton } from './submit-button'
 import { FaPlus } from 'react-icons/fa'
 import UploadProductImage from '../upload-product-image'
+import PopoverInfo from '../../common/popover-info'
 
 export default function ProductForm ({
   categories,
@@ -78,7 +79,20 @@ export default function ProductForm ({
       }}
       className='flex flex-col gap-5'
     >
-      <UploadProductImage />
+      <UploadProductImage
+        inputName='image'
+        popoverLabel={
+          <div className=' flex gap-2'>
+            <h2 className=' font-medium opacity-80'>
+              Agrega una foto de tu producto
+            </h2>
+            <PopoverInfo
+              title='¡Muestra a todos cómo es tu producto!'
+              subtitle='Recuerda que solamente podrás elegir una imagen, elige con sabiduría y haz que tu producto luzca lo mejor posible. ¡La elección es tuya, asegúrate de que sea la mejor!'
+            />
+          </div>
+        }
+      />
 
       <Input
         isRequired

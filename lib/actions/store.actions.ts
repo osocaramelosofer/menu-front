@@ -67,6 +67,7 @@ export async function updateStoreById (
 
   if (!response.ok) {
     throw new Error('Error al actualizar la tienda')
+    // console.log(response.json())
   }
   const data = await response.json()
 
@@ -77,9 +78,23 @@ export const handleUpdateStore = async (
   formData: FormData,
   storeId: string | number
 ) => {
+  // Asignación condicional para igUrl
+  const igUrl = formData.get('igUrl') as string
+  const igUrlToSend = igUrl === '' ? null : igUrl
+
+  const address = formData.get('address') as string
+  const addressToSend = address === '' ? null : address
+
+  const phone = formData.get('phone') as string
+  const phoneToSend = phone === '' ? null : phone
+
   const storeBody = {
     name: formData.get('name') as string,
-    description: formData.get('description') as string
+    description: formData.get('description') as string,
+    logoUrl: formData.get('logoUrl') as string,
+    address: addressToSend,
+    igUrl: igUrlToSend,
+    phone: phoneToSend
   }
   await updateStoreById(storeBody, storeId)
 

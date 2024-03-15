@@ -16,6 +16,7 @@ import NavBar from '@/app/components/common/nav-bar'
 // modals
 import { ProductCategoryModal, StoreModal } from '@/app/components/admin/modals'
 import AddProductButton from '@/app/components/admin/add-product-button'
+import clsx from 'clsx'
 
 export default async function DashboardPage ({
   params
@@ -38,14 +39,19 @@ export default async function DashboardPage ({
     redirect('/api/auth/signin')
   }
 
-  if (user.storeid !== store.id) {
+  if (user?.storeId !== store.id) {
     return <NoAccessPermission />
   }
 
   return (
     <React.Fragment>
       <NavBar store={store} />
-      <main className='flex flex-col w-full px-4 pb-20 relative valienteTheme'>
+      <main
+        className={clsx(
+          'flex flex-col w-full px-4 pb-20 relative',
+          store.themeColor ?? ''
+        )}
+      >
         <AdminHeader session={session} />
 
         <section className=' flex flex-col gap-4 mb-4 relative'>
