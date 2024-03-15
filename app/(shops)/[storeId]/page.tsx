@@ -36,8 +36,9 @@ export default async function Page ({ searchParams, params }: RootPageProps) {
     <React.Fragment>
       <NavBar store={store} />
 
-      <main className='flex flex-col w-full h-full px-4 py-8'>
-        {/* {store.amenities.length > 0 && <StoreBanner store={store} />} */}
+      <main className=' valienteTheme flex flex-col w-full h-full px-4 py-8'>
+        {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
+        <StoreBanner store={store} />
 
         <h2 className='text-base font-semibold'>Productos Destacados</h2>
         <Suspense fallback={<FeaturedProductsSkeleton />}>

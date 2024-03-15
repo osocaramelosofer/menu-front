@@ -38,14 +38,14 @@ export default async function DashboardPage ({
     redirect('/api/auth/signin')
   }
 
-  if (user.storeId !== store.id) {
+  if (user.storeid !== store.id) {
     return <NoAccessPermission />
   }
 
   return (
     <React.Fragment>
       <NavBar store={store} />
-      <main className='flex flex-col w-full px-4 pb-20 relative'>
+      <main className='flex flex-col w-full px-4 pb-20 relative valienteTheme'>
         <AdminHeader session={session} />
 
         <section className=' flex flex-col gap-4 mb-4 relative'>

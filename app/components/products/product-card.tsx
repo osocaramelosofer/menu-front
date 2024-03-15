@@ -19,7 +19,7 @@ export default function ProductCard ({ product }: { product: IProduct }) {
       isPressable
       disableRipple
       onClick={handleSelectedProduct}
-      className='cursor-pointer rounded-xl shadow-xs border-2 border-white  bg-gradient-to-br from-secondary/50 to-background
+      className='cursor-pointer rounded-xl shadow-xs border border-black border-opacity-5  bg-gradient-to-br from-secondary/50 to-background
        overflow-hidden flex flex-row md:flex-col p-3 gap-3'
     >
       <CardHeader className='flex flex-1 p-0'>

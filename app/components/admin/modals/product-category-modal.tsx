@@ -36,17 +36,20 @@ export default function ProductCategoryModal ({
       onClose={handleCloseModal}
       radius='lg'
       scrollBehavior='inside'
+      className=' min-h-[90vh]'
     >
       <ModalContent>
         <ModalHeader>¡Pon algo a la venta!</ModalHeader>
-        <ModalBody>
+        <ModalBody className=' w-full h-full'>
           <Tabs
-            size='md'
+            fullWidth
+            size='sm'
+            color='warning'
+            variant='underlined'
+            className=' shadow-none'
             aria-label='Tabs form'
             selectedKey={selectedTab}
             onSelectionChange={setSelectedTab}
-            fullWidth
-            color='warning'
           >
             <Tab key='products' title='Productos'>
               <ProductForm

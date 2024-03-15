@@ -26,4 +26,6 @@ export function getOptimizedImageUrl (
 }
 
 // export const BASE_URL: string = 'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1'
-export const BASE_URL: string = 'http://localhost:3001'
+export const BASE_URL: string =
+  'https://menu-back-nodejs-production.up.railway.app'
+// export const BASE_URL: string = 'http://localhost:3001'

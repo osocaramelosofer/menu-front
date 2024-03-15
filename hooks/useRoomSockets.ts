@@ -25,7 +25,7 @@ export function useRoomSocket () {
   const handleCreateRoom = useCallback(() => {
     socket?.emit(
       'create room',
-      (response: { status: string; roomId: any; message: any }) => {
+      (response: { status: string, roomId: any, message: any }) => {
         if (response.status === 'success') {
           setIsInSharedCart(true)
           console.log(`Room created with ID: ${response.roomId}`)
@@ -81,7 +81,7 @@ export function useRoomSocket () {
     socket?.emit(
       'UPDATE_CART',
       { roomId, username, cartList, cartPrice },
-      (response: { status: string; message: any; sharedCartList: any }) => {
+      (response: { status: string, message: any, sharedCartList: any }) => {
         // console.log('RES: ', response)
 
         if (response.status === 'success') {
@@ -107,7 +107,7 @@ export function useRoomSocket () {
       socket?.emit(
         'leave room',
         { roomId, username },
-        (response: { status: string; message: any }) => {
+        (response: { status: string, message: any }) => {
           if (response.status === 'success') {
             // console.log(response.message)
             // Realizar acciones después de dejar la sala, como actualizar el estado

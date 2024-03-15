@@ -10,8 +10,8 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors:{
-        customBrown: '#371E08',
+      colors: {
+        customBrown: '#371E08'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -43,7 +43,15 @@ const config: Config = {
           colors: {
             primary: '#371E08', // this change the header
             secondary: '#CCB7A5',
-            background: "#fcfcfc",
+            background: '#fcfcfc'
+          }
+        },
+        valienteTheme: {
+          colors: {
+            primary: '#CA4526',
+            // #CA4526
+            secondary: '#ebf4f5',
+            background: '#fcfcfc'
           }
         }
       }

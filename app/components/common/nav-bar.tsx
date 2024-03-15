@@ -26,33 +26,26 @@ export default function NavBar ({ store }: { store: IStore }) {
 
   const { calculateCartPrice, cartList, isInSharedCart, cartPrice } =
     useCartsStore()
-  // const { handleCreateRoom, handleJoinRoom, handleLeaveRoom, updateCart } =
-  //   useRoomSocket()
+  const { handleCreateRoom, handleJoinRoom, handleLeaveRoom, updateCart } =
+    useRoomSocket()
 
-  // React.useEffect(() => {
-  //   if (isInSharedCart) {
-  //     updateCart()
-  //   }
-  // }, [cartList, cartPrice, isInSharedCart])
+  React.useEffect(() => {
+    if (isInSharedCart) {
+      updateCart()
+    }
+  }, [cartList, cartPrice, isInSharedCart])
 
   return (
     <Navbar
       isBordered
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      className='w-screen overflow-x-hidden bg-primary text-white '
+      className='w-screen overflow-x-hidden bg-primary text-white valienteTheme'
     >
       <NavbarContent className='w-full'>
         <div className='flex w-full justify-end items-center relative'>
           <NavbarBrandDropdown store={store} />
-          {/* <NavbarBrand
-            as={Link}
-            href={`/${store?.id}`}
-            className='max-w-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
-          >
-            <h1 className=' text-white capitalize'>{store?.name}</h1>
-            <DulceTragoLogo /> 
-          </NavbarBrand> */}
+
           <Badge
             content={cartList.length}
             size='sm'
@@ -65,7 +58,7 @@ export default function NavBar ({ store }: { store: IStore }) {
                 calculateCartPrice()
               }}
               backdrop='opaque'
-              className='max-h-[90vh] max-w-[95vw] min-w-[95vw] md:max-w-sm md:min-w-[24rem] relative'
+              className='max-h-[90vh] max-w-[95vw] min-w-[95vw] md:max-w-sm md:min-w-[24rem] relative valienteTheme'
             >
               <DropdownTrigger>
                 <Button isIconOnly color='primary' radius='full'>
@@ -74,7 +67,7 @@ export default function NavBar ({ store }: { store: IStore }) {
               </DropdownTrigger>
 
               {/* eslint-disable-next-line multiline-ternary */}
-              {/* {isInSharedCart ? (
+              {isInSharedCart ? (
                 <SharedCartDropdown
                   handleLeaveRoom={handleLeaveRoom}
                   updateCart={updateCart}
@@ -84,8 +77,8 @@ export default function NavBar ({ store }: { store: IStore }) {
                   handleCreateRoom={handleCreateRoom}
                   handleJoinRoom={handleJoinRoom}
                 />
-              )} */}
-              <CartDropdown />
+              )}
+              {/* <CartDropdown /> */}
             </Dropdown>
           </Badge>
         </div>

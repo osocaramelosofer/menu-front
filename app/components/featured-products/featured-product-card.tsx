@@ -32,7 +32,7 @@ export default function FeaturedProductCard ({
       disableRipple
       as={'div'}
       onPress={handleSelectedProduct}
-      className='cursor-pointer rounded-xl shadow-xs border border-white max-w-[12rem] min-w-[12rem]
+      className='cursor-pointer rounded-xl shadow-xs border border-black border-opacity-5 max-w-[12rem] min-w-[12rem]
        bg-gradient-to-br from-secondary/50 to-background w-full overflow-hidden'
     >
       <CardHeader>

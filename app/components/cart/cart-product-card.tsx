@@ -56,7 +56,7 @@ export default function CartProductCard ({
   }
 
   return (
-    <Card className='rounded-xl shadow-xs border overflow-hidden mb-4 border-white w-full  bg-gradient-to-br from-secondary/50 to-background'>
+    <Card className='rounded-xl shadow-xs border overflow-hidden mb-4 border-black border-opacity-5 w-full  bg-gradient-to-br from-secondary/50 to-background'>
       <CardBody className='flex flex-row gap-2'>
         <div className=' absolute right-1 top-1 '>
           <Button

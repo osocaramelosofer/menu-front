@@ -31,7 +31,7 @@ export default function ProductDetailModal () {
       onClose={closeModal}
       radius='lg'
       scrollBehavior='inside'
-      className=' overflow-hidden'
+      className=' overflow-hidden valienteTheme'
     >
       <ModalContent>
         {closeModal => (

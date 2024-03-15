@@ -22,10 +22,11 @@ const StoreBanner = ({ store }: { store: IStore }) => {
         <Image
           alt='Special promo image'
           isBlurred
-          className='object-cover min-w-full h-52 md:h-72 z-0'
+          className='object-cover min-w-full h-52 md:h-72 z-0 scale-150'
           width={700}
           height={500}
-          src={store.amenities}
+          // src={store?.banner?.imageUrl}
+          src='https://i.imgur.com/uuxplVh.png'
         />
         <CardFooter className='absolute bg-black/30 bottom-0 z-10 border-t-1 border-default-600 backdrop-blur-sm'>
           <p className='text-tiny md:text-sm text-white/90 line-clamp-2'>

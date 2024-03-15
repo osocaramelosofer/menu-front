@@ -17,7 +17,7 @@ export default function EmptyState ({
   // const { resetCurrentCategory } = useCategoriesStore()
   const router = useRouter()
   const handleResetCategoryFilter = () => {
-    router.push(`/${storeId}`)
+    router.push(`/${storeId}`, { scroll: false })
   }
   return (
     <div className='h-[40vh] flex flex-col gap-2 justify-center items-center px-4 text-center'>

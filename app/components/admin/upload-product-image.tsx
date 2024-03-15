@@ -1,6 +1,6 @@
 'use client'
 
-import { Image } from '@nextui-org/react'
+import { Button, Image } from '@nextui-org/react'
 import { CldUploadWidget } from 'next-cloudinary'
 import React, { useState } from 'react'
 
