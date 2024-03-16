@@ -1,6 +1,7 @@
 'use client'
 
-import { useProductsStore } from '@/store/dulce_trago/products-store'
+import clsx from 'clsx'
+import { useProductsStore } from '@/zustand-store/products-store'
 
 import {
   Modal,
@@ -15,7 +16,11 @@ import {
 import AddToCartButtonPopover from '../cart/add-to-cart-button-popover'
 import { getOptimizedImageUrl } from '@/lib/utils'
 
-export default function ProductDetailModal () {
+export default function ProductDetailModal ({
+  themeColor
+}: {
+  themeColor?: string
+}) {
   const {
     selectedProduct: product,
     isModalOpen,
@@ -29,7 +34,7 @@ export default function ProductDetailModal () {
       onClose={closeModal}
       radius='lg'
       scrollBehavior='inside'
-      className=' overflow-hidden'
+      className={clsx('overflow-hidden', themeColor ?? '')}
     >
       <ModalContent>
         {closeModal => (
@@ -40,7 +45,7 @@ export default function ProductDetailModal () {
                 <h1 className='font-bold text-2xl'>{product?.name}</h1>
 
                 <Chip size='sm' color='warning' variant='flat'>
-                  {product?.category.name}
+                  {product?.category?.name}
                 </Chip>
               </div>
             </ModalHeader>
@@ -51,7 +56,7 @@ export default function ProductDetailModal () {
                   <Image
                     alt='Product image in a detail modal'
                     className='object-cover h-full w-full rounded-xl aspect-square'
-                    src={getOptimizedImageUrl(product.main_image, 450)}
+                    src={getOptimizedImageUrl(product.image, 450)}
                   />
                 </div>
               )}

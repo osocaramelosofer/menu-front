@@ -1,5 +1,6 @@
+import { BASE_URL } from '@/lib/utils'
 import type { IApiResponse } from '@/interfaces/product'
-import { fetchFilteredProducts } from '@/lib/actions'
+import { fetchPaginatedProducts } from '@/lib/actions'
 import ProductCard from './product-card'
 
 import EmptyState from '../common/empty-products'
@@ -8,19 +9,24 @@ import CustomPagination from '../common/custom-pagination'
 
 export default async function ProductsList ({
   currentCategoryId,
-  currentOffset
+  currentPage,
+  storeId
 }: {
-  currentCategoryId: string
-  currentOffset: number
+  currentCategoryId?: string
+  currentPage?: string
+  currentOffset?: string
+  storeId: string | number
 }) {
-  const products: IApiResponse = await fetchFilteredProducts(
-    currentCategoryId,
-    currentOffset,
-    5
-  )
+  const resultsPeerPage = 3
+
+  const url: string = `${BASE_URL}/products?store=${storeId}&resultsPerPage=${resultsPeerPage}&page=${
+    currentPage != null || '1'
+  }&categoryId=${currentCategoryId}`
+
+  const products: IApiResponse = await fetchPaginatedProducts(url)
 
   if (products.results.length === 0) {
-    return <EmptyState />
+    return <EmptyState storeId={storeId} />
   }
 
   return (
@@ -31,7 +37,7 @@ export default async function ProductsList ({
         ))}
       </section>
       <section className='flex flex-col flex-1 w-full justify-center items-center  z-10'>
-        <CustomPagination data={products} />
+        <CustomPagination data={products} resultsPeerPage={resultsPeerPage} />
       </section>
     </div>
   )

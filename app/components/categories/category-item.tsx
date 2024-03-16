@@ -1,8 +1,8 @@
 import qs from 'query-string'
-import type { Category } from '@/interfaces/product'
+import type { ICategory } from '@/interfaces/product'
 import { Button } from '@nextui-org/react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-export default function CategoryItem ({ category }: { category: Category }) {
+export default function CategoryItem ({ category }: { category: ICategory }) {
   const router = useRouter()
   const params = useSearchParams()
   const pathname = usePathname()
@@ -16,8 +16,7 @@ export default function CategoryItem ({ category }: { category: Category }) {
         url: pathname,
         query: {
           categoryId: isSelected ? null : category.id,
-          categoryName: isSelected ? null : category.name,
-          offset: 0
+          categoryName: isSelected ? null : category.name
         }
       },
       { skipNull: true, skipEmptyString: true }
@@ -30,9 +29,9 @@ export default function CategoryItem ({ category }: { category: Category }) {
       onClick={handleCategoryChange}
       key={`${category.id}${category.name}`}
       variant={isSelected ? 'solid' : 'flat'}
-      color={isSelected ? 'primary' : 'secondary'}
+      color={isSelected ? 'primary' : 'default'}
       size='sm'
-      className='min-w-fit flex text-sm'
+      className='min-w-fit flex text-sm font-medium'
     >
       <p className={`${isSelected ? 'text-white' : 'text-primary'}`}>
         {category.name}

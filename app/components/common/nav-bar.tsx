@@ -11,44 +11,44 @@ import {
   DropdownTrigger,
   Badge
 } from '@nextui-org/react'
-import { DulceTragoLogo } from '../logo'
 
 import { FaShoppingBag } from 'react-icons/fa'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
 import CartDropdown from '../cart/cart-dropdown'
 import SharedCartDropdown from '../cart/shared-cart-dropdown'
 import { useRoomSocket } from '@/hooks/useRoomSockets'
+import type { IStore } from '@/interfaces/store'
 
-export default function NavBar () {
+import NavbarBrandDropdown from './navbar-brand-dropdown'
+import clsx from 'clsx'
+
+export default function NavBar ({ store }: { store: IStore }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   const { calculateCartPrice, cartList, isInSharedCart, cartPrice } =
     useCartsStore()
-  // const { handleCreateRoom, handleJoinRoom, handleLeaveRoom, updateCart } =
-  //   useRoomSocket()
+  const { handleCreateRoom, handleJoinRoom, handleLeaveRoom, updateCart } =
+    useRoomSocket()
 
-  // React.useEffect(() => {
-  //   if (isInSharedCart) {
-  //     updateCart()
-  //   }
-  // }, [cartList, cartPrice, isInSharedCart])
+  React.useEffect(() => {
+    if (isInSharedCart) {
+      updateCart()
+    }
+  }, [cartList, cartPrice, isInSharedCart])
 
   return (
     <Navbar
       isBordered
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      className='w-screen overflow-x-hidden bg-primary text-white '
+      className={clsx(
+        'w-screen overflow-x-hidden bg-primary text-white',
+        store.themeColor ?? ''
+      )}
     >
       <NavbarContent className='w-full'>
-        <div className='flex w-full justify-end items-center relative'>
-          <NavbarBrand
-            as={Link}
-            href='/dulce-trago/'
-            className='max-w-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
-          >
-            <DulceTragoLogo />
-          </NavbarBrand>
+        <NavbarBrandDropdown store={store} />
+        <div className='flex w-full flex-1 justify-end items-center relative'>
           <Badge
             content={cartList.length}
             size='sm'
@@ -61,7 +61,10 @@ export default function NavBar () {
                 calculateCartPrice()
               }}
               backdrop='opaque'
-              className='max-h-[90vh] max-w-[95vw] min-w-[95vw] md:max-w-sm md:min-w-[24rem] relative'
+              className={clsx(
+                'max-h-[90vh] max-w-[95vw] min-w-[95vw] md:max-w-sm md:min-w-[24rem] relative',
+                store.themeColor ?? ''
+              )}
             >
               <DropdownTrigger>
                 <Button isIconOnly color='primary' radius='full'>
@@ -70,7 +73,7 @@ export default function NavBar () {
               </DropdownTrigger>
 
               {/* eslint-disable-next-line multiline-ternary */}
-              {/* {isInSharedCart ? (
+              {isInSharedCart ? (
                 <SharedCartDropdown
                   handleLeaveRoom={handleLeaveRoom}
                   updateCart={updateCart}
@@ -80,8 +83,8 @@ export default function NavBar () {
                   handleCreateRoom={handleCreateRoom}
                   handleJoinRoom={handleJoinRoom}
                 />
-              )} */}
-              <CartDropdown />
+              )}
+              {/* <CartDropdown /> */}
             </Dropdown>
           </Badge>
         </div>

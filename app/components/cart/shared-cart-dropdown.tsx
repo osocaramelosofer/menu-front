@@ -22,7 +22,7 @@ import {
   FaShoppingBag,
   FaUserAlt
 } from 'react-icons/fa'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
 import CartProductCard from '../cart/cart-product-card'
 
 export default function SharedCartDropdown ({
@@ -109,7 +109,7 @@ export default function SharedCartDropdown ({
             isBordered
             max={3}
             renderCount={count => (
-              <p className='text-small font-medium ms-2 text-secondary'>
+              <p className='text-small font-medium ms-2 '>
                 +{count} {count === 1 ? 'otro' : 'otros'}
               </p>
             )}
@@ -119,7 +119,7 @@ export default function SharedCartDropdown ({
                 icon={<FaUserAlt />}
                 size='sm'
                 classNames={{
-                  base: 'bg-gradient-to-br from-background to-secondary',
+                  base: 'bg-gradient-to-br from-background to-primary/10',
                   icon: 'text-primary text-lg'
                 }}
                 key={item.username}
@@ -164,7 +164,7 @@ export default function SharedCartDropdown ({
                         isBordered
                         size='sm'
                         classNames={{
-                          base: 'bg-gradient-to-br from-background to-secondary maw-w-[2rem] max-h-[2rem]',
+                          base: 'bg-gradient-to-br from-background to-primary/10 maw-w-[2rem] max-h-[2rem]',
                           icon: 'text-primary text-lg'
                         }}
                       />

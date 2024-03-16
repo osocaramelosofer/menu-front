@@ -4,25 +4,27 @@ import qs from 'query-string'
 import { Pagination } from '@nextui-org/react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { IApiResponse } from '@/interfaces/product'
-import { useProductsStore } from '@/store/dulce_trago/products-store'
 
-export default function CustomPagination ({ data }: { data: IApiResponse }) {
+export default function CustomPagination ({
+  data,
+  resultsPeerPage
+}: {
+  data: IApiResponse
+  resultsPeerPage: number
+}) {
   const router = useRouter()
   const params = useSearchParams()
   const pathname = usePathname()
   const pageParam = params.get('page')
   const currentPage = pageParam !== null ? Number(pageParam) : 1
 
-  const { resultsPeerPage } = useProductsStore()
-
   const updateURL = (newOffset: number, newPage: number) => {
     // Preserve existing query parameters
     const currentQueryParams = Object.fromEntries(params.entries())
     const updatedQuery = {
       ...currentQueryParams,
-      offset: newOffset.toString(),
-      page: newPage.toString(),
-      resultsPeerPage: resultsPeerPage.toString()
+      page: newPage.toString()
+      // resultsPeerPage: resultsPeerPage.toString()
     }
 
     const url = qs.stringifyUrl(

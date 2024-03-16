@@ -2,7 +2,10 @@ export default function cn (...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function getOptimizedImageUrl (mainImageUrl: string, width: number | string) {
+export function getOptimizedImageUrl (
+  mainImageUrl: string,
+  width: number | string
+) {
   const defaultImageUrl = 'https://i.imgur.com/VjWugqll.png'
   if (mainImageUrl === null) {
     return defaultImageUrl
@@ -21,3 +24,8 @@ export function getOptimizedImageUrl (mainImageUrl: string, width: number | stri
   const cloudinaryBaseUrl = 'https://res.cloudinary.com/drzrkaoje/'
   return cloudinaryBaseUrl + optimizedImagePath
 }
+
+// export const BASE_URL: string = 'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1'
+export const BASE_URL: string =
+  'https://menu-back-nodejs-production.up.railway.app'
+// export const BASE_URL: string = 'http://localhost:3001'

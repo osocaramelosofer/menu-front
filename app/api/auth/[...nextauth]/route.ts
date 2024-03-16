@@ -1,3 +1,4 @@
+import { BASE_URL } from '@/lib/utils'
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -6,39 +7,53 @@ const authOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'text' },
+        email: { label: 'Email', type: 'string' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize (credentials) {
-        // Aquí llamas a tu API de backend para verificar las credenciales
-        const res = await fetch('https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/auth/login/', {
-          method: 'POST',
-          body: JSON.stringify({
-            username: credentials?.username,
-            password: credentials?.password
-          }),
-          headers: { 'Content-Type': 'application/json' }
-        })
-        const data = await res.json()
+      async authorize (credentials, req) {
+        try {
+          const res = await fetch(`${BASE_URL}/auth/login`, {
+            method: 'POST',
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password
+            }),
+            headers: { 'Content-Type': 'application/json' }
+          })
 
-        // Verifica si la autenticación fue exitosa y si el objeto tiene la propiedad 'user'
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (res.ok && data.user && !data.detail) {
-          // Mapea la respuesta del backend al formato esperado por NextAuth
-          const user = {
-            id: data.user.id,
-            name: data.user.username, // o cualquier otro campo que represente el "nombre" del usuario
-            email: data.user.email,
-            image: '' // Aquí puedes poner una URL de imagen predeterminada o dejarlo vacío si no tienes esta información
+          if (!res.ok) {
+            // credentials are invalid
+            return null
           }
-          return user
-        }
 
-        // En caso de error (como credenciales incorrectas), retorna null
-        return null
+          const parsedResponse = await res.json()
+
+          // accessing the jwt returned by server
+          const jwt = parsedResponse.token
+          const user = parsedResponse.user
+          return user
+        } catch (e) {
+          return null
+        }
       }
     })
-  ]
+  ],
+
+  callbacks: {
+    async jwt ({ token, user }: any) {
+      // Si 'user' está definido, entonces es el objeto usuario retornado desde el provider
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      if (user) {
+        token.user = user
+      }
+      return token
+    },
+    async session ({ session, token }: any) {
+      session.user = token.user
+
+      return session
+    }
+  }
 }
 
 const handler = NextAuth(authOptions)

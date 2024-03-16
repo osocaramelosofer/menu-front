@@ -1,6 +1,6 @@
 'use client'
 import { type IProduct } from '@/interfaces/product'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
 
 import {
   Button,
@@ -40,7 +40,7 @@ export default function AddToCartButtonPopover ({
               size='sm'
               color='primary'
               variant='solid'
-              className='text-white sweetDrink'
+              className='text-white'
               onClick={() => {
                 handleAddToOrder(product)
               }}

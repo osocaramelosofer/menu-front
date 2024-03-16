@@ -10,7 +10,7 @@ import {
 } from '@nextui-org/react'
 
 import { FaShoppingBag } from 'react-icons/fa'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
 import CartProductCard from '../cart/cart-product-card'
 import SharedCartTabsForm from '../cart/shared-cart-tabs-form'
 
@@ -18,8 +18,8 @@ export default function CartDropdown ({
   handleCreateRoom,
   handleJoinRoom
 }: {
-  handleCreateRoom?: () => void
-  handleJoinRoom?: (username: string, roomId: string) => void
+  handleCreateRoom: () => void
+  handleJoinRoom: (username: string, roomId: string) => void
 }) {
   const { cartList, cartPrice, socketId } = useCartsStore()
 
@@ -57,10 +57,10 @@ export default function CartDropdown ({
             subtitle='Crea o únete a un carrito compartido.'
             title='Carrito compartido'
           >
-            {/* <SharedCartTabsForm
+            <SharedCartTabsForm
               handleCreateRoom={handleCreateRoom}
               handleJoinRoom={handleJoinRoom}
-            /> */}
+            />
           </AccordionItem>
         </Accordion>
       </DropdownItem>
@@ -72,7 +72,7 @@ export default function CartDropdown ({
           showDivider
           isReadOnly
         >
-          <div className=' flex flex-col justify-center items-center my-4 sweetDrink'>
+          <div className=' flex flex-col justify-center items-center my-4'>
             <h2 className=' text-xl font-medium'>Sin productos</h2>
             <p className=' mb-2 line-clamp-2 opacity-70 text-center'>
               No has agregado productos a tu carrito aún.
@@ -82,7 +82,7 @@ export default function CartDropdown ({
         </DropdownItem>
       ) : (
         <DropdownItem
-          className='border-none sweetDrink'
+          className='border-none'
           showDivider
           isReadOnly
           textValue='List of products in cart'

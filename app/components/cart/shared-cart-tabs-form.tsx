@@ -1,7 +1,6 @@
 import React from 'react'
 import { Tabs, Tab, Input, Button, Card, CardBody } from '@nextui-org/react'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
-import { useRoomSocket } from '@/hooks/useRoomSockets'
+import { useCartsStore } from '@/zustand-store/carts-store'
 
 export default function SharedCartTabsForm ({
   handleCreateRoom,

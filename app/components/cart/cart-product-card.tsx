@@ -2,8 +2,8 @@
 import { Button, Card, CardBody, Chip, Code, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
 import { FaMinus, FaPlus, FaTimes } from 'react-icons/fa'
-import { useCartsStore } from '@/store/dulce_trago/carts-store'
-import { useProductsStore } from '@/store/dulce_trago/products-store'
+import { useCartsStore } from '@/zustand-store/carts-store'
+
 import { getOptimizedImageUrl } from '@/lib/utils'
 
 export default function CartProductCard ({
@@ -13,7 +13,7 @@ export default function CartProductCard ({
   product: IProduct
   isDisabled?: boolean
 }) {
-  const image = getOptimizedImageUrl(product.main_image, 60)
+  const image = getOptimizedImageUrl(product.image, 60)
 
   function TruncateText ({
     text,
@@ -33,11 +33,6 @@ export default function CartProductCard ({
     return <span>{truncate(text, maxLength)}</span>
   }
 
-  const { setSelectedProduct, openModal } = useProductsStore()
-  // const handleSelectedProduct = () => {
-  //   setSelectedProduct(product)
-  //   openModal()
-  // }
   const {
     incrementCartItemQuantity,
     decrementCartItemQuantity,
@@ -60,7 +55,7 @@ export default function CartProductCard ({
   }
 
   return (
-    <Card className='rounded-xl shadow-xs border overflow-hidden mb-4 border-white w-full  bg-gradient-to-br from-secondary/50 to-background'>
+    <Card className='rounded-xl shadow-xs border overflow-hidden mb-4 border-black border-opacity-5 w-full  bg-gradient-to-br from-primary/10 to-background'>
       <CardBody className='flex flex-row gap-2'>
         <div className=' absolute right-1 top-1 '>
           <Button

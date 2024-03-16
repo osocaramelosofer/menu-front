@@ -1,47 +1,26 @@
 'use client'
 
 import { type IProduct } from '@/interfaces/product'
-import { deleteProduct } from '@/lib/actions'
+
+import { useProductsStore } from '@/zustand-store/products-store'
+import { Card, CardBody, CardFooter, Chip, Image } from '@nextui-org/react'
+
+import DropdownProductActions from './dropdown-product-actions'
 import { getOptimizedImageUrl } from '@/lib/utils'
-import { useProductsStore } from '@/store/dulce_trago/products-store'
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  Chip,
-  Code,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Image,
-  Switch
-} from '@nextui-org/react'
-import { useState } from 'react'
-import { FaEllipsisV, FaTrash } from 'react-icons/fa'
 
 export default function AdminProductCard ({ product }: { product: IProduct }) {
-  const { setSelectedProduct, openModal, selectedProduct } = useProductsStore()
-  const [loading, setLoading] = useState(false)
+  const { setSelectedProduct } = useProductsStore()
   const handleSelectedProduct = () => {
     setSelectedProduct(product)
-    // openModal()
   }
-
-  const image = getOptimizedImageUrl(product.main_image, 180)
-
-  const handleDeleteProduct = async () => {
-    setLoading(true)
-    await deleteProduct(product.id)
-  }
+  const image = getOptimizedImageUrl(product.image, 180)
 
   return (
     <Card
       isPressable
       onPress={handleSelectedProduct}
       className='cursor-pointer rounded-xl shadow-xs border border-white
-       bg-gradient-to-br from-secondary/50 to-background min-w-fit overflow-hidden'
+       bg-gradient-to-br from-primary/10 to-background min-w-fit overflow-hidden'
     >
       <CardBody className='flex flex-col gap-2 max-w-[6.5rem] md:max-w-[12rem] overflow-hidden'>
         {/* Card Image */}
@@ -71,71 +50,7 @@ export default function AdminProductCard ({ product }: { product: IProduct }) {
           $ {product.price}
         </Chip>
         <div className=' absolute right-1 top-1 z-10'>
-          <Dropdown
-            onOpenChange={handleSelectedProduct}
-            showArrow
-            backdrop='opaque'
-          >
-            <DropdownTrigger>
-              <Button
-                as={Code}
-                size='sm'
-                isIconOnly
-                variant='faded'
-                radius='full'
-                color='primary'
-              >
-                <FaEllipsisV />
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu disabledKeys={['edit']} aria-label='Static Actions'>
-              <DropdownItem
-                showDivider
-                textValue='Product Info'
-                key='product-info'
-                className='h-14 gap-2'
-              >
-                <p>Acciones para</p>
-                <p className='font-semibold'>{selectedProduct?.name}</p>
-              </DropdownItem>
-              <DropdownItem
-                textValue='switch to update availability'
-                isReadOnly
-                showDivider
-                key='edit'
-                endContent={
-                  <Switch
-                    size='sm'
-                    color='success'
-                    defaultSelected
-                    aria-label='Automatic updates'
-                  />
-                }
-              >
-                Producto <br /> <strong>Disponible</strong>
-              </DropdownItem>
-              <DropdownItem
-                isReadOnly
-                textValue='delete product'
-                onPress={handleDeleteProduct}
-                key='delete'
-                className='text-danger'
-                color='danger'
-              >
-                <Button
-                  isDisabled={loading}
-                  isLoading={loading}
-                  size='sm'
-                  fullWidth
-                  color='danger'
-                  startContent={<FaTrash />}
-                  onPress={handleDeleteProduct}
-                >
-                  Eliminar Producto
-                </Button>
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+          <DropdownProductActions product={product} />
         </div>
       </CardFooter>
     </Card>

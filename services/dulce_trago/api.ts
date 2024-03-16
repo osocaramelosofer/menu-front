@@ -1,4 +1,5 @@
-import type { IProduct, Category } from '@/interfaces/product'
+import type { IProduct, ICategory } from '@/interfaces/product'
+import { BASE_URL } from '@/lib/utils'
 
 const api = {
   list: async (): Promise<IProduct[]> => {
@@ -8,7 +9,8 @@ const api = {
       cache: 'no-store'
     }
     const response = await fetch(
-      'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/', requestOptions
+      `${BASE_URL}/products/products/`,
+      requestOptions
     )
     const jsonResponse = await response.json()
 
@@ -20,17 +22,20 @@ const api = {
       redirect: 'follow',
       cache: 'no-store'
     }
-    const response = await fetch(`https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products/${id}/`, requestOptions)
+    const response = await fetch(
+      `${BASE_URL}/products/products/${id}/`,
+      requestOptions
+    )
     const jsonResponse = await response.json()
     return jsonResponse
   },
-  categories: async (): Promise<Category[]> => {
+  categories: async (): Promise<ICategory[]> => {
     const requestOptions = {
       method: 'GET',
       redirect: 'follow' as RequestRedirect
     }
     const response = await fetch(
-      'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/categories',
+      `${BASE_URL}/products/categories`,
       requestOptions
     )
     if (!response.ok) {
@@ -44,8 +49,8 @@ const api = {
       redirect: 'follow' as RequestRedirect
     }
     const response = await fetch(
-    `https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1/products/products${params}`,
-    requestOptions
+      `${BASE_URL}/products/products${params}`,
+      requestOptions
     )
     if (!response.ok) {
       throw new Error('Error al cargar los productos')

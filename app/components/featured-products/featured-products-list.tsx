@@ -1,19 +1,23 @@
-import type { IProduct } from '@/interfaces/product'
+import type { IApiResponse } from '@/interfaces/product'
 import { ScrollShadow } from '@nextui-org/react'
 import EmptyState from '../common/empty-products'
-import { fetchAllProducts } from '@/lib/actions'
+import { fetchTop10StoreProducts } from '@/lib/actions'
 import FeaturedProductCard from './featured-product-card'
 
-export default async function FeaturedProductsList () {
-  const products: IProduct[] = await fetchAllProducts()
+export default async function FeaturedProductsList ({
+  storeId
+}: {
+  storeId: string | number
+}) {
+  const top10Products: IApiResponse = await fetchTop10StoreProducts(storeId)
 
-  // Filtrar solo los productos con ID impar
-  const oddIdProducts = products.filter(
-    product => parseInt(product.id.toString()) % 2 !== 0
-  )
-
-  if (oddIdProducts.length < 1) {
-    return <EmptyState />
+  if (top10Products.results.length < 1) {
+    return (
+      <EmptyState
+        title='Sin productos'
+        subtitle='Parece que aun no hay productos destacados para mostrar'
+      />
+    )
   }
 
   return (
@@ -23,7 +27,7 @@ export default async function FeaturedProductsList () {
         orientation='horizontal'
         className='flex overflow-x-auto gap-4 pb-5'
       >
-        {oddIdProducts.map((product, index) => (
+        {top10Products.results.map((product, index) => (
           <FeaturedProductCard
             key={`${product.id}${index}`}
             product={product}

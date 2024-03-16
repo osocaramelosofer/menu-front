@@ -1,6 +1,3 @@
-import NavBar from '@/app/components/common/nav-bar'
-import ProductDetailModal from '@/app/components/common/product-detail-modal'
-
 import { type Metadata } from 'next'
 import React from 'react'
 
@@ -16,10 +13,8 @@ export default async function PageLayout ({
   children: React.ReactNode
 }) {
   return (
-    <main className='flex sweetDrink flex-col items-center max-w-7xl mx-auto relative'>
-      <NavBar />
+    <main className='flex flex-col items-center max-w-7xl mx-auto relative'>
       {children}
-      <ProductDetailModal />
     </main>
   )
 }

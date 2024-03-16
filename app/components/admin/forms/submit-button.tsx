@@ -2,23 +2,23 @@
 
 import { useFormStatus } from 'react-dom'
 import { Button } from '@nextui-org/react'
-import { FaPlus } from 'react-icons/fa'
+import { FaChevronRight, FaPlus } from 'react-icons/fa'
 
-export function SubmitButton () {
+export function SubmitButton ({ label }: { label: string }) {
   const { pending } = useFormStatus()
 
   return (
     <Button
-      startContent={<FaPlus />}
+      endContent={<FaChevronRight />}
       isDisabled={pending}
       isLoading={pending}
       color='primary'
       fullWidth
       variant='shadow'
       type='submit'
-      className='text-white'
+      className='text-white capitalize'
     >
-      Crear Nuevo Producto
+      {label}
     </Button>
   )
 }

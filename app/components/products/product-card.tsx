@@ -1,7 +1,7 @@
 'use client'
 import { Card, CardBody, CardHeader, Chip, Image } from '@nextui-org/react'
 import { type IProduct } from '@/interfaces/product'
-import { useProductsStore } from '@/store/dulce_trago/products-store'
+import { useProductsStore } from '@/zustand-store/products-store'
 import { FaChevronRight } from 'react-icons/fa'
 import { getOptimizedImageUrl } from '@/lib/utils'
 
@@ -11,14 +11,14 @@ export default function ProductCard ({ product }: { product: IProduct }) {
     setSelectedProduct(product)
     openModal()
   }
-  const image = getOptimizedImageUrl(product.main_image, 280)
+  const image = getOptimizedImageUrl(product.image, 280)
 
   return (
     <Card
       isPressable
       disableRipple
       onClick={handleSelectedProduct}
-      className='cursor-pointer rounded-xl shadow-xs border-2 border-white  bg-gradient-to-br from-secondary/50 to-background
+      className='cursor-pointer rounded-xl shadow-xs border border-black border-opacity-5  bg-gradient-to-br from-primary/5 to-background
        overflow-hidden flex flex-row md:flex-col p-3 gap-3'
     >
       <CardHeader className='flex flex-1 p-0'>

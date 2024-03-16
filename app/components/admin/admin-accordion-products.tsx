@@ -1,26 +1,19 @@
 'use client'
-import AdminProductCard from '@/app/components/admin/admin-product-card'
 
-import type { Category, IProduct } from '@/interfaces/product'
+import type { ICategory, IProduct } from '@/interfaces/product'
 
-import {
-  Accordion,
-  AccordionItem,
-  Badge,
-  Chip,
-  ScrollShadow,
-  Spacer
-} from '@nextui-org/react'
+import { Accordion, AccordionItem, Chip, ScrollShadow } from '@nextui-org/react'
+import TableProduct from './table-products'
 
 export default function AdminAccordionProducts ({
   products,
   category
 }: {
   products: IProduct[]
-  category: Category
+  category: ICategory
 }) {
   return (
-    <Accordion isCompact variant='bordered'>
+    <Accordion>
       <AccordionItem
         key={category.id}
         textValue={category.name}
@@ -34,8 +27,8 @@ export default function AdminAccordionProducts ({
                   products.filter(
                     product => product.category.id === category.id
                   ).length
-                }{' '}
-              </strong>
+                }
+              </strong>{' '}
               productos
             </Chip>
           </div>
@@ -44,17 +37,9 @@ export default function AdminAccordionProducts ({
         <ScrollShadow
           size={20}
           orientation='horizontal'
-          className='flex overflow-x-auto gap-4 pb-5'
+          className='flex gap-4 pb-5'
         >
-          {products
-            .filter(product => product.category.id === category.id) // Filtramos los productos por categoría.
-            .reverse()
-            .map((product, index) => (
-              <AdminProductCard
-                key={`${product.id}${index}`}
-                product={product}
-              />
-            ))}
+          <TableProduct category={category} products={products} />
         </ScrollShadow>
       </AccordionItem>
     </Accordion>

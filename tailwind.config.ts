@@ -10,8 +10,8 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors:{
-        customBrown: '#371E08',
+      colors: {
+        customBrown: '#371E08'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -20,30 +20,33 @@ const config: Config = {
       }
     }
   },
-  darkMode: 'class',
+  // darkMode: 'class',
   plugins: [
     nextui({
       themes: {
         light: {
           colors: {
-            primary: '#371E08',
-            secondary: '#CCB7A5',
-            background: '#fcfcfc'
+            primary: '#2c2c2c',
+            secondary: '#ebf4f5',
+            background: '#fff'
           }
         },
         dark: {
           colors: {
-            primary: '#371E08',
-            secondary: '#CCB7A5',
-            background: '#fcfcfc'
+            primary: '#2c2c2c',
+            secondary: '#ebf4f5',
+            background: '#fff'
           }
         },
-        sweetDrink: {
-          // extend: 'light',
+
+        valienteTheme: {
           colors: {
-            primary: '#371E08', // this change the header
-            secondary: '#CCB7A5',
-            background: "#fcfcfc",
+            primary: '#CA4526'
+          }
+        },
+        dulceTragoTheme: {
+          colors: {
+            primary: '#371E08'
           }
         }
       }

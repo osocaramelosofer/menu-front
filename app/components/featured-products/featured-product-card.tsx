@@ -2,18 +2,14 @@
 
 import { type IProduct } from '@/interfaces/product'
 import { getOptimizedImageUrl } from '@/lib/utils'
-import { useProductsStore } from '@/store/dulce_trago/products-store'
+import { useProductsStore } from '@/zustand-store/products-store'
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-  Chip,
-  Code,
   Image
 } from '@nextui-org/react'
-import { FaChevronRight } from 'react-icons/fa'
 import AddToCartButtonPopover from '../cart/add-to-cart-button-popover'
 
 export default function FeaturedProductCard ({
@@ -27,7 +23,7 @@ export default function FeaturedProductCard ({
     openModal()
   }
 
-  const image = getOptimizedImageUrl(product.main_image, 180)
+  const image = getOptimizedImageUrl(product.image, 180)
 
   return (
     <Card
@@ -35,8 +31,8 @@ export default function FeaturedProductCard ({
       disableRipple
       as={'div'}
       onPress={handleSelectedProduct}
-      className='cursor-pointer rounded-xl shadow-xs border border-white max-w-[12rem] min-w-[12rem]
-       bg-gradient-to-br from-secondary/50 to-background w-full overflow-hidden'
+      className='cursor-pointer rounded-xl shadow-xs border border-black border-opacity-5 max-w-[12rem] min-w-[12rem]
+       bg-gradient-to-br from-primary/10 to-background w-full overflow-hidden'
     >
       <CardHeader>
         {/* Card Image */}
