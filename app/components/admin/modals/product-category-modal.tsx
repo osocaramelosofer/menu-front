@@ -33,6 +33,7 @@ export default function ProductCategoryModal ({
   return (
     <Modal
       backdrop='opaque'
+      disableAnimation
       isOpen={isModalOpen('productCategoryModal')}
       onClose={handleCloseModal}
       radius='lg'

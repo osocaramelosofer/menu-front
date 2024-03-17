@@ -31,6 +31,7 @@ export default function ProductDetailModal ({
     <Modal
       backdrop='opaque'
       isOpen={isModalOpen}
+      disableAnimation
       onClose={closeModal}
       radius='lg'
       scrollBehavior='inside'

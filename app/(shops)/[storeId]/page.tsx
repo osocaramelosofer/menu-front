@@ -13,6 +13,7 @@ import ProductsList from '@/app/components/products/products-list'
 import Categories from '@/app/components/categories/categories'
 import CategoriesSkeleton from '@/app/components/skeletons/categories-skeleton'
 import clsx from 'clsx'
+import ProductDetailDialog from '@/app/components/common/product-detail-dialog'
 
 interface RootPageProps {
   searchParams: {
@@ -68,6 +69,7 @@ export default async function Page ({ searchParams, params }: RootPageProps) {
       </main>
 
       <ProductDetailModal themeColor={store.themeColor} />
+      {/* <ProductDetailDialog themeColor={store.themeColor} /> */}
     </React.Fragment>
   )
 }

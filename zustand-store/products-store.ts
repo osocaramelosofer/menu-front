@@ -15,6 +15,7 @@ interface State {
 
   // Manage the Product Detail Modal Status
   isModalOpen: boolean
+  setIsModalOpen: () => void
   openModal: () => void
   closeModal: () => void
 }
@@ -27,8 +28,15 @@ export const useProductsStore = create<State>((set, get) => {
     resultsPeerPage: 10,
 
     isModalOpen: false,
-    openModal: () => { set({ isModalOpen: true }) },
-    closeModal: () => { set({ isModalOpen: false }) },
+    setIsModalOpen: () => {
+      set(state => ({ isModalOpen: !state.isModalOpen }))
+    },
+    openModal: () => {
+      set({ isModalOpen: true })
+    },
+    closeModal: () => {
+      set({ isModalOpen: false })
+    },
 
     setSelectedProduct: (product: IProduct) => {
       set({ selectedProduct: product })
@@ -36,16 +44,15 @@ export const useProductsStore = create<State>((set, get) => {
     getProductsList: () => {
       set({ loading: true })
       fetchAllProducts()
-        .then((response) => {
+        .then(response => {
           set({ products: response })
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err)
         })
         .finally(() => {
           set({ loading: false })
         })
     }
-
   }
 })
