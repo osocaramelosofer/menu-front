@@ -27,7 +27,7 @@ export default function AdminBannersSection ({ store }: { store: IStore }) {
           Nuevo Banner
         </Button>
       </div>
-      <BannersCarousel data={store.banners} />
+      <BannersCarousel showOptions data={store.banners} />
     </section>
   )
 }

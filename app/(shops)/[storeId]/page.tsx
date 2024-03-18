@@ -7,7 +7,6 @@ import NavBar from '@/app/components/common/nav-bar'
 import ProductDetailModal from '@/app/components/common/product-detail-modal'
 import FeaturedProductsList from '@/app/components/featured-products/featured-products-list'
 import FeaturedProductsSkeleton from '@/app/components/skeletons/featured-products-skeleton'
-import StoreBanner from '@/app/components/store-banner'
 import ProductsSkeleton from '@/app/components/skeletons/products-skeleton'
 import ProductsList from '@/app/components/products/products-list'
 import Categories from '@/app/components/categories/categories'
@@ -34,7 +33,7 @@ export default async function Page ({ searchParams, params }: RootPageProps) {
     return notFound()
   }
 
-  console.log('STOIRE: ', store)
+  // console.log('STOIRE: ', store)
 
   return (
     <React.Fragment>

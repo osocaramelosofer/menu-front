@@ -24,7 +24,13 @@ import clsx from 'clsx'
 import { FaTrash } from 'react-icons/fa'
 import DropdownBannerActions from '../admin/dropdown-banner-actions'
 
-const BannersCarousel = ({ data: banners }: { data: IBanner[] }) => {
+const BannersCarousel = ({
+  data: banners,
+  showOptions = false
+}: {
+  data: IBanner[]
+  showOptions?: boolean
+}) => {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
@@ -59,7 +65,12 @@ const BannersCarousel = ({ data: banners }: { data: IBanner[] }) => {
                   {banner.title}
                 </h1>
 
-                <div className=' absolute top-2 right-3'>
+                <div
+                  className={clsx(
+                    ' absolute top-2 right-3',
+                    showOptions ? 'block' : 'hidden'
+                  )}
+                >
                   <DropdownBannerActions banner={banner} />
                 </div>
               </CardHeader>
