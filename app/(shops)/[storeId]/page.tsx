@@ -13,6 +13,7 @@ import ProductsList from '@/app/components/products/products-list'
 import Categories from '@/app/components/categories/categories'
 import CategoriesSkeleton from '@/app/components/skeletons/categories-skeleton'
 import clsx from 'clsx'
+import BannersCarousel from '@/app/components/carousel/banners-carousel'
 
 interface RootPageProps {
   searchParams: {
@@ -45,8 +46,7 @@ export default async function Page ({ searchParams, params }: RootPageProps) {
           store.themeColor ?? ''
         )}
       >
-        {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-        <StoreBanner store={store} />
+        {store.banners.length > 0 && <BannersCarousel data={store.banners} />}
 
         <h2 className='text-base font-semibold'>Productos Destacados</h2>
         <Suspense fallback={<FeaturedProductsSkeleton />}>

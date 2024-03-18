@@ -39,7 +39,7 @@ const config: Config = {
           }
         },
 
-        valienteTheme: {
+        estudihambreTheme: {
           colors: {
             primary: '#CA4526'
           }

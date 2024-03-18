@@ -1,6 +1,6 @@
 import React from 'react'
 
-import CardsCarousel from './carousel/cards-carousel'
+import CardsCarousel from './carousel/banners-carousel'
 
 export default function PromoCard () {
   const promos = [

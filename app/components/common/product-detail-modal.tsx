@@ -30,6 +30,7 @@ export default function ProductDetailModal ({
   return (
     <Modal
       backdrop='opaque'
+      disableAnimation
       isOpen={isModalOpen}
       onClose={closeModal}
       radius='lg'
@@ -56,7 +57,7 @@ export default function ProductDetailModal ({
                   <Image
                     alt='Product image in a detail modal'
                     className='object-cover h-full w-full rounded-xl aspect-square'
-                    src={getOptimizedImageUrl(product.image, 450)}
+                    src={getOptimizedImageUrl(product.image, 'auto')}
                   />
                 </div>
               )}

@@ -24,7 +24,7 @@ export default function StoreForm ({ store }: { store: IStore }) {
       className='flex flex-col gap-5'
     >
       <UploadProductImage
-        storeLogo={store.logoUrl}
+        currentImage={store.logoUrl}
         inputName='logoUrl'
         popoverLabel={
           <div className=' flex gap-2'>

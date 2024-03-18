@@ -1,37 +1,36 @@
 'use client'
 
-import { Button, Image } from '@nextui-org/react'
+import { Image } from '@nextui-org/react'
 import { CldUploadWidget } from 'next-cloudinary'
 import React, { useEffect, useState } from 'react'
 
 import { FaImage } from 'react-icons/fa'
-import PopoverInfo from '../common/popover-info'
 import { getOptimizedImageUrl } from '@/lib/utils'
 
 const uploadPreset = 'jg7mvaof'
 
 export default function UploadProductImage ({
   inputName,
-  storeLogo,
+  currentImage,
   popoverLabel
 }: {
   inputName: string
-  storeLogo?: string
+  currentImage?: string
   popoverLabel: React.ReactNode
 }) {
   const [mainImageValue, setMainImageValue] = useState('')
   const [imageSrc, setImageSrc] = useState('')
 
-  // Actualiza imageSrc cada vez que storeLogo o mainImageValue cambien
+  // Actualiza imageSrc cada vez que currentImage o mainImageValue cambien
   useEffect(() => {
     if (mainImageValue.length > 0) {
       // Si mainImageValue tiene un valor, usar ese valor
       setImageSrc(mainImageValue)
-    } else if (storeLogo !== undefined) {
-      // Si mainImageValue no tiene valor pero storeLogo sí, usar storeLogo
-      setImageSrc(storeLogo)
+    } else if (currentImage !== undefined) {
+      // Si mainImageValue no tiene valor pero currentImage sí, usar currentImage
+      setImageSrc(currentImage)
     }
-  }, [storeLogo, mainImageValue])
+  }, [currentImage, mainImageValue])
 
   return (
     <React.Fragment>
@@ -66,12 +65,12 @@ export default function UploadProductImage ({
                 Haz clic para cargar una imagen
               </div>
               {imageSrc.length > 0 && (
-                <div className='absolute inset-0 w-full flex-1'>
+                <div className='absolute  w-full flex-1'>
                   <Image
                     alt='Woman listing to music'
                     // removeWrapper
-                    className='object-cover min-h-full min-w-full aspect-square'
-                    src={getOptimizedImageUrl(imageSrc, 330)}
+                    className='object-cover min-h-full min-w-full'
+                    src={getOptimizedImageUrl(imageSrc, 'auto')}
                   />
                   <input
                     required

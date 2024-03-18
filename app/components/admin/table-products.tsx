@@ -8,7 +8,8 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Image
+  Image,
+  Chip
 } from '@nextui-org/react'
 
 import DropdownProductActions from './dropdown-product-actions'
@@ -19,16 +20,14 @@ export default function TableProduct ({
   category
 }: {
   products: IProduct[]
-  category: ICategory
+  category?: ICategory
 }) {
   const filteredProducts = products.filter(
-    product => product.category.id === category.id
+    product => product.category.id === category?.id
   )
 
   const renderCell = React.useCallback((product: IProduct, columnKey: any) => {
-    console.log(product)
-
-    const image = getOptimizedImageUrl(product.image, 40)
+    const image = getOptimizedImageUrl(product.image, 'auto')
     switch (columnKey) {
       case 'product':
         return (
@@ -50,13 +49,15 @@ export default function TableProduct ({
             </div>
           </div>
         )
-
+      case 'category':
+        return <Chip size='sm'>{product.category.name}</Chip>
       case 'actions':
         return (
           <div className='relative flex items-center justify-end gap-2'>
             <DropdownProductActions product={product} />
           </div>
         )
+
       default:
         return null
     }
@@ -64,6 +65,7 @@ export default function TableProduct ({
 
   const columns = [
     { name: 'PRODUCTO', id: 'product' },
+    { name: 'CATEGORÍA', id: 'category' },
     { name: 'ACTIONS', id: 'actions' }
   ]
 
@@ -79,7 +81,7 @@ export default function TableProduct ({
       </TableHeader>
       <TableBody
         emptyContent={'No hay productos aun.'}
-        items={filteredProducts}
+        items={category != null ? filteredProducts : products}
       >
         {item => (
           <TableRow key={item.id}>

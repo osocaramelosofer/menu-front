@@ -137,7 +137,7 @@ export async function deleteProduct (productId: number) {
   }
 
   // console.log(response.json())
-  revalidatePath('dulce-trago/admin')
+  revalidatePath('/dashboard')
 
   // return await response.json()
 }

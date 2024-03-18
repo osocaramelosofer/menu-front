@@ -79,6 +79,13 @@ export interface ICategoryPost {
   name: string
   storeId: number
 }
+export interface IBannerPost {
+  title: string
+  subtitle: string
+  description: string
+  image: string
+  storeId: number
+}
 
 export interface IApiResponse {
   count: number

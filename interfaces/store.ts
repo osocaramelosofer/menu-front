@@ -2,11 +2,11 @@ import type { ICategory } from './product'
 import type { IUser } from './user'
 
 export interface IBanner {
-  id?: number
+  id: number
   title: string
   subtitle: string
   description: string
-  imageUrl: string
+  image: string
 }
 
 export interface IStore {
@@ -20,7 +20,7 @@ export interface IStore {
   themeColor?: string
   categories: ICategory[]
   users: IUser[]
-  banner: IBanner
+  banners: IBanner[]
 }
 export interface IStoreForm {
   name: string
