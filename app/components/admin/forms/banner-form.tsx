@@ -7,7 +7,7 @@ import { SubmitButton } from './submit-button'
 import UploadProductImage from '../upload-product-image'
 import PopoverInfo from '../../common/popover-info'
 import { useAdminStore } from '@/zustand-store/admin-store'
-import { addBanner } from '@/lib/actions/store.actions'
+import { addBanner } from '@/lib/actions/banner.actions'
 
 export default function BannerForm ({ storeId }: { storeId: string | number }) {
   const ref = useRef<HTMLFormElement>(null)

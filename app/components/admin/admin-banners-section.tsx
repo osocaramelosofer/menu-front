@@ -3,10 +3,14 @@ import { Button } from '@nextui-org/react'
 
 import { useAdminStore } from '@/zustand-store/admin-store'
 import BannersCarousel from '../carousel/banners-carousel'
-import type { IStore } from '@/interfaces/store'
+import type { IBanner } from '@/interfaces/store'
 import { FaPlus } from 'react-icons/fa'
 
-export default function AdminBannersSection ({ store }: { store: IStore }) {
+export default function AdminBannersSection ({
+  banners
+}: {
+  banners: IBanner[]
+}) {
   const { openModal } = useAdminStore()
 
   const handleOpenModal = () => {
@@ -14,7 +18,7 @@ export default function AdminBannersSection ({ store }: { store: IStore }) {
   }
 
   return (
-    <section className=' flex flex-col gap-4 mb-4 relative'>
+    <section className=' flex flex-col gap-4 relative'>
       <div className=' flex w-full items-center justify-between'>
         <h2 className='font-semibold text-lg'>Mis Banners</h2>
         <Button
@@ -27,7 +31,7 @@ export default function AdminBannersSection ({ store }: { store: IStore }) {
           Nuevo Banner
         </Button>
       </div>
-      <BannersCarousel showOptions data={store.banners} />
+      <BannersCarousel showOptions data={banners} />
     </section>
   )
 }

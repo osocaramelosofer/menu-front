@@ -1,11 +1,10 @@
 import React from 'react'
 import { fetchOrderById } from '@/lib/actions/order.actions'
 import type { IOrder } from '@/interfaces/order'
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react'
 import type { IStore } from '@/interfaces/store'
-import { fetchStoreById } from '@/lib/actions'
 import NavBar from '@/app/components/common/nav-bar'
 import OrderReceipt from '@/app/components/orders/order-receipt'
+import { fetchStoreById } from '@/lib/actions/store.actions'
 
 interface RootPageProps {
   // eslint-disable-next-line @typescript-eslint/member-delimiter-style
@@ -15,12 +14,6 @@ interface RootPageProps {
 export default async function Page ({ params }: RootPageProps) {
   const order: IOrder = await fetchOrderById(params.orderId)
   const store: IStore = await fetchStoreById(params.storeId)
-  const options: Intl.DateTimeFormatOptions = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }
 
   return (
     <React.Fragment>

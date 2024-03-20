@@ -13,6 +13,8 @@ interface CartState {
   loading: boolean
   cartPrice: number
   cartList: IProduct[]
+  setCartList: (newCartList: IProduct[]) => void
+
   sharedCartList: ISharedCartList[]
   setSharedCartList: (newCartList: ISharedCartList[]) => void
 
@@ -48,6 +50,9 @@ export const useCartsStore = create<CartState>(
       loading: false,
       cartPrice: 0,
       cartList: [],
+      setCartList: (newCartList: IProduct[]) => {
+        set({ cartList: newCartList })
+      },
       sharedCartList: [],
       setSharedCartList: (newCartList: ISharedCartList[]) => {
         set({ sharedCartList: newCartList })

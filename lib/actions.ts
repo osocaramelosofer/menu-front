@@ -205,20 +205,20 @@ export async function fetchAllStores () {
   return data
 }
 
-export async function fetchStoreById (storeId: number | string) {
-  const requestOptions: RequestInit = {
-    method: 'GET',
-    redirect: 'follow',
-    cache: 'no-store'
-  }
-  const response = await fetch(`${BASE_URL}/stores/${storeId}`, requestOptions)
-  if (!response.ok) {
-    return null
-  }
-  const data = await response.json()
-  // await new Promise((resolve) => setTimeout(resolve, 10000))
-  return data
-}
+// export async function fetchStoreById (storeId: number | string) {
+//   const requestOptions: RequestInit = {
+//     method: 'GET',
+//     redirect: 'follow',
+//     cache: 'no-store'
+//   }
+//   const response = await fetch(`${BASE_URL}/stores/${storeId}`, requestOptions)
+//   if (!response.ok) {
+//     return null
+//   }
+//   const data = await response.json()
+//   // await new Promise((resolve) => setTimeout(resolve, 10000))
+//   return data
+// }
 
 export async function fetchAllStoreProducts (storeId: number | string) {
   const requestOptions: RequestInit = {
@@ -234,7 +234,7 @@ export async function fetchAllStoreProducts (storeId: number | string) {
     return null
   }
   const data = await response.json()
-  // await new Promise((resolve) => setTimeout(resolve, 10000))
+  // await new Promise(resolve => setTimeout(resolve, 3000))
   return data
 }
 
@@ -253,6 +253,8 @@ export async function fetchTop10StoreProducts (storeId: number | string) {
     // throw new Error('Error al cargar la store usando el storeId')
   }
   const data = await response.json()
+  // await new Promise(resolve => setTimeout(resolve, 4000))
+
   return data
 }
 

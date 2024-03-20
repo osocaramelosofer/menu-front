@@ -1,13 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import {
-  Card,
-  Image,
-  CardFooter,
-  CardHeader,
-  Chip,
-  Button
-} from '@nextui-org/react'
+import { Card, Image, CardFooter, CardHeader } from '@nextui-org/react'
 
 import {
   Carousel,
@@ -47,6 +40,10 @@ const BannersCarousel = ({
       setCurrent(api.selectedScrollSnap() + 1)
     })
   }, [api])
+
+  if (banners.length === 0) {
+    return null
+  }
 
   return (
     <Carousel setApi={setApi} className='w-full max-w-2xl self-center mb-6'>

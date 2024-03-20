@@ -30,7 +30,7 @@ export default function ProductDetailModal ({
   return (
     <Modal
       backdrop='opaque'
-      disableAnimation
+      isDismissable
       isOpen={isModalOpen}
       onClose={closeModal}
       radius='lg'

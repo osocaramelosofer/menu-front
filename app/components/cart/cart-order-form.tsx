@@ -17,7 +17,8 @@ import { useOrderStore } from '@/zustand-store/orders-store'
 import { useRouter } from 'next/navigation'
 
 export default function CartOrderForm ({ storeId }: { storeId: number }) {
-  const { cartList, cartPrice, username, setUsername } = useCartsStore()
+  const { cartList, cartPrice, username, setUsername, setCartList } =
+    useCartsStore()
   const { paymentType, setPaymentType, loading, handleOrderCreation } =
     useOrderStore() // Utiliza la store de Zustand
   const payments = [
@@ -37,15 +38,26 @@ export default function CartOrderForm ({ storeId }: { storeId: number }) {
   const router = useRouter()
 
   const handleOrderNow = async () => {
-    await handleOrderCreation(cartList, cartPrice, username, storeId)
-      .then(createdOrder => {
-        // Redirección a la página de agradecimiento y ticket de la orden
-        router.push(`${storeId}/thank-you/${createdOrder.id}`)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    // Muestra un cuadro de diálogo de confirmación
+    const message =
+      '¿Estás seguro de que quieres realizar esta orden?\n' +
+      'Al confirmar, tu carrito se vaciará y la orden entrará en preparación para el pago.'
+
+    const isConfirmed = window.confirm(message)
+    if (isConfirmed) {
+      await handleOrderCreation(cartList, cartPrice, username, storeId)
+        .then(createdOrder => {
+          // Redirección a la página de agradecimiento y ticket de la orden
+          router.refresh()
+          router.push(`${storeId}/thank-you/${createdOrder.id}`)
+          setCartList([])
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }
+
   const itemClasses = {
     title: 'font-medium text-sm',
     subtitle: ' text-xs'

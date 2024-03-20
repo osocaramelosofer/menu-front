@@ -1,6 +1,6 @@
 'use client'
 import type { IBanner } from '@/interfaces/store'
-import { deleteBanner } from '@/lib/actions/store.actions'
+import { deleteBanner } from '@/lib/actions/banner.actions'
 import {
   Button,
   Code,
