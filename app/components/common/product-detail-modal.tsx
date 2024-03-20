@@ -57,7 +57,7 @@ export default function ProductDetailModal ({
                   <Image
                     alt='Product image in a detail modal'
                     className='object-cover h-full w-full rounded-xl aspect-square'
-                    src={getOptimizedImageUrl(product.image, 'auto')}
+                    src={getOptimizedImageUrl(product.image, 670)}
                   />
                 </div>
               )}
@@ -96,7 +96,7 @@ export default function ProductDetailModal ({
                   <p className='text-sm text-center'>Precio</p>
                   <h3 className='text-xl font-bold text-center'>
                     <span className='text-success'>$</span>
-                    {product?.price}
+                    {product?.price?.toFixed(2)}
                   </h3>
                 </div>
                 <div className=' flex gap-2 items-end'>

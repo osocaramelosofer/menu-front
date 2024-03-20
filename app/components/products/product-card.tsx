@@ -11,7 +11,7 @@ export default function ProductCard ({ product }: { product: IProduct }) {
     setSelectedProduct(product)
     openModal()
   }
-  const image = getOptimizedImageUrl(product.image, 280)
+  const image = getOptimizedImageUrl(product.image, 450)
 
   return (
     <Card
@@ -47,7 +47,7 @@ export default function ProductCard ({ product }: { product: IProduct }) {
         {/* Footer */}
         <div className='justify-between flex flex-row items-center'>
           <Chip className=' text-sm px-0' variant='flat' color='primary'>
-            <p className='text-sm font-semibold'>${product.price}</p>
+            <p className='text-sm font-semibold'>${product.price.toFixed(2)}</p>
           </Chip>
           <FaChevronRight />
         </div>

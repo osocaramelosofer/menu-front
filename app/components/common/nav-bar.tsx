@@ -80,6 +80,7 @@ export default function NavBar ({ store }: { store: IStore }) {
                 />
               ) : (
                 <CartDropdown
+                  storeId={store.id}
                   handleCreateRoom={handleCreateRoom}
                   handleJoinRoom={handleJoinRoom}
                 />

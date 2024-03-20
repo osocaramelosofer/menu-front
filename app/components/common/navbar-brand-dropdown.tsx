@@ -6,7 +6,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Image,
   NavbarBrand,
   Snippet,
   User,
@@ -20,8 +19,6 @@ import {
   FaHome,
   FaInstagram,
   FaMapMarker,
-  FaPhone,
-  FaPhoneAlt,
   FaUserLock,
   FaWhatsapp
 } from 'react-icons/fa'
@@ -102,13 +99,14 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
           >
             <Accordion
               isCompact
+              defaultExpandedKeys={['contact']}
               isDisabled={
                 store.igUrl === null &&
                 store.phone === null &&
                 store.address === null
               }
             >
-              <AccordionItem title='Contacto'>
+              <AccordionItem key={'contact'} title='Contacto'>
                 <div className='flex flex-wrap items-center gap-2'>
                   {store.igUrl !== null && (
                     <Button

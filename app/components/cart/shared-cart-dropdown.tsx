@@ -47,6 +47,8 @@ export default function SharedCartDropdown ({
     return 0 // Mantiene el orden original para los demás elementos
   })
 
+  // console.log('SHARED: ', sharedCartList)
+
   return (
     <DropdownMenu
       className='overflow-y-auto'

@@ -27,7 +27,7 @@ export default function TableProduct ({
   )
 
   const renderCell = React.useCallback((product: IProduct, columnKey: any) => {
-    const image = getOptimizedImageUrl(product.image, 'auto')
+    const image = getOptimizedImageUrl(product.image, 80)
     switch (columnKey) {
       case 'product':
         return (

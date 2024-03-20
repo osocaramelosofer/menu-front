@@ -59,7 +59,7 @@ const BannersCarousel = ({
                      from-black/50 via-black/20 to-transparent w-full'
               >
                 <p className='text-tiny text-white/70 uppercase font-bold'>
-                  Tu dulce experiencia
+                  {banner.subtitle}
                 </p>
                 <h1 className='text-white font-medium text-xl md:text-3xl max-w-[14rem] md:max-w-sm'>
                   {banner.title}

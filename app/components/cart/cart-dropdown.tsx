@@ -14,14 +14,18 @@ import { useCartsStore } from '@/zustand-store/carts-store'
 import CartProductCard from '../cart/cart-product-card'
 import SharedCartTabsForm from '../cart/shared-cart-tabs-form'
 
+import CartOrderForm from './cart-order-form'
+
 export default function CartDropdown ({
+  storeId,
   handleCreateRoom,
   handleJoinRoom
 }: {
+  storeId: number
   handleCreateRoom: () => void
   handleJoinRoom: (username: string, roomId: string) => void
 }) {
-  const { cartList, cartPrice, socketId } = useCartsStore()
+  const { cartList, socketId } = useCartsStore()
 
   const itemClasses = {
     title: 'font-medium text-sm',
@@ -97,16 +101,167 @@ export default function CartDropdown ({
           })}
         </DropdownItem>
       )}
+      <DropdownItem
+        className='border-none'
+        showDivider
+        isReadOnly
+        textValue='Order now form and order total'
+      >
+        <CartOrderForm storeId={storeId} />
+      </DropdownItem>
 
-      <DropdownItem className='border-none' isReadOnly textValue='Total Price'>
-        <div className='flex flex-col justify-center items-center'>
-          <p className='text-sm font-medium'>Total</p>
-          <h3 className='text-2xl font-bold '>
-            <span className='text-success'>$</span>
-            {cartPrice}
-          </h3>
+      {/* <DropdownItem
+        className='border-none'
+        showDivider
+        isReadOnly
+        textValue='Order now form and order total'
+      >
+        <Accordion isDisabled={cartList.length === 0} itemClasses={itemClasses}>
+          <AccordionItem
+            key='1'
+            title='Ordena desde aquí'
+            subtitle='Ordena desde aquí'
+            // subtitle='Completa los datos y ordena tu pedido'
+            aria-label='Total order and order form'
+            startContent={
+              <div className='flex flex-col flex-1 justify-center items-center'>
+                <p className='text-sm font-medium'>Total</p>
+                <h3 className='text-2xl font-bold'>
+                  <span className='text-success'>$</span>
+                  {cartPrice.toFixed(2)}
+                </h3>
+              </div>
+            }
+          >
+            <div className=' flex flex-col justify-between w-full items-start gap-3'>
+              <Select
+                isRequired
+                size='sm'
+                fullWidth
+                label='Método de pago'
+                variant='flat'
+                color='success'
+                value={paymentType}
+                description={
+                  <p className=' overflow-hidden flex flex-wrap whitespace-normal'>
+                    Selecciona tu método de pago para anticipar tu cobro.
+                  </p>
+                }
+                onChange={handlePaymentTypeChange}
+              >
+                {payments.map(payment => (
+                  <SelectItem key={payment.value} value={payment.value}>
+                    {payment.label}
+                  </SelectItem>
+                ))}
+              </Select>
+
+              <Input
+                color='success'
+                size='sm'
+                variant='flat'
+                minLength={2}
+                maxLength={10}
+                isRequired
+                label='Nombre'
+                value={username}
+                onValueChange={setUsername}
+                description={
+                  <p className=' overflow-hidden flex flex-wrap whitespace-normal'>
+                    Ingresa un nombre para identificar tu pedido y hacerte saber
+                    cuando este listo.
+                  </p>
+                }
+              />
+              <div className=' w-full'>
+                <Button
+                  endContent={<FaChevronRight />}
+                  size='sm'
+                  fullWidth
+                  isDisabled={
+                    cartList.length === 0 ||
+                    username.length < 3 ||
+                    paymentType.length === 0
+                  }
+                  className='flex flex-1 text-white'
+                  color='success'
+                  onPress={handleOrderCreation}
+                >
+                  Ordenar Ahora
+                </Button>
+              </div>
+            </div>
+          </AccordionItem>
+        </Accordion>
+      </DropdownItem> */}
+
+      {/* <DropdownItem className='border-none' isReadOnly textValue='Order Form'>
+        <div className=' flex flex-col justify-between w-full items-start gap-3'>
+          <Select
+            isRequired
+            size='sm'
+            fullWidth
+            label='Método de pago'
+            variant='bordered'
+            color='success'
+            placeholder='Select an payment type'
+            // defaultSelectedKeys={['cash']}
+            value={paymentType}
+            description={
+              <p className=' overflow-hidden flex flex-wrap whitespace-normal'>
+                Selecciona tu método de pago para anticipar tu cobro.
+              </p>
+            }
+            // selectedKeys={[paymentType]}
+            onChange={handlePaymentTypeChange}
+          >
+            {payments.map(payment => (
+              <SelectItem key={payment.value} value={payment.value}>
+                {payment.label}
+              </SelectItem>
+            ))}
+          </Select>
+
+          <Input
+            color='success'
+            size='sm'
+            variant='bordered'
+            minLength={2}
+            maxLength={10}
+            isRequired
+            label='Nombre'
+            value={username}
+            onValueChange={setUsername}
+            description={
+              <p className=' overflow-hidden flex flex-wrap whitespace-normal'>
+                Ingresa un nombre para identificar tu pedido y hacerte saber
+                cuando este listo.
+              </p>
+            }
+          />
         </div>
       </DropdownItem>
+      <DropdownItem
+        className='border-none'
+        isReadOnly
+        textValue='Order Now Button'
+      >
+        <Button
+          endContent={<FaChevronRight />}
+          size='sm'
+          fullWidth
+          isDisabled={
+            cartList.length === 0 ||
+            username.length < 3 ||
+            paymentType.length === 0
+          }
+          className='flex flex-1 text-white'
+          color='success'
+          onPress={handleOrderCreation}
+        >
+          Ordenar Ahora
+        </Button>
+      </DropdownItem> */}
     </DropdownMenu>
   )
 }
