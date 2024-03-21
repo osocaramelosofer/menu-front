@@ -30,12 +30,28 @@ import {
   StoreModal,
   BannerModal
 } from '@/app/components/admin/modals'
+import OrdersList from '@/app/components/orders/orders-list'
+import ProductsSkeleton from '@/app/components/skeletons/products-skeleton'
+import TableProductsList from '@/app/components/admin/table-products-list'
+import type { IApiOrderResponse } from '@/interfaces/order'
+import { fetchPaginatedOrders } from '@/lib/actions/order.actions'
+import { BASE_URL } from '@/lib/utils'
+import OrdersTable from '@/app/components/orders/orders-table'
+
+interface RootPageProps {
+  searchParams: {
+    categoryId?: string
+    categoryName?: string
+    page?: string
+    ordersPage?: string
+  }
+  params: { storeId: number | string }
+}
 
 export default async function DashboardPage ({
+  searchParams,
   params
-}: {
-  params: { storeId: string }
-}) {
+}: RootPageProps) {
   const session = await getServerSession()
   const userEmail = session?.user?.email
   const user = await fetchUserByEmail(userEmail)
@@ -47,7 +63,14 @@ export default async function DashboardPage ({
 
   // Promises to Await.tsx
   const storeBanners = fetchAllStoreBanners(params.storeId)
-  const allStoreProducts = fetchAllStoreProducts(params.storeId)
+
+  // const resultsPeerPage = 100
+
+  // const url: string = `${BASE_URL}/orders?store=${params.storeId}&resultsPerPage=${resultsPeerPage}`
+
+  // const orders: IApiOrderResponse = await fetchPaginatedOrders(url)
+
+  // const allStoreProducts = fetchAllStoreProducts(params.storeId)
 
   if (session === null) {
     redirect('/api/auth/signin')
@@ -66,15 +89,30 @@ export default async function DashboardPage ({
           store.themeColor ?? ''
         )}
       >
+        {/* HEADER SECTION  */}
         <AdminHeader session={session} />
 
-        <Suspense fallback={<BannersSkeleton isDashboardSection />}>
+        {/* <OrdersTable orders={orders.results} /> */}
+
+        {/* BANNERS SECTION  */}
+        <Suspense
+          key={Math.random()}
+          fallback={<BannersSkeleton isDashboardSection />}
+        >
           <Await promise={storeBanners}>
             {banners => <AdminBannersSection banners={banners} />}
           </Await>
         </Suspense>
 
-        <section className=' flex flex-col gap-4 mb-4 relative'>
+        {/* PRODUCTS SECTION  */}
+        <Suspense key={Math.random()} fallback={<BannersSkeleton />}>
+          <TableProductsList
+            storeId={params.storeId}
+            currentPage={searchParams.page}
+            currentCategoryId={searchParams.categoryId}
+          />
+        </Suspense>
+        {/* <section className=' flex flex-col gap-4 mb-4 relative'>
           <h2 className='font-semibold text-lg'>Mis Productos</h2>
           <Suspense fallback={<BannersSkeleton />}>
             <Await promise={allStoreProducts}>
@@ -83,8 +121,9 @@ export default async function DashboardPage ({
               )}
             </Await>
           </Suspense>
-        </section>
+        </section> */}
 
+        {/* CATEGORIES SECTION  */}
         <section className='flex flex-col gap-4 mb-8 relative'>
           <h2 className='font-semibold text-lg'>
             Mis Categorías ({categories.length})
@@ -92,22 +131,30 @@ export default async function DashboardPage ({
 
           <div className='flex gap-2 flex-wrap'>
             {categories.map(category => (
-              <Chip size='lg' variant='shadow' key={category.id}>
+              <Chip
+                size='lg'
+                variant='shadow'
+                color='warning'
+                key={category.id}
+              >
                 {category.name}
               </Chip>
             ))}
           </div>
-
-          {/* {categories.map(category => (
-            <AdminAccordionProducts
-            key={category.id}
-            products={allStoreProducts.results}
-            category={category}
-            />
-          ))} */}
         </section>
         <AddProductButton />
+
+        {/* ORDERS SECTION  */}
+
+        <Suspense key={Math.random()} fallback={<ProductsSkeleton />}>
+          <OrdersList
+            storeId={params.storeId}
+            currentPage={searchParams.ordersPage}
+          />
+        </Suspense>
       </main>
+      {/* MODALS SECTION  */}
+
       <ProductCategoryModal categories={categories} store={store} />
       <BannerModal store={store} />
       <StoreModal store={store} />

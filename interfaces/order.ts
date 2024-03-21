@@ -45,10 +45,19 @@ export interface IUserOrders {
 }
 
 export interface IOrder {
+  total?: number
   id?: number
   createdAt?: string
   paymentType: string
   isShared: boolean
   storeId: number
   userOrders: IUserOrders[]
+}
+
+export interface IApiOrderResponse {
+  count: number
+  next: string
+  currentPage: number
+  previous: string | null
+  results: IOrder[]
 }

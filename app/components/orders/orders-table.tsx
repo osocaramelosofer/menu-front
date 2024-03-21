@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import type { IApiResponse, IProduct } from '@/interfaces/product'
 import {
   Table,
   TableHeader,
@@ -8,52 +7,31 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Image,
   Chip,
   Pagination
 } from '@nextui-org/react'
 
-import DropdownProductActions from './dropdown-product-actions'
-import { getOptimizedImageUrl } from '@/lib/utils'
+import type { IOrder } from '@/interfaces/order'
+import { capitalize, formatDate } from '@/lib/utils'
 
-export default function TableProduct ({
-  products,
-  productsApiResponse,
-  resultsPeerPage
-}: {
-  products: IProduct[]
-  productsApiResponse: IApiResponse
-  resultsPeerPage: number
-}) {
-  const renderCell = React.useCallback((product: IProduct, columnKey: any) => {
-    const image = getOptimizedImageUrl(product.image, 80)
+export default function TableOrder ({ orders }: { orders: IOrder[] }) {
+  const renderCell = React.useCallback((order: IOrder, columnKey: any) => {
     switch (columnKey) {
-      case 'product':
+      case 'createdAt':
         return (
           <div className='flex gap-2'>
-            <Image
-              width={300}
-              height={300}
-              className=' object-cover max-w-[2.5rem] md:max-w-[4.5rem] rounded-md md:min-w-full aspect-square'
-              src={image}
-              alt='Dulce Trago Product Image'
-            />
-            <div>
-              <h2 className=' line-clamp-1 font-semibold md:text-lg'>
-                {product.name}
-              </h2>
-              <p className=' line-clamp-1 text-tiny opacity-80 md:text-base'>
-                {product.description}
-              </p>
-            </div>
+            <p className=' line-clamp-1 text-tiny opacity-80 md:text-base'>
+              {capitalize(formatDate(order.createdAt))}
+            </p>
           </div>
         )
-      case 'category':
-        return <Chip size='sm'>{product.category.name}</Chip>
-      case 'actions':
+      case 'total':
+        return <Chip size='sm'>${order.total?.toFixed(2)}</Chip>
+      case 'paymentType':
         return (
           <div className='relative flex items-center justify-end gap-2'>
-            <DropdownProductActions product={product} />
+            {/* <DropdownProductActions product={product} /> */}
+            <Chip size='sm'>{order.paymentType}</Chip>
           </div>
         )
 
@@ -63,22 +41,22 @@ export default function TableProduct ({
   }, [])
 
   const columns = [
-    { name: 'PRODUCTO', id: 'product' },
-    { name: 'CATEGORÍA', id: 'category' },
-    { name: 'ACTIONS', id: 'actions' }
+    { name: 'FECHA', id: 'createdAt' },
+    { name: 'TOTAL', id: 'total' },
+    { name: 'PAGO', id: 'paymentType' }
   ]
 
   const [page, setPage] = React.useState(1)
-  const rowsPerPage = 2
+  const rowsPerPage = 5
 
-  const pages = Math.ceil(products.length / rowsPerPage)
+  const pages = Math.ceil(orders.length / rowsPerPage)
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage
     const end = start + rowsPerPage
 
-    return products.slice(start, end)
-  }, [page, products])
+    return orders.slice(start, end)
+  }, [page, orders])
 
   return (
     <Table

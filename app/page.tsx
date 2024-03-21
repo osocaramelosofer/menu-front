@@ -3,6 +3,7 @@ import { fetchAllStores } from '@/lib/actions'
 
 export default async function HomePage () {
   const stores: IStore[] = await fetchAllStores()
+
   return (
     <main
       className='flex flex-col items-center justify-center h-screen max-w-7xl gap-4 px-4

@@ -2,6 +2,25 @@ export default function cn (...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 
+const options: Intl.DateTimeFormatOptions = {
+  weekday: 'long',
+  // year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+}
+
+export function formatDate (date: string | undefined) {
+  if (date !== undefined) {
+    return new Date(date).toLocaleDateString('es-ES', options)
+  }
+}
+
+export function capitalize (str: string | undefined) {
+  if (str !== undefined) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+  }
+}
+
 export function getOptimizedImageUrl (
   mainImageUrl: string,
   width: number | string

@@ -28,6 +28,7 @@ export default function AdminHeader ({ session }: { session: Session | null }) {
       />
       <div className=' flex w-fit items-center justify-center gap-3'>
         <Button
+          size='sm'
           startContent={<FaCog />}
           variant='faded'
           onPress={handleOpenModal}
@@ -35,6 +36,7 @@ export default function AdminHeader ({ session }: { session: Session | null }) {
           Administra tu negocio
         </Button>
         <Button
+          size='sm'
           color='danger'
           variant='faded'
           startContent={<FaSignOutAlt />}

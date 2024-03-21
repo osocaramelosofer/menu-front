@@ -35,7 +35,11 @@ export default async function ProductsList ({
         ))}
       </section>
       <section className='flex flex-col flex-1 w-full justify-center items-center  z-10'>
-        <CustomPagination data={products} resultsPeerPage={resultsPeerPage} />
+        <CustomPagination
+          disableAnimation
+          data={products}
+          resultsPeerPage={resultsPeerPage}
+        />
       </section>
     </div>
   )

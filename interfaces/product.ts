@@ -90,6 +90,8 @@ export interface IBannerPost {
 export interface IApiResponse {
   count: number
   next: string
+  currentPage: number
+
   previous: string | null
   results: IProduct[]
 }

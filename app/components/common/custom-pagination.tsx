@@ -4,13 +4,16 @@ import qs from 'query-string'
 import { Pagination } from '@nextui-org/react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { IApiResponse } from '@/interfaces/product'
+import type { IApiOrderResponse } from '@/interfaces/order'
 
 export default function CustomPagination ({
   data,
-  resultsPeerPage
+  resultsPeerPage,
+  disableAnimation
 }: {
-  data: IApiResponse
+  data: IApiResponse | IApiOrderResponse
   resultsPeerPage: number
+  disableAnimation?: boolean
 }) {
   const router = useRouter()
   const params = useSearchParams()
@@ -18,13 +21,12 @@ export default function CustomPagination ({
   const pageParam = params.get('page')
   const currentPage = pageParam !== null ? Number(pageParam) : 1
 
-  const updateURL = (newOffset: number, newPage: number) => {
+  const updateURL = (newPage: number) => {
     // Preserve existing query parameters
     const currentQueryParams = Object.fromEntries(params.entries())
     const updatedQuery = {
       ...currentQueryParams,
       page: newPage.toString()
-      // resultsPeerPage: resultsPeerPage.toString()
     }
 
     const url = qs.stringifyUrl(
@@ -35,29 +37,19 @@ export default function CustomPagination ({
       { skipNull: true, skipEmptyString: true }
     )
     router.push(url, { scroll: false })
-    setTimeout(() => {
-      window.scrollTo({
-        top: 500,
-        behavior: 'smooth'
-      })
-    }, 200)
+
+    if (disableAnimation === false) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: 500,
+          behavior: 'smooth'
+        })
+      }, 200)
+    }
   }
 
-  // const handlePrevNext = (direction: string) => {
-  //   const itemsPerPage = 3 // Assuming 3 items per page
-  //   const offset = (currentPage - 1) * itemsPerPage // Calculate current offset
-  //   const newPage =
-  //     direction === 'next' ? currentPage + 1 : Math.max(1, currentPage - 1)
-  //   updateURL(
-  //     offset + (direction === 'next' ? itemsPerPage : -itemsPerPage),
-  //     newPage
-  //   )
-  // }
-
   const handlePageChange = (selectedPage: number) => {
-    const newOffset = (selectedPage - 1) * resultsPeerPage
-
-    updateURL(newOffset, selectedPage)
+    updateURL(selectedPage)
   }
 
   return (

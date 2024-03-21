@@ -85,3 +85,20 @@ export async function fetchOrderById (orderId: number | string) {
 
 //     revalidatePath(`${storeId}/dashboard`)
 //   }
+
+export async function fetchPaginatedOrders (url: string) {
+  const requestOptions: RequestInit = {
+    method: 'GET',
+    redirect: 'follow',
+    cache: 'no-store'
+  }
+
+  const response = await fetch(url, requestOptions)
+  if (!response.ok) {
+    console.log(response.ok)
+
+    throw new Error('Error al cargar las orders FILTRADAS')
+  }
+  // await new Promise(resolve => setTimeout(resolve, 4000))
+  return await response.json()
+}

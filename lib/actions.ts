@@ -271,7 +271,7 @@ export async function fetchPaginatedProducts (url: string) {
 
     throw new Error('Error al cargar los productos FILTRADOS')
   }
-  // await new Promise(resolve => setTimeout(resolve, 4000))
+  await new Promise(resolve => setTimeout(resolve, 4000))
   return await response.json()
 }
 
