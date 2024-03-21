@@ -20,7 +20,9 @@ export default function AdminBannersSection ({
   return (
     <section className=' flex flex-col gap-4 relative'>
       <div className=' flex w-full items-center justify-between'>
-        <h2 className='font-semibold text-lg'>Mis Banners</h2>
+        <h2 className='font-semibold text-lg'>
+          Mis Banners ({banners.length})
+        </h2>
         <Button
           onPress={handleOpenModal}
           startContent={<FaPlus />}

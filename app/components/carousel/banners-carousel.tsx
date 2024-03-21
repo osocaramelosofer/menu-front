@@ -46,7 +46,7 @@ const BannersCarousel = ({
   }
 
   return (
-    <Carousel setApi={setApi} className='w-full max-w-2xl self-center mb-6'>
+    <Carousel setApi={setApi} className='w-full max-w-2xl self-center mb-0'>
       <CarouselContent>
         {banners.map((banner, index) => (
           <CarouselItem key={banner.id}>

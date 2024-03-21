@@ -13,7 +13,7 @@ export default function AddProductButton () {
   }
 
   return (
-    <footer className='flex flex-col w-fit self-center gap-3 sticky bottom-10 z-50'>
+    <footer className='flex flex-col w-fit self-center gap-3 mt-3 sticky bottom-10 z-20'>
       <Button
         startContent={<FaPlus />}
         color='primary'

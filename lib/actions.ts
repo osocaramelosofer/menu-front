@@ -234,7 +234,7 @@ export async function fetchAllStoreProducts (storeId: number | string) {
     return null
   }
   const data = await response.json()
-  // await new Promise(resolve => setTimeout(resolve, 3000))
+  await new Promise(resolve => setTimeout(resolve, 5000))
   return data
 }
 
