@@ -21,7 +21,9 @@ export default async function FeaturedProductsList ({
   }
 
   return (
-    <section className='relative bg-background flex flex-col shadow-none gap-4 w-full pt-5'>
+    <section className='relative bg-background flex flex-col shadow-none gap-4 w-full mt-6'>
+      <h2 className='text-base font-semibold'>Productos Destacados</h2>
+
       <ScrollShadow
         size={20}
         orientation='horizontal'

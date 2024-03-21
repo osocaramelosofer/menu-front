@@ -30,7 +30,7 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
       <Dropdown
         backdrop='opaque'
         placement='bottom-start'
-        className='max-h-[90vh] max-w-[95vw] min-w-[95vw] sm:max-w-sm sm:min-w-[24rem] border border-blue-500 relative'
+        className='max-h-[90vh] max-w-[95vw] min-w-[95vw] sm:max-w-sm sm:min-w-[24rem] relative'
       >
         <DropdownTrigger className='min-w-full'>
           <User
@@ -38,7 +38,7 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
             avatarProps={{
               src: getOptimizedImageUrl(store.logoUrl, 40)
             }}
-            className='transition-transform w-fit'
+            className='transition-transform w-fit '
             name={store.name}
           />
         </DropdownTrigger>

@@ -65,7 +65,7 @@ export default function UploadProductImage ({
                 Haz clic para cargar una imagen
               </div>
               {imageSrc.length > 0 && (
-                <div className='absolute  w-full flex-1'>
+                <div className='absolute  w-full h-full flex-1 bg-gray-300'>
                   <Image
                     alt='Woman listing to music'
                     // removeWrapper

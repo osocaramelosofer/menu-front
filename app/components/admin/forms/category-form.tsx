@@ -27,6 +27,7 @@ export default function CategoryForm ({
         isRequired
         label='Nombre'
         name='name'
+        maxLength={16}
         placeholder='Ingresa el nombre de la categoría'
       />
 

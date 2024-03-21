@@ -4,6 +4,7 @@ import type { IProduct } from '@/interfaces/product'
 import { createOrder } from '@/lib/actions/order.actions'
 import { create } from 'zustand'
 import { redirect } from 'next/navigation'
+import type { ISharedCartList } from './carts-store'
 
 // Definimos la interfaz para el estado y las acciones de la store
 interface OrderState {
@@ -21,6 +22,19 @@ interface OrderState {
     cartList: IProduct[],
     cartPrice: number,
     username: string,
+    storeId: number
+  ) => Promise<IOrder>
+  // ...other state and actions
+  handleSharedOrderCreation: (
+    sharedCartList: ISharedCartList[],
+    storeId: number
+  ) => Promise<IOrder>
+}
+
+interface SharedOrderState {
+  // ...other state and actions
+  handleSharedOrderCreation: (
+    sharedCartList: ISharedCartList[],
     storeId: number
   ) => Promise<IOrder>
 }
@@ -94,6 +108,44 @@ export const useOrderStore = create<OrderState>((set, get) => ({
     } catch (error) {
       console.error('Failed to create order:', error)
       // Lógica de manejo de errores
+    } finally {
+      set({ loading: false })
+    }
+  },
+  handleSharedOrderCreation: async (
+    sharedCartList: ISharedCartList[],
+    storeId: number
+  ) => {
+    set({ loading: true })
+    const { paymentType } = get()
+
+    try {
+      const userOrders: IUserOrders[] = sharedCartList.map(sharedCart => {
+        return {
+          username: sharedCart.username,
+          cartPrice: sharedCart.cartPrice,
+          cartList: sharedCart.cartList.map(product => ({
+            productId: product.id,
+            quantity: product.quantity
+          }))
+        }
+      })
+
+      const order: IOrder = {
+        isShared: true,
+        storeId,
+        paymentType,
+        userOrders
+      }
+
+      // Use the created order object to make an API request or whatever is needed
+      const createdOrder = await createOrder(order)
+      console.log('Order created successfully:', createdOrder)
+
+      return createdOrder
+    } catch (error) {
+      console.error('Failed to create shared order:', error)
+      throw error
     } finally {
       set({ loading: false })
     }

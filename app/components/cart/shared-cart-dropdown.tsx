@@ -24,13 +24,16 @@ import {
 } from 'react-icons/fa'
 import { useCartsStore } from '@/zustand-store/carts-store'
 import CartProductCard from '../cart/cart-product-card'
+import SharedCartOrderForm from './shared-cart-order-form'
 
 export default function SharedCartDropdown ({
   updateCart,
-  handleLeaveRoom
+  handleLeaveRoom,
+  storeId
 }: {
   updateCart: () => void
   handleLeaveRoom: (roomId: string) => void
+  storeId: number
 }) {
   const { roomId, username, sharedCartList } = useCartsStore()
 
@@ -223,6 +226,14 @@ export default function SharedCartDropdown ({
             {totalPrice.toFixed(2)}
           </h3>
         </div>
+      </DropdownItem>
+      <DropdownItem
+        className='border-none'
+        showDivider
+        isReadOnly
+        textValue='Shared Order now form and order total'
+      >
+        <SharedCartOrderForm storeId={storeId} />
       </DropdownItem>
     </DropdownMenu>
   )

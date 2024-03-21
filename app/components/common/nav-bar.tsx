@@ -75,6 +75,7 @@ export default function NavBar ({ store }: { store: IStore }) {
               {/* eslint-disable-next-line multiline-ternary */}
               {isInSharedCart ? (
                 <SharedCartDropdown
+                  storeId={store.id}
                   handleLeaveRoom={handleLeaveRoom}
                   updateCart={updateCart}
                 />
