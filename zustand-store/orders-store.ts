@@ -100,8 +100,6 @@ export const useOrderStore = create<OrderState>((set, get) => ({
       // Aquí debes reemplazar `createOrder` con la lógica para realizar la solicitud de creación de la orden.
       const createdOrder = await createOrder(order)
 
-      console.log('Order created successfully:', createdOrder)
-      console.log('Order created successfully IDDDDDDDDDD:', createdOrder.id)
       return createdOrder
 
       // Lógica adicional después de la creación de la orden si es necesaria
@@ -140,7 +138,7 @@ export const useOrderStore = create<OrderState>((set, get) => ({
 
       // Use the created order object to make an API request or whatever is needed
       const createdOrder = await createOrder(order)
-      console.log('Order created successfully:', createdOrder)
+      // console.log('Order created successfully:', createdOrder)
 
       return createdOrder
     } catch (error) {

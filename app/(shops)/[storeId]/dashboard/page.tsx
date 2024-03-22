@@ -17,10 +17,10 @@ import { fetchAllStoreBanners } from '@/lib/actions/banner.actions'
 import NoAccessPermission from '@/app/components/admin/no-access-permission'
 import NavBar from '@/app/components/common/nav-bar'
 import AdminHeader from '@/app/components/admin/admin-header'
-import AddProductButton from '@/app/components/admin/add-product-button'
 // import AdminAccordionProducts from '@/app/components/admin/admin-accordion-products'
 import AdminBannersSection from '@/app/components/admin/admin-banners-section'
 import BannersSkeleton from '@/app/components/skeletons/banners-skeleton'
+import AddProductCategoryButton from '@/app/components/admin/add-product-category-button'
 import { Chip } from '@nextui-org/react'
 // paginated tables
 import OrdersTablePaginated from '@/app/components/orders/orders-table-paginated'
@@ -69,10 +69,10 @@ export default async function DashboardPage ({
 
   return (
     <React.Fragment>
-      <NavBar store={store} />
+      <NavBar store={store} isHiddenCart />
       <main
         className={clsx(
-          'flex flex-col w-full h-full px-4 pb-20 relative gap-6',
+          'flex flex-col w-full h-full px-4 pb-20 relative gap-8',
           store.themeColor ?? ''
         )}
       >
@@ -94,11 +94,14 @@ export default async function DashboardPage ({
 
         {/* CATEGORIES SECTION  */}
         <section className='flex flex-col gap-4 relative'>
-          <h2 className='font-semibold text-lg'>
-            Mis Categorías ({categories.length})
-          </h2>
+          <div className=' flex justify-between items-end w-full'>
+            <h2 className='font-semibold text-lg'>
+              Categorías ({categories.length})
+            </h2>
+            <AddProductCategoryButton label='Nueva Categoría' />
+          </div>
 
-          <div className='flex gap-2 flex-wrap'>
+          <div className='flex gap-3 flex-wrap'>
             {categories.map(category => (
               <Chip
                 size='lg'
@@ -110,7 +113,6 @@ export default async function DashboardPage ({
               </Chip>
             ))}
           </div>
-          <AddProductButton />
         </section>
 
         {/* ORDERS SECTION  */}

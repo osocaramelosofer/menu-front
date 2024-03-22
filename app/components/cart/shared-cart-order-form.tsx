@@ -5,7 +5,6 @@ import {
   Accordion,
   AccordionItem,
   Button,
-  Input,
   Select,
   SelectItem
 } from '@nextui-org/react'
@@ -14,22 +13,24 @@ import { FaChevronRight } from 'react-icons/fa'
 import { useCartsStore } from '@/zustand-store/carts-store'
 import { useOrderStore } from '@/zustand-store/orders-store'
 
-import { useRouter } from 'next/navigation'
-
-export default function SharedCartOrderForm ({ storeId }: { storeId: number }) {
-  const { roomId, sharedCartList, setSharedCartList } = useCartsStore()
+export default function SharedCartOrderForm ({
+  storeId,
+  handleOrderCompleted
+}: {
+  storeId: number
+  handleOrderCompleted: (
+    storeId: string | number,
+    orderId: number | undefined
+  ) => void
+}) {
+  const { sharedCartList } = useCartsStore()
 
   const totalPrice = sharedCartList.reduce(
     (sum, cart) => sum + Number(cart.cartPrice),
     0
   )
-  const {
-    paymentType,
-    setPaymentType,
-    loading,
-    handleOrderCreation,
-    handleSharedOrderCreation
-  } = useOrderStore() // Utiliza la store de Zustand
+  const { paymentType, setPaymentType, loading, handleSharedOrderCreation } =
+    useOrderStore()
   const payments = [
     {
       label: 'Pago en efectivo',
@@ -44,12 +45,11 @@ export default function SharedCartOrderForm ({ storeId }: { storeId: number }) {
       value: 'transfer'
     }
   ]
-  const router = useRouter()
 
   const handleOrderNow = async () => {
     // Muestra un cuadro de diálogo de confirmación
     const message =
-      '¿Estás seguro de que quieres realizar esta orden?\n' +
+      '¿Estás seguro de que quieres realizar esta orden compartida?\n' +
       'Al confirmar, tu carrito se vaciará y la orden entrará en preparación para el pago.'
 
     const isConfirmed = window.confirm(message)
@@ -57,9 +57,9 @@ export default function SharedCartOrderForm ({ storeId }: { storeId: number }) {
       await handleSharedOrderCreation(sharedCartList, storeId)
         .then(createdOrder => {
           // Redirección a la página de agradecimiento y ticket de la orden
-          router.refresh()
-          router.push(`${storeId}/thank-you/${createdOrder.id}`)
-          //   setSharedCartList([])
+          //   router.push(`${storeId}/thank-you/${createdOrder.id}`)
+          // router.refresh()
+          handleOrderCompleted(storeId, createdOrder.id)
         })
         .catch(error => {
           console.log(error)
@@ -72,8 +72,13 @@ export default function SharedCartOrderForm ({ storeId }: { storeId: number }) {
     subtitle: ' text-xs'
   }
   return (
-    <Accordion itemClasses={itemClasses}>
+    <Accordion
+      keepContentMounted
+      disallowEmptySelection
+      itemClasses={itemClasses}
+    >
       <AccordionItem
+        keepContentMounted
         key='1'
         title='Ordena desde aquí'
         subtitle='Ordena desde aquí'
@@ -91,6 +96,7 @@ export default function SharedCartOrderForm ({ storeId }: { storeId: number }) {
       >
         <div className=' flex flex-col justify-between w-full items-start gap-3'>
           <Select
+            disallowEmptySelection
             isRequired
             size='sm'
             fullWidth

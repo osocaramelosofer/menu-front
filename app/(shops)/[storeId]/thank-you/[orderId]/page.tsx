@@ -17,8 +17,8 @@ export default async function Page ({ params }: RootPageProps) {
 
   return (
     <React.Fragment>
-      <NavBar store={store} />
-      <main className='flex flex-col gap-9 w-full px-4 py-20 relative justify-center max-w-xl'>
+      <NavBar store={store} isHiddenCart />
+      <main className='flex flex-col gap-9 w-full px-4 py-12 relative justify-start max-w-xl'>
         <div>
           <h1 className=' font-semibold text-3xl text-center'>
             ¡Gracias por tu orden!

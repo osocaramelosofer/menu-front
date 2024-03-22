@@ -9,6 +9,13 @@ const options: Intl.DateTimeFormatOptions = {
   day: 'numeric'
 }
 
+export function truncateString (str: string, num: number) {
+  if (str.length <= num) {
+    return str
+  }
+  return str.slice(0, num) + '...'
+}
+
 export function formatDate (date: string | undefined) {
   if (date !== undefined) {
     return new Date(date).toLocaleDateString('es-ES', options)

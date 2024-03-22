@@ -29,18 +29,18 @@ import SharedCartOrderForm from './shared-cart-order-form'
 export default function SharedCartDropdown ({
   updateCart,
   handleLeaveRoom,
+  handleOrderCompleted,
   storeId
 }: {
   updateCart: () => void
   handleLeaveRoom: (roomId: string) => void
+  handleOrderCompleted: (
+    storeId: string | number,
+    orderId: number | undefined
+  ) => void
   storeId: number
 }) {
   const { roomId, username, sharedCartList } = useCartsStore()
-
-  const totalPrice = sharedCartList.reduce(
-    (sum, cart) => sum + Number(cart.cartPrice),
-    0
-  )
 
   // Crea una copia de sharedCartList y ordénala
   const sortedCartList = [...sharedCartList].sort((a, b) => {
@@ -49,8 +49,6 @@ export default function SharedCartDropdown ({
     if (b.username === username) return 1
     return 0 // Mantiene el orden original para los demás elementos
   })
-
-  // console.log('SHARED: ', sharedCartList)
 
   return (
     <DropdownMenu
@@ -137,7 +135,7 @@ export default function SharedCartDropdown ({
 
       <DropdownItem
         className='border-none'
-        // showDivider
+        showDivider
         isReadOnly
         textValue='List of products in cart'
       >
@@ -217,7 +215,7 @@ export default function SharedCartDropdown ({
           ))}
         </Accordion>
       </DropdownItem>
-
+      {/*
       <DropdownItem className='border-none' isReadOnly textValue='Total Price'>
         <div className='flex flex-col justify-center items-center'>
           <p className='text-sm font-medium'>Total de la Orden</p>
@@ -226,14 +224,17 @@ export default function SharedCartDropdown ({
             {totalPrice.toFixed(2)}
           </h3>
         </div>
-      </DropdownItem>
+      </DropdownItem> */}
       <DropdownItem
         className='border-none'
         showDivider
         isReadOnly
         textValue='Shared Order now form and order total'
       >
-        <SharedCartOrderForm storeId={storeId} />
+        <SharedCartOrderForm
+          handleOrderCompleted={handleOrderCompleted}
+          storeId={storeId}
+        />
       </DropdownItem>
     </DropdownMenu>
   )

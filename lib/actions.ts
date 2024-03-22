@@ -1,10 +1,6 @@
 'use server'
 
-import type {
-  ICategoryPost,
-  IProduct,
-  IProductPost
-} from '@/interfaces/product'
+import type { ICategoryPost, IProductPost } from '@/interfaces/product'
 import { revalidatePath } from 'next/cache'
 import { BASE_URL } from './utils'
 
@@ -234,7 +230,7 @@ export async function fetchAllStoreProducts (storeId: number | string) {
     return null
   }
   const data = await response.json()
-  await new Promise(resolve => setTimeout(resolve, 5000))
+  // await new Promise(resolve => setTimeout(resolve, 5000))
   return data
 }
 
@@ -267,11 +263,11 @@ export async function fetchPaginatedProducts (url: string) {
 
   const response = await fetch(url, requestOptions)
   if (!response.ok) {
-    console.log(response.ok)
+    // console.log(response.ok)
 
     throw new Error('Error al cargar los productos FILTRADOS')
   }
-  await new Promise(resolve => setTimeout(resolve, 4000))
+  // await new Promise(resolve => setTimeout(resolve, 4000))
   return await response.json()
 }
 

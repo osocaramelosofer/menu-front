@@ -38,8 +38,6 @@ export default function UploadProductImage ({
 
       <CldUploadWidget
         onSuccess={(results: any) => {
-          console.log(results)
-
           setMainImageValue(
             `${results?.info?.resource_type}/${results?.info?.type}/${results?.info?.path}`
           )

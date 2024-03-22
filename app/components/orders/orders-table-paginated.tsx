@@ -28,7 +28,7 @@ export default function OrdersTablePaginated ({
   storeId: number | string
 }) {
   const [page, setPage] = React.useState(1)
-  const rowsPerPage = 7
+  const rowsPerPage = 10
 
   const { data, isLoading } = useSWR(
     `${BASE_URL}/orders?store=${storeId}&page=${page}&resultsPerPage=${rowsPerPage}`,
@@ -44,7 +44,7 @@ export default function OrdersTablePaginated ({
   }, [data?.count, rowsPerPage])
 
   const loadingState =
-    isLoading === true
+    isLoading
       ? 'loading'
       : data?.results.length === 0
         ? 'idle'

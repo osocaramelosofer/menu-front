@@ -1,11 +1,5 @@
 'use server'
 
-import type {
-  IBannerPost,
-  ICategoryPost,
-  IProduct,
-  IProductPost
-} from '@/interfaces/product'
 import { revalidatePath } from 'next/cache'
 import { BASE_URL } from '../utils'
 import type { IStoreForm, IStore } from '@/interfaces/store'

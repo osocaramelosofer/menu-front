@@ -95,7 +95,7 @@ export async function fetchPaginatedOrders (url: string) {
 
   const response = await fetch(url, requestOptions)
   if (!response.ok) {
-    console.log(response.ok)
+    // console.log(response.ok)
 
     throw new Error('Error al cargar las orders FILTRADAS')
   }

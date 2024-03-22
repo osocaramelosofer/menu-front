@@ -9,14 +9,18 @@ import {
   TableCell,
   Pagination,
   Spinner,
-  getKeyValue,
   Chip,
-  Image
+  Image,
+  Popover,
+  Button,
+  PopoverContent,
+  PopoverTrigger
 } from '@nextui-org/react'
 import useSWR from 'swr'
-import { BASE_URL, getOptimizedImageUrl } from '@/lib/utils'
+import { BASE_URL, getOptimizedImageUrl, truncateString } from '@/lib/utils'
 import DropdownProductActions from './dropdown-product-actions'
 import type { IProduct } from '@/interfaces/product'
+import AddProductCategoryButton from './add-product-category-button'
 
 // Define a type for the fetcher function's arguments.
 type FetcherArgs = [input: RequestInfo, init?: RequestInit]
@@ -30,7 +34,7 @@ export default function ProductsTablePaginated ({
   storeId: number | string
 }) {
   const [page, setPage] = React.useState(1)
-  const rowsPerPage = 1
+  const rowsPerPage = 10
 
   const { data, isLoading } = useSWR(
     `${BASE_URL}/products?store=${storeId}&page=${page}&resultsPerPage=${rowsPerPage}`,
@@ -45,12 +49,11 @@ export default function ProductsTablePaginated ({
     return data?.count ? Math.ceil(data.count / rowsPerPage) : 0
   }, [data?.count, rowsPerPage])
 
-  const loadingState =
-    isLoading === true
-      ? 'loading'
-      : data?.results.length === 0
-        ? 'idle'
-        : 'idle'
+  const loadingState = isLoading
+    ? 'loading'
+    : data?.results.length === 0
+      ? 'idle'
+      : 'idle'
 
   const renderCell = React.useCallback((product: IProduct, columnKey: any) => {
     const image = getOptimizedImageUrl(product.image, 80)
@@ -76,7 +79,16 @@ export default function ProductsTablePaginated ({
           </div>
         )
       case 'category':
-        return <Chip size='sm'>{product.category.name}</Chip>
+        return (
+          <Popover color='warning' placement='right'>
+            <PopoverTrigger>
+              <Chip size='sm'>{truncateString(product.category.name, 7)}</Chip>
+            </PopoverTrigger>
+            <PopoverContent>
+              <h1 className='text-small font-bold'>{product.category.name}</h1>
+            </PopoverContent>
+          </Popover>
+        )
       case 'actions':
         return (
           <div className='relative flex items-center justify-end gap-2'>
@@ -97,7 +109,10 @@ export default function ProductsTablePaginated ({
 
   return (
     <section className=' flex flex-col gap-4 relative'>
-      <h2 className='font-semibold text-lg'>Productos ({data?.count})</h2>
+      <div className=' flex justify-between items-end w-full'>
+        <h2 className='font-semibold text-lg'>Productos ({data?.count})</h2>
+        <AddProductCategoryButton label='Nuevo Producto' />
+      </div>
       <Table
         aria-label='Example table with client async pagination'
         bottomContent={
