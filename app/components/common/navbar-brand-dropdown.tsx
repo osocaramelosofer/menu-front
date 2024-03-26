@@ -22,7 +22,7 @@ import {
   FaUserLock,
   FaWhatsapp
 } from 'react-icons/fa'
-import { getOptimizedImageUrl } from '@/lib/utils'
+import { BASE_URL, getOptimizedImageUrl } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 
 export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
@@ -65,7 +65,7 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
                     color='success'
                     variant='flat'
                     symbol='💥'
-                    codeString={`http://localhost:3000/${store.id}/`}
+                    codeString={`${BASE_URL}/${store.id}/`}
                   >
                     ¡Compartir!
                   </Snippet>
