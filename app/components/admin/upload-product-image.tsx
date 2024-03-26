@@ -1,6 +1,6 @@
 'use client'
 
-import { Image } from '@nextui-org/react'
+import { Image, Input } from '@nextui-org/react'
 import { CldUploadWidget } from 'next-cloudinary'
 import React, { useEffect, useState } from 'react'
 
@@ -55,26 +55,24 @@ export default function UploadProductImage ({
               onClick={() => {
                 open()
               }}
-              className='relative cursor-pointer transition border-dashed border-2 overflow-hidden w-full min-h-full aspect-square
-          border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600 rounded-xl'
+              className='relative cursor-pointer transition border-dashed border-2 overflow-hidden h-auto w-auto
+        border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600 rounded-xl'
             >
-              <FaImage size={50} />
-              <div className='font-medium text-md text-center opacity-60'>
-                Haz clic para cargar una imagen
-              </div>
+              {imageSrc.length === 0 && (
+                <div className=' flex flex-col py-28 justify-center items-center gap-4'>
+                  <FaImage size={50} />
+                  <div className='font-medium text-md text-center opacity-60'>
+                    Haz clic para cargar una imagen
+                  </div>
+                </div>
+              )}
               {imageSrc.length > 0 && (
-                <div className='absolute  w-full h-full flex-1 bg-gray-300'>
+                <div className='bg-gray-300 rounded-xl'>
                   <Image
-                    alt='Woman listing to music'
+                    alt='Uploaded image preview'
                     // removeWrapper
                     className='object-cover min-h-full min-w-full'
                     src={getOptimizedImageUrl(imageSrc, 'auto')}
-                  />
-                  <input
-                    required
-                    type='hidden'
-                    value={imageSrc}
-                    name={inputName}
                   />
                 </div>
               )}
@@ -82,6 +80,14 @@ export default function UploadProductImage ({
           )
         }}
       </CldUploadWidget>
+      <Input
+        isRequired
+        required
+        type='hidden'
+        className=' hidden'
+        value={imageSrc}
+        name={inputName}
+      />
     </React.Fragment>
   )
 }

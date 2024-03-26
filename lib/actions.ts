@@ -62,6 +62,27 @@ export async function createProduct (product: IProductPost) {
   return await response.json()
 }
 
+export const addProduct = async (
+  formData: FormData,
+  storeId: string | number
+) => {
+  const image = formData.get('image') as string
+  const imageToSend = image === '' ? null : image
+  const productBody: IProductPost = {
+    // main_image: formData.get('main_image') as string,
+    name: formData.get('name') as string,
+    description: formData.get('description') as string,
+    price: Number(formData.get('price')),
+    categoryId: Number(formData.get('category')),
+    storeId: Number(storeId),
+    image: imageToSend
+  }
+  // console.log(productBody)
+  await createProduct(productBody)
+
+  revalidatePath(`/${storeId}/dashboard`)
+}
+
 export async function createCategory (category: ICategoryPost) {
   const requestOptions: RequestInit = {
     method: 'POST',
@@ -81,27 +102,6 @@ export async function createCategory (category: ICategoryPost) {
   return await response.json()
 }
 
-export const addProduct = async (
-  formData: FormData,
-  storeId: string | number
-) => {
-  const image = formData.get('image') as string
-  const imageToSend = image === '' ? null : image
-  const productBody: IProductPost = {
-    // main_image: formData.get('main_image') as string,
-    name: formData.get('name') as string,
-    description: formData.get('description') as string,
-    price: Number(formData.get('price')),
-    categoryId: Number(formData.get('category')),
-    storeId: Number(storeId),
-    image: imageToSend
-  }
-  // console.log(productBody)
-  await createProduct(productBody)
-
-  revalidatePath(`${storeId}/dashboard`)
-}
-
 export const addCategory = async (
   formData: FormData,
   storeId: string | number
@@ -116,7 +116,45 @@ export const addCategory = async (
   revalidatePath(`${storeId}/dashboard`)
 }
 
+// export async function deleteProduct (productId: number) {
+//   const requestOptions: RequestInit = {
+//     method: 'DELETE',
+//     redirect: 'follow',
+//     cache: 'no-store'
+//   }
+
+//   const response = await fetch(
+//     `${BASE_URL}/products/${productId}`,
+//     requestOptions
+//   )
+
+//   if (!response.ok) {
+//     throw new Error('Error al eliminar el producto')
+//   }
+
+// }
 export async function deleteProduct (productId: number) {
+  return await new Promise((resolve, reject) => {
+    const requestOptions: RequestInit = {
+      method: 'DELETE',
+      redirect: 'follow',
+      cache: 'no-store'
+    }
+
+    fetch(`${BASE_URL}/products/${productId}`, requestOptions)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error al eliminar el producto')
+        }
+        resolve(response)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+
+export async function deleteProduct2 (productId: number | string) {
   const requestOptions: RequestInit = {
     method: 'DELETE',
     redirect: 'follow',
@@ -131,11 +169,17 @@ export async function deleteProduct (productId: number) {
   if (!response.ok) {
     throw new Error('Error al eliminar el producto')
   }
+  // await new Promise((resolve) => setTimeout(resolve, 7000))
 
-  // console.log(response.json())
+  return response.ok
+}
+
+export const removeProduct = async (formData: FormData) => {
+  const productId = formData.get('productId') as string
+
+  await deleteProduct2(productId)
+  // await mutate()
   revalidatePath('/dashboard')
-
-  // return await response.json()
 }
 
 // export async function fetchFilteredProducts (currentCategoryId: string) {

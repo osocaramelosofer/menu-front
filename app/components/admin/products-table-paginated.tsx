@@ -1,5 +1,5 @@
 'use client'
-import React, { useMemo } from 'react'
+import React from 'react'
 import {
   Table,
   TableHeader,
@@ -12,42 +12,37 @@ import {
   Chip,
   Image,
   Popover,
-  Button,
   PopoverContent,
   PopoverTrigger
 } from '@nextui-org/react'
 import useSWR from 'swr'
 import { BASE_URL, getOptimizedImageUrl, truncateString } from '@/lib/utils'
-import DropdownProductActions from './dropdown-product-actions'
+
 import type { IProduct } from '@/interfaces/product'
 import AddProductCategoryButton from './add-product-category-button'
+import DropdownProductActions from './dropdown-product-actions'
 
 // Define a type for the fetcher function's arguments.
 type FetcherArgs = [input: RequestInfo, init?: RequestInit]
 
 const fetcher = async (...args: FetcherArgs) =>
   await fetch(...args).then(async res => await res.json())
-
 export default function ProductsTablePaginated ({
   storeId
 }: {
   storeId: number | string
 }) {
   const [page, setPage] = React.useState(1)
-  const rowsPerPage = 10
+  const rowsPerPage = 7
 
-  const { data, isLoading } = useSWR(
-    `${BASE_URL}/products?store=${storeId}&page=${page}&resultsPerPage=${rowsPerPage}`,
-    fetcher,
-    {
-      keepPreviousData: true
-    }
-  )
+  const url = `${BASE_URL}/products?store=${storeId}&page=${page}&resultsPerPage=${rowsPerPage}`
 
-  const pages = useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    return data?.count ? Math.ceil(data.count / rowsPerPage) : 0
-  }, [data?.count, rowsPerPage])
+  const { data, isLoading, error } = useSWR(url, fetcher, {
+    keepPreviousData: true
+  })
+
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  const pages = data?.count ? Math.ceil(data.count / rowsPerPage) : 0
 
   const loadingState = isLoading
     ? 'loading'
@@ -80,12 +75,17 @@ export default function ProductsTablePaginated ({
         )
       case 'category':
         return (
-          <Popover color='warning' placement='right'>
+          <Popover shouldBlockScroll color='warning' placement='right'>
             <PopoverTrigger>
-              <Chip size='sm'>{truncateString(product.category.name, 7)}</Chip>
+              <Chip size='sm'>
+                {product.category.id}
+                {truncateString(product.category.name, 7)}
+              </Chip>
             </PopoverTrigger>
             <PopoverContent>
-              <h1 className='text-small font-bold'>{product.category.name}</h1>
+              <h1 className='text-small font-medium'>
+                {product.category.name}
+              </h1>
             </PopoverContent>
           </Popover>
         )
@@ -114,33 +114,29 @@ export default function ProductsTablePaginated ({
         <AddProductCategoryButton label='Nuevo Producto' />
       </div>
       <Table
-        aria-label='Example table with client async pagination'
+        aria-label='Products table with client async pagination'
         bottomContent={
-          // eslint-disable-next-line multiline-ternary
-          pages > 0 ? (
-            <div className='flex w-full justify-center'>
-              <Pagination
-                isCompact
-                showControls
-                className=' text-white'
-                showShadow
-                color='primary'
-                page={page}
-                total={pages}
-                onChange={page => {
-                  setPage(page)
-                }}
-              />
-            </div>
-          ) : null
+          <div className='flex w-full justify-center'>
+            <Pagination
+              isCompact
+              showControls
+              className=' text-white'
+              showShadow
+              color='primary'
+              page={page}
+              total={pages}
+              onChange={page => {
+                setPage(page)
+              }}
+            />
+          </div>
         }
-        //   {...args}
       >
         <TableHeader columns={columns}>
           {column => <TableColumn key={column.id}>{column.name}</TableColumn>}
         </TableHeader>
         <TableBody
-          emptyContent={'No hay ordenes aun.'}
+          emptyContent={'No hay productos aun.'}
           items={data?.results ?? []}
           loadingContent={<Spinner size='lg' color='warning' />}
           loadingState={loadingState}

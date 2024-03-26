@@ -17,11 +17,10 @@ import { fetchAllStoreBanners } from '@/lib/actions/banner.actions'
 import NoAccessPermission from '@/app/components/admin/no-access-permission'
 import NavBar from '@/app/components/common/nav-bar'
 import AdminHeader from '@/app/components/admin/admin-header'
-// import AdminAccordionProducts from '@/app/components/admin/admin-accordion-products'
 import AdminBannersSection from '@/app/components/admin/admin-banners-section'
 import BannersSkeleton from '@/app/components/skeletons/banners-skeleton'
-import AddProductCategoryButton from '@/app/components/admin/add-product-category-button'
-import { Chip } from '@nextui-org/react'
+import PaginatedTableSkeleton from '@/app/components/skeletons/paginated-table-skeleton'
+
 // paginated tables
 import OrdersTablePaginated from '@/app/components/orders/orders-table-paginated'
 import ProductsTablePaginated from '@/app/components/admin/products-table-paginated'
@@ -32,6 +31,7 @@ import {
   StoreModal,
   BannerModal
 } from '@/app/components/admin/modals'
+import AdminCategoriesSection from '@/app/components/admin/admin-categories-section'
 
 interface RootPageProps {
   searchParams: {
@@ -90,33 +90,17 @@ export default async function DashboardPage ({
         </Suspense>
 
         {/* PRODUCTS SECTION  */}
-        <ProductsTablePaginated storeId={params.storeId} />
+        <Suspense fallback={<PaginatedTableSkeleton />}>
+          <ProductsTablePaginated storeId={params.storeId} />
+        </Suspense>
 
         {/* CATEGORIES SECTION  */}
-        <section className='flex flex-col gap-4 relative'>
-          <div className=' flex justify-between items-end w-full'>
-            <h2 className='font-semibold text-lg'>
-              Categorías ({categories.length})
-            </h2>
-            <AddProductCategoryButton label='Nueva Categoría' />
-          </div>
-
-          <div className='flex gap-3 flex-wrap'>
-            {categories.map(category => (
-              <Chip
-                size='lg'
-                variant='shadow'
-                color='warning'
-                key={category.id}
-              >
-                {category.name}
-              </Chip>
-            ))}
-          </div>
-        </section>
+        <AdminCategoriesSection categories={categories} />
 
         {/* ORDERS SECTION  */}
-        <OrdersTablePaginated storeId={params.storeId} />
+        <Suspense fallback={<PaginatedTableSkeleton />}>
+          <OrdersTablePaginated storeId={params.storeId} />
+        </Suspense>
       </main>
 
       {/* MODALS SECTION  */}

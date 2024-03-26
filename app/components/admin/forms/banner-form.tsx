@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react'
 
-import { Input } from '@nextui-org/react'
+import { Input, Textarea } from '@nextui-org/react'
 import { SubmitButton } from './submit-button'
 import UploadProductImage from '../upload-product-image'
 import PopoverInfo from '../../common/popover-info'
@@ -38,18 +38,21 @@ export default function BannerForm ({ storeId }: { storeId: string | number }) {
       />
       <Input
         isRequired
+        maxLength={32}
         label='Titulo'
         name='title'
         placeholder='Ingresa el titulo del banner'
       />
       <Input
+        maxLength={22}
         isRequired
         label='Subtitulo'
         name='subtitle'
         placeholder='Ingresa un subtitulo para tu banner'
       />
-      <Input
+      <Textarea
         isRequired
+        maxLength={150}
         label='Descripción'
         name='description'
         placeholder='Ingresa una breve descripción del banner'

@@ -9,6 +9,9 @@ import { SubmitButton } from './submit-button'
 import { FaPlus } from 'react-icons/fa'
 import UploadProductImage from '../upload-product-image'
 import PopoverInfo from '../../common/popover-info'
+import { mutate } from 'swr'
+import { BASE_URL } from '@/lib/utils'
+import { revalidateLiveQueries } from '@/app/providers'
 
 export default function ProductForm ({
   categories,
@@ -76,6 +79,7 @@ export default function ProductForm ({
       action={async formData => {
         await addProduct(formData, storeId)
         closeModal('productCategoryModal')
+        await revalidateLiveQueries()
       }}
       className='flex flex-col gap-5'
     >

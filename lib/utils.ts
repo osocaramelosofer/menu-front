@@ -32,7 +32,7 @@ export function getOptimizedImageUrl (
   mainImageUrl: string,
   width: number | string
 ) {
-  const defaultImageUrl = 'https://i.imgur.com/VjWugqll.png'
+  const defaultImageUrl = 'https://i.imgur.com/dAmZQo2l.png'
   if (mainImageUrl === null) {
     return defaultImageUrl
   }
@@ -49,6 +49,21 @@ export function getOptimizedImageUrl (
   const optimizedImagePath = pathArray.join('/')
   const cloudinaryBaseUrl = 'https://res.cloudinary.com/drzrkaoje/'
   return cloudinaryBaseUrl + optimizedImagePath
+}
+
+type PaymentType = 'cash' | 'terminal' | 'transfer'
+
+const paymentTypeDisplay: Record<PaymentType, string> = {
+  cash: 'Efectivo',
+  terminal: 'Terminal',
+  transfer: 'Transferencia'
+}
+
+export const getPaymentTypeDisplay = (type: PaymentType | string): string => {
+  // If 'type' is a key in 'paymentTypeDisplay', return its value.
+  // Otherwise, return 'Unknown Payment Type'.
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  return paymentTypeDisplay[type as PaymentType] || 'Unknown Payment Type'
 }
 
 // export const BASE_URL: string = 'https://menu-app-back-2b09f4029d5d.herokuapp.com/api/v1'

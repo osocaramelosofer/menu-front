@@ -1,5 +1,5 @@
 'use client'
-import React, { useMemo } from 'react'
+import React from 'react'
 import {
   Table,
   TableHeader,
@@ -9,12 +9,13 @@ import {
   TableCell,
   Pagination,
   Spinner,
-  getKeyValue,
   Chip
 } from '@nextui-org/react'
 import useSWR from 'swr'
 import { BASE_URL, capitalize, formatDate } from '@/lib/utils'
 import type { IOrder } from '@/interfaces/order'
+
+import OrderDetailsModal from '../admin/modals/order-details-modal'
 
 // Define a type for the fetcher function's arguments.
 type FetcherArgs = [input: RequestInfo, init?: RequestInit]
@@ -38,17 +39,14 @@ export default function OrdersTablePaginated ({
     }
   )
 
-  const pages = useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    return data?.count ? Math.ceil(data.count / rowsPerPage) : 0
-  }, [data?.count, rowsPerPage])
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  const pages = data?.count ? Math.ceil(data.count / rowsPerPage) : 0
 
-  const loadingState =
-    isLoading
-      ? 'loading'
-      : data?.results.length === 0
-        ? 'idle'
-        : 'idle'
+  const loadingState = isLoading
+    ? 'loading'
+    : data?.results.length === 0
+      ? 'idle'
+      : 'idle'
 
   const renderCell = React.useCallback((order: IOrder, columnKey: any) => {
     switch (columnKey) {
@@ -67,12 +65,7 @@ export default function OrdersTablePaginated ({
           </Chip>
         )
       case 'paymentType':
-        return (
-          <div className='relative flex items-center justify-end gap-2'>
-            {/* <DropdownProductActions product={product} /> */}
-            <Chip size='sm'>{order.paymentType}</Chip>
-          </div>
-        )
+        return <OrderDetailsModal order={order} />
 
       default:
         return null
