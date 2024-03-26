@@ -17,7 +17,7 @@ export default async function ProductsList ({
   currentOffset?: string
   storeId: string | number
 }) {
-  const resultsPeerPage = 3
+  const resultsPeerPage = 7
 
   const url: string = `${BASE_URL}/products?store=${storeId}&resultsPerPage=${resultsPeerPage}&page=${currentPage}&categoryId=${currentCategoryId}`
 

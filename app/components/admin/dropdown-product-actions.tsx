@@ -18,11 +18,9 @@ import { deleteProductAction } from '@/lib/actions/product.actions'
 import { revalidateLiveQueries } from '@/app/providers'
 
 export default function DropdownProductActions ({
-  product,
-  mutate
+  product
 }: {
   product: IProduct
-  mutate?: any
 }) {
   const [loading, setLoading] = useState(false)
 

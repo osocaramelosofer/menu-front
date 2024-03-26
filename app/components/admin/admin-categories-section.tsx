@@ -3,8 +3,9 @@ import type { ICategory } from '@/interfaces/product'
 
 // components
 import AddProductCategoryButton from '@/app/components/admin/add-product-category-button'
-import { Chip } from '@nextui-org/react'
 import EmptyData from '../common/empty-data'
+
+import CategoryChipDeletable from '../categories/category-chip-deletable'
 
 export default async function AdminCategoriesSection ({
   categories
@@ -36,14 +37,24 @@ export default async function AdminCategoriesSection ({
         </h2>
         <AddProductCategoryButton label='Nueva Categoría' />
       </div>
-
       <div className='flex gap-3 flex-wrap'>
         {categories.map(category => (
-          <Chip size='lg' variant='flat' color='warning' key={category.id}>
+          <CategoryChipDeletable key={category.id} category={category} />
+        ))}
+      </div>
+      {/* <div className='flex gap-3 flex-wrap'>
+        {categories.map(category => (
+          <Chip
+            size='lg'
+            variant='flat'
+            color='warning'
+            key={category.id}
+            onClose={() => {}}
+          >
             {category.name}
           </Chip>
         ))}
-      </div>
+      </div> */}
     </section>
   )
 }

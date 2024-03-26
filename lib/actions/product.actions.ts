@@ -15,7 +15,7 @@ export async function deleteProductAction (productId: number | string) {
   if (!response.ok) {
     throw new Error('Error al eliminar el producto')
   }
-  await new Promise(resolve => setTimeout(resolve, 3000))
+  // await new Promise(resolve => setTimeout(resolve, 3000))
 
   return data
 }
