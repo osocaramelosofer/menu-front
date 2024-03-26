@@ -1,85 +1,121 @@
-import React from 'react'
-import type { ICategory, IApiResponse } from '@/interfaces/product'
-import type { IStore } from '@/interfaces/store'
+import React, { Suspense } from 'react'
+import Await from './await'
+import clsx from 'clsx'
 import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
-import AdminAccordionProducts from '@/app/components/admin/admin-accordion-products'
-import AdminHeader from '@/app/components/admin/admin-header'
-import {
-  fetchAllStoreProducts,
-  fetchStoreById,
-  fetchUserByEmail
-} from '@/lib/actions'
+import { notFound, redirect } from 'next/navigation'
+
+// types
+import type { Metadata } from 'next'
+import type { ICategory } from '@/interfaces/product'
+import type { IStore } from '@/interfaces/store'
+
+// actions
+import { fetchUserByEmail } from '@/lib/actions'
+import { fetchStoreById } from '@/lib/actions/store.actions'
+import { fetchAllStoreBanners } from '@/lib/actions/banner.actions'
+
+// components
 import NoAccessPermission from '@/app/components/admin/no-access-permission'
 import NavBar from '@/app/components/common/nav-bar'
+import AdminHeader from '@/app/components/admin/admin-header'
+import AdminBannersSection from '@/app/components/admin/admin-banners-section'
+import BannersSkeleton from '@/app/components/skeletons/banners-skeleton'
+import PaginatedTableSkeleton from '@/app/components/skeletons/paginated-table-skeleton'
+
+// paginated tables
+import OrdersTablePaginated from '@/app/components/orders/orders-table-paginated'
+import ProductsTablePaginated from '@/app/components/admin/products-table-paginated'
 
 // modals
-import { ProductCategoryModal, StoreModal } from '@/app/components/admin/modals'
-import AddProductButton from '@/app/components/admin/add-product-button'
-import clsx from 'clsx'
-import TableProduct from '@/app/components/admin/table-products'
-import BannersCarousel from '@/app/components/carousel/banners-carousel'
-import AdminBannersSection from '@/app/components/admin/admin-banners-section'
-import BannerModal from '@/app/components/admin/modals/banner-modal'
+import {
+  ProductCategoryModal,
+  StoreModal,
+  BannerModal
+} from '@/app/components/admin/modals'
+import AdminCategoriesSection from '@/app/components/admin/admin-categories-section'
 
-export default async function DashboardPage ({
+interface RootPageProps {
+  searchParams: {
+    categoryId?: string
+    categoryName?: string
+    page?: string
+    ordersPage?: string
+  }
+  params: { storeId: number | string }
+}
+export async function generateMetadata ({
   params
-}: {
-  params: { storeId: string }
-}) {
+}: RootPageProps): Promise<Metadata> {
+  // fetch data
+  const store: IStore = await fetchStoreById(params.storeId)
+
+  return {
+    title: `Dashboard | ${store.name} - MenuApp`,
+    description: store.description
+  }
+}
+
+export default async function DashboardPage ({ params }: RootPageProps) {
   const session = await getServerSession()
   const userEmail = session?.user?.email
   const user = await fetchUserByEmail(userEmail)
 
   const store: IStore = await fetchStoreById(params.storeId)
-  const allStoreProducts: IApiResponse = await fetchAllStoreProducts(
-    params.storeId
-  )
-  const categories: ICategory[] = store.categories.sort((a, b) =>
+  const categories: ICategory[] = store?.categories.sort((a, b) =>
     a.name.localeCompare(b.name)
   )
+  // Promises to Await.tsx
+  const storeBanners = fetchAllStoreBanners(params.storeId)
+
+  if (store === null) {
+    return notFound()
+  }
 
   if (session === null) {
     redirect('/api/auth/signin')
   }
 
-  if (user?.storeId !== store.id) {
+  if (user?.storeId !== store?.id) {
     return <NoAccessPermission />
   }
 
   return (
     <React.Fragment>
-      <NavBar store={store} />
+      <NavBar store={store} isHiddenCart />
       <main
         className={clsx(
-          'flex flex-col w-full h-full px-4 pb-20 relative',
+          'flex flex-col w-full h-full px-4 pb-20 relative gap-8 max-w-3xl',
           store.themeColor ?? ''
         )}
       >
+        {/* HEADER SECTION  */}
         <AdminHeader session={session} />
-        <AdminBannersSection store={store} />
-        <section className=' flex flex-col gap-4 mb-4 relative'>
-          <h2 className='font-semibold text-lg'>
-            Mis Productos ({allStoreProducts.results.length})
-          </h2>
-          <TableProduct products={allStoreProducts.results} />
-        </section>
 
-        <section className=' flex flex-col gap-4 mb-4 relative'>
-          <h2 className='font-semibold text-lg'>
-            Mis Categorías ({categories.length})
-          </h2>
+        {/* BANNERS SECTION  */}
+        <Suspense
+          key={Math.random()}
+          fallback={<BannersSkeleton isDashboardSection />}
+        >
+          <Await promise={storeBanners}>
+            {banners => <AdminBannersSection banners={banners} />}
+          </Await>
+        </Suspense>
 
-          {categories.map(category => (
-            <AdminAccordionProducts
-              key={category.id}
-              products={allStoreProducts.results}
-              category={category}
-            />
-          ))}
-          <AddProductButton />
-        </section>
+        {/* PRODUCTS SECTION  */}
+        <Suspense fallback={<PaginatedTableSkeleton />}>
+          <ProductsTablePaginated storeId={params.storeId} />
+        </Suspense>
+
+        {/* CATEGORIES SECTION  */}
+        <AdminCategoriesSection categories={categories} />
+
+        {/* ORDERS SECTION  */}
+        <Suspense fallback={<PaginatedTableSkeleton />}>
+          <OrdersTablePaginated storeId={params.storeId} />
+        </Suspense>
       </main>
+
+      {/* MODALS SECTION  */}
       <ProductCategoryModal categories={categories} store={store} />
       <BannerModal store={store} />
       <StoreModal store={store} />

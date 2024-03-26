@@ -23,7 +23,7 @@ export default function FeaturedProductCard ({
     openModal()
   }
 
-  const image = getOptimizedImageUrl(product.image, 'auto')
+  const image = getOptimizedImageUrl(product.image, 350)
 
   return (
     <Card
@@ -54,7 +54,7 @@ export default function FeaturedProductCard ({
             {product.name}
           </h3>
           <p className='text-small font-medium text-default-500'>
-            ${product.price}
+            ${product.price.toFixed(2)}
           </p>
         </div>
       </CardBody>

@@ -9,6 +9,9 @@ import { SubmitButton } from './submit-button'
 import { FaPlus } from 'react-icons/fa'
 import UploadProductImage from '../upload-product-image'
 import PopoverInfo from '../../common/popover-info'
+import { mutate } from 'swr'
+import { BASE_URL } from '@/lib/utils'
+import { revalidateLiveQueries } from '@/app/providers'
 
 export default function ProductForm ({
   categories,
@@ -76,6 +79,7 @@ export default function ProductForm ({
       action={async formData => {
         await addProduct(formData, storeId)
         closeModal('productCategoryModal')
+        await revalidateLiveQueries()
       }}
       className='flex flex-col gap-5'
     >
@@ -108,13 +112,14 @@ export default function ProductForm ({
       />
 
       <Input
-        maxLength={7}
+        maxLength={5}
         isRequired
+        isInvalid={!!/^0(\.0{0,2})?$/.test(price)}
         label='Precio'
         name='price'
         type='text'
         min='1'
-        color={/^0(\.0{0,2})?$/.test(price) ? 'warning' : 'default'}
+        color={/^0(\.0{0,2})?$/.test(price) ? 'danger' : 'default'}
         value={price}
         onChange={handlePriceChange}
         placeholder='0.00'
@@ -147,7 +152,12 @@ export default function ProductForm ({
       </div>
       <input type='hidden' name='category' value={categoryValue} />
 
-      <SubmitButton label='Crear Nuevo Producto' />
+      <SubmitButton
+        isDisabled={
+          !!/^0(\.0{0,2})?$/.test(price) || categoryValue.length === 0
+        }
+        label='Crear Nuevo Producto'
+      />
     </form>
   )
 }

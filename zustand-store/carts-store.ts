@@ -13,6 +13,8 @@ interface CartState {
   loading: boolean
   cartPrice: number
   cartList: IProduct[]
+  setCartList: (newCartList: IProduct[]) => void
+
   sharedCartList: ISharedCartList[]
   setSharedCartList: (newCartList: ISharedCartList[]) => void
 
@@ -48,6 +50,9 @@ export const useCartsStore = create<CartState>(
       loading: false,
       cartPrice: 0,
       cartList: [],
+      setCartList: (newCartList: IProduct[]) => {
+        set({ cartList: newCartList })
+      },
       sharedCartList: [],
       setSharedCartList: (newCartList: ISharedCartList[]) => {
         set({ sharedCartList: newCartList })
@@ -68,7 +73,9 @@ export const useCartsStore = create<CartState>(
       },
 
       socketId: undefined,
-      setSocketId: (id: string | undefined) => { set({ socketId: id }) },
+      setSocketId: (id: string | undefined) => {
+        set({ socketId: id })
+      },
 
       isModalOpen: false,
       openModal: () => {
@@ -115,9 +122,9 @@ export const useCartsStore = create<CartState>(
             if (foundProductIndex !== -1) {
               // Producto encontrado, comprobar explícitamente que quantity es un número
               const currentQuantity =
-                  typeof state.cartList[foundProductIndex].quantity === 'number'
-                    ? state.cartList[foundProductIndex].quantity
-                    : 0
+                typeof state.cartList[foundProductIndex].quantity === 'number'
+                  ? state.cartList[foundProductIndex].quantity
+                  : 0
               state.cartList[foundProductIndex].quantity = currentQuantity + 1
             }
           })
@@ -162,7 +169,7 @@ export const useCartsStore = create<CartState>(
           produce(state => {
             let totalPrice = 0
             state.cartList.forEach((cartItem: IProduct) => {
-              const price = parseFloat(cartItem.price)
+              const price = cartItem.price
               // Si price es NaN, usa 0; de lo contrario, usa el valor de price.
               const validPrice = Number.isNaN(price) ? 0 : price
               const quantity = cartItem.quantity // Suponiendo que quantity es un número válido o 0.
@@ -170,7 +177,7 @@ export const useCartsStore = create<CartState>(
               totalPrice += validPrice * validQuantity
             })
             // Actualiza el precio total del carrito en el estado.
-            state.cartPrice = totalPrice.toFixed(2).toString()
+            state.cartPrice = totalPrice
           })
         )
       }

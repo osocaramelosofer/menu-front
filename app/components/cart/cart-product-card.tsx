@@ -13,7 +13,7 @@ export default function CartProductCard ({
   product: IProduct
   isDisabled?: boolean
 }) {
-  const image = getOptimizedImageUrl(product.image, 60)
+  const image = getOptimizedImageUrl(product.image, 120)
 
   function TruncateText ({
     text,
@@ -129,7 +129,7 @@ export default function CartProductCard ({
               </Button>
             </div>
             <Chip variant='flat' size='sm' color='success'>
-              ${product.price}
+              ${product.price.toFixed(2)}
             </Chip>
           </div>
         </div>

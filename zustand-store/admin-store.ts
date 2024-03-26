@@ -1,6 +1,10 @@
 import { create } from 'zustand'
 
-type ModalId = 'storeModal' | 'productCategoryModal' | 'bannerModal'
+type ModalId =
+  | 'storeModal'
+  | 'productCategoryModal'
+  | 'bannerModal'
+  | 'orderDetailsModal'
 type ModalState = Record<ModalId, boolean>
 
 interface State {
@@ -17,7 +21,8 @@ export const useAdminStore = create<State>((set, get) => ({
   modals: {
     storeModal: false,
     productCategoryModal: false,
-    bannerModal: false
+    bannerModal: false,
+    orderDetailsModal: false
   },
 
   openModal: (id: ModalId) => {

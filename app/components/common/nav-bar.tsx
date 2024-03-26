@@ -22,13 +22,24 @@ import type { IStore } from '@/interfaces/store'
 import NavbarBrandDropdown from './navbar-brand-dropdown'
 import clsx from 'clsx'
 
-export default function NavBar ({ store }: { store: IStore }) {
+export default function NavBar ({
+  store,
+  isHiddenCart
+}: {
+  store: IStore
+  isHiddenCart?: boolean
+}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   const { calculateCartPrice, cartList, isInSharedCart, cartPrice } =
     useCartsStore()
-  const { handleCreateRoom, handleJoinRoom, handleLeaveRoom, updateCart } =
-    useRoomSocket()
+  const {
+    handleCreateRoom,
+    handleJoinRoom,
+    handleLeaveRoom,
+    updateCart,
+    handleOrderCompleted
+  } = useRoomSocket()
 
   React.useEffect(() => {
     if (isInSharedCart) {
@@ -48,7 +59,12 @@ export default function NavBar ({ store }: { store: IStore }) {
     >
       <NavbarContent className='w-full'>
         <NavbarBrandDropdown store={store} />
-        <div className='flex w-full flex-1 justify-end items-center relative'>
+        <div
+          className={clsx(
+            'w-full flex-1 justify-end items-center relative',
+            isHiddenCart === true ? ' hidden' : 'flex'
+          )}
+        >
           <Badge
             content={cartList.length}
             size='sm'
@@ -75,11 +91,14 @@ export default function NavBar ({ store }: { store: IStore }) {
               {/* eslint-disable-next-line multiline-ternary */}
               {isInSharedCart ? (
                 <SharedCartDropdown
+                  storeId={store.id}
                   handleLeaveRoom={handleLeaveRoom}
                   updateCart={updateCart}
+                  handleOrderCompleted={handleOrderCompleted}
                 />
               ) : (
                 <CartDropdown
+                  storeId={store.id}
                   handleCreateRoom={handleCreateRoom}
                   handleJoinRoom={handleJoinRoom}
                 />

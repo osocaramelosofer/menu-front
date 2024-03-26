@@ -1,8 +1,6 @@
 'use client'
 
 import { type IProduct } from '@/interfaces/product'
-import { deleteProduct } from '@/lib/actions'
-import { useProductsStore } from '@/zustand-store/products-store'
 import {
   Button,
   Code,
@@ -12,27 +10,33 @@ import {
   DropdownTrigger,
   Switch
 } from '@nextui-org/react'
+
 import { useState } from 'react'
 import { FaEllipsisV, FaTrash } from 'react-icons/fa'
+
+import { deleteProductAction } from '@/lib/actions/product.actions'
+import { revalidateLiveQueries } from '@/app/providers'
 
 export default function DropdownProductActions ({
   product
 }: {
   product: IProduct
 }) {
-  const { setSelectedProduct, selectedProduct } = useProductsStore()
   const [loading, setLoading] = useState(false)
-  const handleSelectedProduct = () => {
-    setSelectedProduct(product)
-  }
 
-  const handleDeleteProduct = async () => {
+  async function removeProductEvent () {
     setLoading(true)
-    await deleteProduct(product.id)
+
+    await deleteProductAction(product.id)
+
+    // Actualiza los datos locales
+    // await mutate()
+    await revalidateLiveQueries()
+    setLoading(false)
   }
 
   return (
-    <Dropdown onOpenChange={handleSelectedProduct} showArrow backdrop='opaque'>
+    <Dropdown showArrow backdrop='opaque'>
       <DropdownTrigger>
         <Button
           as={Code}
@@ -53,7 +57,7 @@ export default function DropdownProductActions ({
           className='h-14 gap-2'
         >
           <p>Acciones para</p>
-          <p className='font-semibold'>{selectedProduct?.name}</p>
+          <p className='font-semibold'>{product.name}</p>
         </DropdownItem>
         <DropdownItem
           textValue='switch to update availability'
@@ -71,10 +75,10 @@ export default function DropdownProductActions ({
         >
           Producto <br /> <strong>Disponible</strong>
         </DropdownItem>
+
         <DropdownItem
           isReadOnly
           textValue='delete product'
-          onPress={handleDeleteProduct}
           key='delete'
           className='text-danger'
           color='danger'
@@ -86,7 +90,7 @@ export default function DropdownProductActions ({
             fullWidth
             color='danger'
             startContent={<FaTrash />}
-            onPress={handleDeleteProduct}
+            onPress={removeProductEvent}
           >
             Eliminar Producto
           </Button>

@@ -17,11 +17,9 @@ export default async function ProductsList ({
   currentOffset?: string
   storeId: string | number
 }) {
-  const resultsPeerPage = 3
+  const resultsPeerPage = 7
 
-  const url: string = `${BASE_URL}/products?store=${storeId}&resultsPerPage=${resultsPeerPage}&page=${
-    currentPage != null || '1'
-  }&categoryId=${currentCategoryId}`
+  const url: string = `${BASE_URL}/products?store=${storeId}&resultsPerPage=${resultsPeerPage}&page=${currentPage}&categoryId=${currentCategoryId}`
 
   const products: IApiResponse = await fetchPaginatedProducts(url)
 
@@ -37,7 +35,11 @@ export default async function ProductsList ({
         ))}
       </section>
       <section className='flex flex-col flex-1 w-full justify-center items-center  z-10'>
-        <CustomPagination data={products} resultsPeerPage={resultsPeerPage} />
+        <CustomPagination
+          disableAnimation
+          data={products}
+          resultsPeerPage={resultsPeerPage}
+        />
       </section>
     </div>
   )

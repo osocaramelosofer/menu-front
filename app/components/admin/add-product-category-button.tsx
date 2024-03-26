@@ -5,7 +5,7 @@ import { Button } from '@nextui-org/react'
 import { useAdminStore } from '@/zustand-store/admin-store'
 import { FaPlus } from 'react-icons/fa'
 
-export default function AddProductButton () {
+export default function AddProductCategoryButton ({ label }: { label: string }) {
   const { openModal } = useAdminStore()
 
   const handleOpenModal = () => {
@@ -13,14 +13,15 @@ export default function AddProductButton () {
   }
 
   return (
-    <footer className='flex flex-col w-fit self-center gap-3 sticky bottom-10 z-50'>
+    <footer className='flex flex-col w-fit '>
       <Button
+        size='sm'
         startContent={<FaPlus />}
         color='primary'
         className=' text-white'
         onPress={handleOpenModal}
       >
-        Agregar producto o categoría
+        {label}
       </Button>
     </footer>
   )

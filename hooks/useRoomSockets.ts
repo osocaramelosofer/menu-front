@@ -4,9 +4,11 @@ import {
   type ISharedCartList,
   useCartsStore
 } from '@/zustand-store/carts-store'
+import { useRouter } from 'next/navigation'
 
 export function useRoomSocket () {
   const socket = useSocket()
+  const router = useRouter()
   const {
     cartList,
     cartPrice,
@@ -28,7 +30,7 @@ export function useRoomSocket () {
       (response: { status: string, roomId: any, message: any }) => {
         if (response.status === 'success') {
           setIsInSharedCart(true)
-          console.log(`Room created with ID: ${response.roomId}`)
+          // console.log(`Room created with ID: ${response.roomId}`)
           setRoomId(response.roomId) // Asume que tienes una función setRoomId en tu estado global o local
           handleJoinRoom(response.roomId, username)
         } else {
@@ -51,23 +53,12 @@ export function useRoomSocket () {
           members: any
         }) => {
           if (response.status === 'success') {
-            console.log(
-              `Joined room with ID: ${roomId}`,
-              response.sharedCartList
-            )
+            // console.log(
+            //   `Joined room with ID: ${roomId}`,
+            //   response.sharedCartList
+            // )
             // console.log(`Joined room members: ${roomId}`, response.members)
             setIsInSharedCart(true)
-
-            // UPDATE CART
-            // socket?.emit('UPDATE_CART', { roomId, username, cartList, cartPrice }, (response: { status: string, message: any, sharedCartList: any }) => {
-            //   console.log('RES: ', response)
-
-            //   if (response.status === 'success') {
-            //     // console.log('Cart updated successfully')
-            //   } else {
-            //     console.error('Error updating cart:', response.message)
-            //   }
-            // })
           } else {
             console.error('Error joining room:', response.message)
           }
@@ -75,6 +66,29 @@ export function useRoomSocket () {
       )
     },
     [socket, username]
+  )
+
+  // useRoomSocket.js
+
+  // Add a new function for handling the order completion
+  const handleOrderCompleted = useCallback(
+    (storeId: string | number, orderId: number | undefined) => {
+      socket?.emit(
+        'ORDER_COMPLETED',
+        { roomId, storeId, orderId },
+        (response: { status: string, message: any }) => {
+          if (response.status === 'success') {
+            // console.log('Order completed, redirecting users.')
+            // setRoomId('')
+            // setSharedCartList([])
+            // setIsInSharedCart(false)
+          } else {
+            console.error('Error completing order:', response.message)
+          }
+        }
+      )
+    },
+    [socket, roomId]
   )
 
   const updateCart = useCallback(() => {
@@ -131,16 +145,22 @@ export function useRoomSocket () {
     }
 
     socket?.on('SHARED_CART_UPDATED', handleSharedCartUpdated)
+    const handleRedirect = (path: string) => {
+      router.push(path)
+    }
+    socket?.on('REDIRECT', handleRedirect)
 
     // Limpiar el listener al desmontar
     return () => {
       socket?.off('SHARED_CART_UPDATED', handleSharedCartUpdated)
+      socket?.off('REDIRECT', handleRedirect)
     }
-  }, [socket, updateCart])
+  }, [socket, updateCart, router])
 
   return {
     handleCreateRoom,
     handleJoinRoom,
+    handleOrderCompleted,
     // handleCartUpdate,
     handleLeaveRoom,
     updateCart

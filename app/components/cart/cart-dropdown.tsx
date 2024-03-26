@@ -14,14 +14,18 @@ import { useCartsStore } from '@/zustand-store/carts-store'
 import CartProductCard from '../cart/cart-product-card'
 import SharedCartTabsForm from '../cart/shared-cart-tabs-form'
 
+import CartOrderForm from './cart-order-form'
+
 export default function CartDropdown ({
+  storeId,
   handleCreateRoom,
   handleJoinRoom
 }: {
+  storeId: number
   handleCreateRoom: () => void
   handleJoinRoom: (username: string, roomId: string) => void
 }) {
-  const { cartList, cartPrice, socketId } = useCartsStore()
+  const { cartList, socketId } = useCartsStore()
 
   const itemClasses = {
     title: 'font-medium text-sm',
@@ -97,15 +101,13 @@ export default function CartDropdown ({
           })}
         </DropdownItem>
       )}
-
-      <DropdownItem className='border-none' isReadOnly textValue='Total Price'>
-        <div className='flex flex-col justify-center items-center'>
-          <p className='text-sm font-medium'>Total</p>
-          <h3 className='text-2xl font-bold '>
-            <span className='text-success'>$</span>
-            {cartPrice}
-          </h3>
-        </div>
+      <DropdownItem
+        className='border-none'
+        showDivider
+        isReadOnly
+        textValue='Order now form and order total'
+      >
+        <CartOrderForm storeId={storeId} />
       </DropdownItem>
     </DropdownMenu>
   )

@@ -30,7 +30,7 @@ export default function useSocket () {
           (response: { status: string }) => {
             // Verificar la respuesta y actualizar el estado si es necesario
             if (response.status === 'success') {
-              console.log('Reconnected successfully')
+              // console.log('Reconnected successfully')
               socketIo.emit(
                 'UPDATE_CART',
                 { roomId, username, cartList, cartPrice },

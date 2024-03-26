@@ -1,13 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import {
-  Card,
-  Image,
-  CardFooter,
-  CardHeader,
-  Chip,
-  Button
-} from '@nextui-org/react'
+import { Card, Image, CardFooter, CardHeader } from '@nextui-org/react'
 
 import {
   Carousel,
@@ -23,6 +16,7 @@ import { getOptimizedImageUrl } from '@/lib/utils'
 import clsx from 'clsx'
 import { FaTrash } from 'react-icons/fa'
 import DropdownBannerActions from '../admin/dropdown-banner-actions'
+import EmptyData from '../common/empty-data'
 
 const BannersCarousel = ({
   data: banners,
@@ -48,8 +42,20 @@ const BannersCarousel = ({
     })
   }, [api])
 
+  if (banners.length === 0 && showOptions) {
+    return (
+      <EmptyData
+        title='Sin Banners Promocionales'
+        subtitle='Añade y organiza tus banners para destacar ofertas y novedades.'
+      />
+    )
+  }
+
+  if (banners.length === 0) {
+    return null
+  }
   return (
-    <Carousel setApi={setApi} className='w-full max-w-2xl self-center mb-6'>
+    <Carousel setApi={setApi} className='w-full max-w-2xl self-center mb-0'>
       <CarouselContent>
         {banners.map((banner, index) => (
           <CarouselItem key={banner.id}>
@@ -59,7 +65,7 @@ const BannersCarousel = ({
                      from-black/50 via-black/20 to-transparent w-full'
               >
                 <p className='text-tiny text-white/70 uppercase font-bold'>
-                  Tu dulce experiencia
+                  {banner.subtitle}
                 </p>
                 <h1 className='text-white font-medium text-xl md:text-3xl max-w-[14rem] md:max-w-sm'>
                   {banner.title}

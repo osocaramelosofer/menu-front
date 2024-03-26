@@ -6,7 +6,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Image,
   NavbarBrand,
   Snippet,
   User,
@@ -19,21 +18,24 @@ import type { IStore } from '@/interfaces/store'
 import {
   FaHome,
   FaInstagram,
-  FaMapMarker,
-  FaPhone,
-  FaPhoneAlt,
+  FaMapMarkerAlt,
   FaUserLock,
   FaWhatsapp
 } from 'react-icons/fa'
 import { getOptimizedImageUrl } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
+  const router = useRouter()
+  const handleNavigateToDashboard = () => {
+    router.push(`/${store.id}/dashboard`, { scroll: false })
+  }
   return (
     <NavbarBrand className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50'>
       <Dropdown
         backdrop='opaque'
         placement='bottom-start'
-        className='max-h-[90vh] max-w-[95vw] min-w-[95vw] sm:max-w-sm sm:min-w-[24rem] border border-blue-500 relative'
+        className='max-h-[90vh] max-w-[95vw] min-w-[95vw] sm:max-w-sm sm:min-w-[24rem] relative'
       >
         <DropdownTrigger className='min-w-full'>
           <User
@@ -41,13 +43,14 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
             avatarProps={{
               src: getOptimizedImageUrl(store.logoUrl, 40)
             }}
-            className='transition-transform w-fit'
+            className='transition-transform w-fit '
             name={store.name}
           />
         </DropdownTrigger>
         <DropdownMenu
           topContent={
             <User
+              onDoubleClick={handleNavigateToDashboard}
               className='w-fit'
               avatarProps={{
                 src: getOptimizedImageUrl(store.logoUrl, 40)
@@ -56,7 +59,16 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
                 <h1 className=' text-lg font-semibold mb-1'>{store.name}</h1>
               }
               description={
-                <div className='flex flex-row-reverse gap-3 items-center'>
+                <div className='flex flex-wrap gap-3 items-center'>
+                  <Snippet
+                    size='sm'
+                    color='success'
+                    variant='flat'
+                    symbol='💥'
+                    codeString={`http://localhost:3000/${store.id}/`}
+                  >
+                    ¡Compartir!
+                  </Snippet>
                   <Button
                     variant='flat'
                     as={Link}
@@ -65,17 +77,8 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
                     color='warning'
                     startContent={<FaUserLock />}
                   >
-                    Dashboard
+                    Admin
                   </Button>
-                  <Snippet
-                    size='sm'
-                    color='success'
-                    variant='flat'
-                    symbol='✨'
-                    codeString={`http://localhost:3000/${store.id}/`}
-                  >
-                    ¡Compartir!
-                  </Snippet>
                 </div>
               }
             />
@@ -102,13 +105,14 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
           >
             <Accordion
               isCompact
+              defaultExpandedKeys={['contact']}
               isDisabled={
                 store.igUrl === null &&
                 store.phone === null &&
                 store.address === null
               }
             >
-              <AccordionItem title='Contacto'>
+              <AccordionItem key={'contact'} title='Contacto'>
                 <div className='flex flex-wrap items-center gap-2'>
                   {store.igUrl !== null && (
                     <Button
@@ -119,7 +123,6 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
                       isExternal
                       showAnchorIcon
                       startContent={<FaInstagram />}
-                      // className='bg-gradient-to-br from-[#C8288C] to-[#EE864F] text-white '
                       href={store.igUrl}
                     >
                       Instagram
@@ -133,8 +136,7 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
                       variant='flat'
                       isExternal
                       showAnchorIcon
-                      startContent={<FaMapMarker />}
-                      // className='bg-gradient-to-br from-[#2c2c2c] to-[#000] text-white'
+                      startContent={<FaMapMarkerAlt />}
                       href={`https://www.google.com/maps/search/?api=1&query=${store.address}`}
                     >
                       Ubicación
@@ -150,7 +152,7 @@ export default function NavbarBrandDropdown ({ store }: { store: IStore }) {
                       showAnchorIcon
                       startContent={<FaWhatsapp />}
                       // className='bg-gradient-to-br from-[#5CF778] to-[#0DBD2B] text-white '
-                      href={`https://wa.me/${store.phone}`}
+                      href={`https://wa.me/+52${store.phone}`}
                     >
                       WhatsApp
                     </Button>

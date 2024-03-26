@@ -51,7 +51,7 @@ export interface IProduct {
   created_at: string
   updated_at: string
   description: string
-  price: string
+  price: number
   variant_title: string
   is_available: boolean
   calories: number
@@ -90,6 +90,8 @@ export interface IBannerPost {
 export interface IApiResponse {
   count: number
   next: string
+  currentPage: number
+
   previous: string | null
   results: IProduct[]
 }
