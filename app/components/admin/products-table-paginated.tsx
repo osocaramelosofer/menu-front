@@ -77,10 +77,7 @@ export default function ProductsTablePaginated ({
         return (
           <Popover shouldBlockScroll color='warning' placement='right'>
             <PopoverTrigger>
-              <Chip size='sm'>
-                {product.category.id}
-                {truncateString(product.category.name, 7)}
-              </Chip>
+              <Chip size='sm'>{truncateString(product.category.name, 7)}</Chip>
             </PopoverTrigger>
             <PopoverContent>
               <h1 className='text-small font-medium'>
@@ -116,27 +113,29 @@ export default function ProductsTablePaginated ({
       <Table
         aria-label='Products table with client async pagination'
         bottomContent={
-          <div className='flex w-full justify-center'>
-            <Pagination
-              isCompact
-              showControls
-              className=' text-white'
-              showShadow
-              color='primary'
-              page={page}
-              total={pages}
-              onChange={page => {
-                setPage(page)
-              }}
-            />
-          </div>
+          pages > 0 && (
+            <div className='flex w-full justify-center'>
+              <Pagination
+                isCompact
+                showControls
+                className=' text-white'
+                showShadow
+                color='primary'
+                page={page}
+                total={pages}
+                onChange={page => {
+                  setPage(page)
+                }}
+              />
+            </div>
+          )
         }
       >
         <TableHeader columns={columns}>
           {column => <TableColumn key={column.id}>{column.name}</TableColumn>}
         </TableHeader>
         <TableBody
-          emptyContent={'No hay productos aun.'}
+          emptyContent={'No hay productos aún.'}
           items={data?.results ?? []}
           loadingContent={<Spinner size='lg' color='warning' />}
           loadingState={loadingState}

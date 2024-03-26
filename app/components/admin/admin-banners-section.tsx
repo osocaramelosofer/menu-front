@@ -5,6 +5,7 @@ import { useAdminStore } from '@/zustand-store/admin-store'
 import BannersCarousel from '../carousel/banners-carousel'
 import type { IBanner } from '@/interfaces/store'
 import { FaPlus } from 'react-icons/fa'
+import EmptyData from '../common/empty-data'
 
 export default function AdminBannersSection ({
   banners
@@ -31,6 +32,7 @@ export default function AdminBannersSection ({
           Nuevo Banner
         </Button>
       </div>
+
       <BannersCarousel showOptions data={banners} />
     </section>
   )

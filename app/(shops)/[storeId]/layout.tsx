@@ -2,9 +2,9 @@ import { type Metadata } from 'next'
 import React from 'react'
 
 export const metadata: Metadata = {
-  title: 'Dulce Trago - Restaurant',
-  description: 'Restaurant de arte',
-  keywords: ['restaurant', 'food', 'tlaxcala', 'coffe']
+  title: 'Menu App',
+  description: 'La app para tu negocio y para tu menu',
+  keywords: ['restaurant', 'food', 'tlaxcala', 'menu', 'dashboard']
 }
 
 export default async function PageLayout ({

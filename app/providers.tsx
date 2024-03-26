@@ -3,7 +3,7 @@ import { NextUIProvider } from '@nextui-org/react'
 import { useEffect, type ReactNode } from 'react'
 import ThemeContextProvider from './context/theme-context'
 import { SessionProvider } from 'next-auth/react'
-import useSWR, { SWRConfig, mutate } from 'swr'
+import { SWRConfig, mutate } from 'swr'
 
 export function Providers ({
   children,
@@ -16,7 +16,7 @@ export function Providers ({
   const fetcher = async (...args: FetcherArgs) =>
     await fetch(...args).then(async res => await res.json())
   return (
-    <SWRConfig value={{ fetcher, suspense: true, use: [trackLiveQueries] }}>
+    <SWRConfig value={{ fetcher, use: [trackLiveQueries] }}>
       <SessionProvider session={session}>
         <ThemeContextProvider>
           <NextUIProvider>{children}</NextUIProvider>
@@ -25,14 +25,11 @@ export function Providers ({
     </SWRConfig>
   )
 }
-const liveQueries = new Set()
+const liveQueries: any = new Set()
 
 function trackLiveQueries (useSWRNext: any) {
   return (key: any, fetcher: any, config: any) => {
     const swr = useSWRNext(key, fetcher, config)
-
-    console.log(liveQueries)
-
     useEffect(() => {
       liveQueries.add(key)
 

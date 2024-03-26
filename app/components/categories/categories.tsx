@@ -26,6 +26,10 @@ export default function Categories ({
     router.push(`/${storeId}`, { scroll: false })
   }
 
+  if (categories.length === 0) {
+    return null
+  }
+
   return (
     <section className='sticky top-16 z-20 bg-background flex flex-col shadow-none gap-4 w-full pt-5'>
       <div className='flex justify-between items-end font-semibold text-base'>

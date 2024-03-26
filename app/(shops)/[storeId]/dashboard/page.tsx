@@ -2,9 +2,10 @@ import React, { Suspense } from 'react'
 import Await from './await'
 import clsx from 'clsx'
 import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 // types
+import type { Metadata } from 'next'
 import type { ICategory } from '@/interfaces/product'
 import type { IStore } from '@/interfaces/store'
 
@@ -42,28 +43,39 @@ interface RootPageProps {
   }
   params: { storeId: number | string }
 }
-
-export default async function DashboardPage ({
-  searchParams,
+export async function generateMetadata ({
   params
-}: RootPageProps) {
+}: RootPageProps): Promise<Metadata> {
+  // fetch data
+  const store: IStore = await fetchStoreById(params.storeId)
+
+  return {
+    title: `Dashboard | ${store.name} - MenuApp`,
+    description: store.description
+  }
+}
+
+export default async function DashboardPage ({ params }: RootPageProps) {
   const session = await getServerSession()
   const userEmail = session?.user?.email
   const user = await fetchUserByEmail(userEmail)
 
   const store: IStore = await fetchStoreById(params.storeId)
-  const categories: ICategory[] = store.categories.sort((a, b) =>
+  const categories: ICategory[] = store?.categories.sort((a, b) =>
     a.name.localeCompare(b.name)
   )
-
   // Promises to Await.tsx
   const storeBanners = fetchAllStoreBanners(params.storeId)
+
+  if (store === null) {
+    return notFound()
+  }
 
   if (session === null) {
     redirect('/api/auth/signin')
   }
 
-  if (user?.storeId !== store.id) {
+  if (user?.storeId !== store?.id) {
     return <NoAccessPermission />
   }
 
@@ -72,7 +84,7 @@ export default async function DashboardPage ({
       <NavBar store={store} isHiddenCart />
       <main
         className={clsx(
-          'flex flex-col w-full h-full px-4 pb-20 relative gap-8',
+          'flex flex-col w-full h-full px-4 pb-20 relative gap-8 max-w-3xl',
           store.themeColor ?? ''
         )}
       >

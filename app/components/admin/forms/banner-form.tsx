@@ -38,13 +38,13 @@ export default function BannerForm ({ storeId }: { storeId: string | number }) {
       />
       <Input
         isRequired
-        maxLength={32}
+        maxLength={40}
         label='Titulo'
         name='title'
         placeholder='Ingresa el titulo del banner'
       />
       <Input
-        maxLength={22}
+        maxLength={40}
         isRequired
         label='Subtitulo'
         name='subtitle'

@@ -84,8 +84,7 @@ export default function OrdersTablePaginated ({
       <Table
         aria-label='Example table with client async pagination'
         bottomContent={
-          // eslint-disable-next-line multiline-ternary
-          pages > 0 ? (
+          pages > 0 && (
             <div className='flex w-full justify-center'>
               <Pagination
                 isCompact
@@ -100,7 +99,7 @@ export default function OrdersTablePaginated ({
                 }}
               />
             </div>
-          ) : null
+          )
         }
         //   {...args}
       >
@@ -108,7 +107,7 @@ export default function OrdersTablePaginated ({
           {column => <TableColumn key={column.id}>{column.name}</TableColumn>}
         </TableHeader>
         <TableBody
-          emptyContent={'No hay ordenes aun.'}
+          emptyContent={'No hay ordenes aún.'}
           items={data?.results ?? []}
           loadingContent={<Spinner size='lg' color='warning' />}
           loadingState={loadingState}

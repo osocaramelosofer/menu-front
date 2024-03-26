@@ -112,13 +112,14 @@ export default function ProductForm ({
       />
 
       <Input
-        maxLength={7}
+        maxLength={5}
         isRequired
+        isInvalid={!!/^0(\.0{0,2})?$/.test(price)}
         label='Precio'
         name='price'
         type='text'
         min='1'
-        color={/^0(\.0{0,2})?$/.test(price) ? 'warning' : 'default'}
+        color={/^0(\.0{0,2})?$/.test(price) ? 'danger' : 'default'}
         value={price}
         onChange={handlePriceChange}
         placeholder='0.00'
@@ -151,7 +152,12 @@ export default function ProductForm ({
       </div>
       <input type='hidden' name='category' value={categoryValue} />
 
-      <SubmitButton label='Crear Nuevo Producto' />
+      <SubmitButton
+        isDisabled={
+          !!/^0(\.0{0,2})?$/.test(price) || categoryValue.length === 0
+        }
+        label='Crear Nuevo Producto'
+      />
     </form>
   )
 }

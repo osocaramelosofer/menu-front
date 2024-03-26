@@ -16,6 +16,7 @@ import { getOptimizedImageUrl } from '@/lib/utils'
 import clsx from 'clsx'
 import { FaTrash } from 'react-icons/fa'
 import DropdownBannerActions from '../admin/dropdown-banner-actions'
+import EmptyData from '../common/empty-data'
 
 const BannersCarousel = ({
   data: banners,
@@ -41,10 +42,18 @@ const BannersCarousel = ({
     })
   }, [api])
 
+  if (banners.length === 0 && showOptions) {
+    return (
+      <EmptyData
+        title='Sin Banners Promocionales'
+        subtitle='Añade y organiza tus banners para destacar ofertas y novedades.'
+      />
+    )
+  }
+
   if (banners.length === 0) {
     return null
   }
-
   return (
     <Carousel setApi={setApi} className='w-full max-w-2xl self-center mb-0'>
       <CarouselContent>

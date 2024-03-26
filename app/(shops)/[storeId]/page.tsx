@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react'
-import type { IBanner, IStore } from '@/interfaces/store'
+import type { Metadata } from 'next'
+import type { IStore } from '@/interfaces/store'
 import { fetchStoreById } from '@/lib/actions/store.actions'
 import { Spacer } from '@nextui-org/react'
 import { notFound } from 'next/navigation'
@@ -25,19 +26,25 @@ interface RootPageProps {
   }
   params: { storeId: number | string }
 }
+export async function generateMetadata ({
+  params
+}: RootPageProps): Promise<Metadata> {
+  // fetch data
+  const store: IStore = await fetchStoreById(params.storeId)
+
+  return {
+    title: `${store.name} - MenuApp`,
+    description: store.description
+  }
+}
 
 export default async function Page ({ searchParams, params }: RootPageProps) {
   const store: IStore = await fetchStoreById(params.storeId)
   const storeBanners = fetchAllStoreBanners(params.storeId)
-  // const allStoreProducts: IApiResponse = await fetchAllStoreProducts(
-  //   params.shopId
-  // )
 
   if (store === null) {
     return notFound()
   }
-
-  // console.log('STOIRE: ', store)
 
   return (
     <React.Fragment>
